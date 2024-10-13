@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCmodel.Migrations
 {
     [DbContext(typeof(HotelManagementContext))]
-    [Migration("20241010201217_cc")]
-    partial class cc
+    [Migration("20241013202915_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace MVCmodel.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MVCmodel.Models.Booking", b =>
+            modelBuilder.Entity("Booking", b =>
                 {
                     b.Property<int>("BookingID")
                         .ValueGeneratedOnAdd()
@@ -44,8 +44,8 @@ namespace MVCmodel.Migrations
                     b.Property<int>("RoomID")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("BookingID");
 
@@ -56,7 +56,7 @@ namespace MVCmodel.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("MVCmodel.Models.Feedback", b =>
+            modelBuilder.Entity("Feedback", b =>
                 {
                     b.Property<int>("FeedbackID")
                         .ValueGeneratedOnAdd()
@@ -65,8 +65,8 @@ namespace MVCmodel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedbackID"));
 
                     b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("GuestID")
                         .HasColumnType("int");
@@ -74,8 +74,8 @@ namespace MVCmodel.Migrations
                     b.Property<int>("HotelID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
                     b.HasKey("FeedbackID");
 
@@ -86,7 +86,7 @@ namespace MVCmodel.Migrations
                     b.ToTable("Feedbacks");
                 });
 
-            modelBuilder.Entity("MVCmodel.Models.Guest", b =>
+            modelBuilder.Entity("Guest", b =>
                 {
                     b.Property<int>("GuestID")
                         .ValueGeneratedOnAdd()
@@ -95,14 +95,12 @@ namespace MVCmodel.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GuestID"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -152,7 +150,7 @@ namespace MVCmodel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Stars")
+                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.HasKey("HotelID");
@@ -208,8 +206,8 @@ namespace MVCmodel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("TotalAmount")
+                        .HasColumnType("float");
 
                     b.HasKey("InvoiceID");
 
@@ -255,7 +253,6 @@ namespace MVCmodel.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IssueDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RepairDate")
@@ -283,8 +280,8 @@ namespace MVCmodel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentID"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<int>("BookingID")
                         .HasColumnType("int");
@@ -375,15 +372,14 @@ namespace MVCmodel.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("PricePerNight")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("PricePerNight")
+                        .HasColumnType("float");
 
                     b.HasKey("TypeID");
 
@@ -406,8 +402,8 @@ namespace MVCmodel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("ServiceID");
 
@@ -451,17 +447,17 @@ namespace MVCmodel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Salary")
+                        .HasColumnType("float");
 
                     b.HasKey("StaffID");
 
                     b.ToTable("Staffs");
                 });
 
-            modelBuilder.Entity("MVCmodel.Models.Booking", b =>
+            modelBuilder.Entity("Booking", b =>
                 {
-                    b.HasOne("MVCmodel.Models.Guest", "Guest")
+                    b.HasOne("Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -478,9 +474,9 @@ namespace MVCmodel.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("MVCmodel.Models.Feedback", b =>
+            modelBuilder.Entity("Feedback", b =>
                 {
-                    b.HasOne("MVCmodel.Models.Guest", "Guest")
+                    b.HasOne("Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -518,7 +514,7 @@ namespace MVCmodel.Migrations
 
             modelBuilder.Entity("MVCmodel.Models.Invoice", b =>
                 {
-                    b.HasOne("MVCmodel.Models.Booking", "Booking")
+                    b.HasOne("Booking", "Booking")
                         .WithMany()
                         .HasForeignKey("BookingID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -529,7 +525,7 @@ namespace MVCmodel.Migrations
 
             modelBuilder.Entity("MVCmodel.Models.LoyaltyProgram", b =>
                 {
-                    b.HasOne("MVCmodel.Models.Guest", "Guest")
+                    b.HasOne("Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -551,7 +547,7 @@ namespace MVCmodel.Migrations
 
             modelBuilder.Entity("MVCmodel.Models.Payment", b =>
                 {
-                    b.HasOne("MVCmodel.Models.Booking", "Booking")
+                    b.HasOne("Booking", "Booking")
                         .WithMany()
                         .HasForeignKey("BookingID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -562,7 +558,7 @@ namespace MVCmodel.Migrations
 
             modelBuilder.Entity("MVCmodel.Models.Reservation", b =>
                 {
-                    b.HasOne("MVCmodel.Models.Guest", "Guest")
+                    b.HasOne("Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestID")
                         .OnDelete(DeleteBehavior.Cascade)

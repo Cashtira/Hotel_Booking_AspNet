@@ -5,10 +5,10 @@
         public int ReservationID { get; set; }
         public int GuestID { get; set; }
         public int RoomID { get; set; }
-        public DateTime ReservationDate { get; set; }
-        public string Status { get; set; }
+        public required DateTime ReservationDate { get; set; }
+        public required string Status { get; set; }
 
-        public Guest Guest { get; set; }
-        public Room Room { get; set; }
+        public required Guest Guest { get; set; }
+        public  required Room Room { get; set; }
     }
 }
