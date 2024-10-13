@@ -4,10 +4,10 @@
     {
         public int PaymentID { get; set; }
         public int BookingID { get; set; }
-        public decimal Amount { get; set; }
+        public double Amount { get; set; }
         public DateTime PaymentDate { get; set; }
-        public string PaymentMethod { get; set; }
+        public required string PaymentMethod { get; set; }
 
-        public Booking Booking { get; set; }
+        public  required Booking Booking { get; set; }
     }
 }

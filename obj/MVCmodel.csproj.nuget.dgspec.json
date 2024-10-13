@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\orewa\\Desktop\\.Net MVC\\Set-up-MVC-model\\MVCmodel\\MVCmodel.csproj": {}
+    "C:\\Users\\PC\\Desktop\\kha\\backend-hotel\\MVCmodel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\orewa\\Desktop\\.Net MVC\\Set-up-MVC-model\\MVCmodel\\MVCmodel.csproj": {
+    "C:\\Users\\PC\\Desktop\\kha\\backend-hotel\\MVCmodel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\orewa\\Desktop\\.Net MVC\\Set-up-MVC-model\\MVCmodel\\MVCmodel.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\kha\\backend-hotel\\MVCmodel.csproj",
         "projectName": "MVCmodel",
-        "projectPath": "C:\\Users\\orewa\\Desktop\\.Net MVC\\Set-up-MVC-model\\MVCmodel\\MVCmodel.csproj",
-        "packagesPath": "C:\\Users\\orewa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\orewa\\Desktop\\.Net MVC\\Set-up-MVC-model\\MVCmodel\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Desktop\\kha\\backend-hotel\\MVCmodel.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\kha\\backend-hotel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\orewa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.10, )"
@@ -63,6 +67,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.6, )"
             }
           },
           "imports": [
@@ -84,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

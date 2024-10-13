@@ -32,8 +32,7 @@ public class HotelManagementContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            // Replace with your actual connection string
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-T96K4D9R\\SQLEXPRESS;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-UG4BEPP;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
     }
 

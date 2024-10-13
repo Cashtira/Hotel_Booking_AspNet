@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCmodel.Models
 {
@@ -8,8 +9,8 @@ namespace MVCmodel.Models
         public int ProgramID { get; set; }
         public int GuestID { get; set; }
         public int Points { get; set; }
-        public string Tier { get; set; }
+        public required string Tier { get; set; }
 
-        public Guest Guest { get; set; }
+        public required Guest Guest { get; set; }
     }
 }
