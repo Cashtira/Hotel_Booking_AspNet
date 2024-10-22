@@ -2,7 +2,7 @@
 
 namespace MVCmodel.Controllers
 {
-    public class DashboardController : Controller
+    public class AdminController : Controller
     {
         public IActionResult Index()
         {

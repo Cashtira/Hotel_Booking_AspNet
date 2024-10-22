@@ -655,7 +655,6 @@ D:\BackEnd\obj\Debug\net8.0\staticwebassets\msbuild.build.MVCmodel.props
 D:\BackEnd\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MVCmodel.props
 D:\BackEnd\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MVCmodel.props
 D:\BackEnd\obj\Debug\net8.0\staticwebassets.pack.json
-D:\BackEnd\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\BackEnd\obj\Debug\net8.0\scopedcss\bundle\MVCmodel.styles.css
 D:\BackEnd\obj\Debug\net8.0\scopedcss\projectbundle\MVCmodel.bundle.scp.css
 D:\BackEnd\obj\Debug\net8.0\MVCmodel.csproj.Up2Date
@@ -673,3 +672,4 @@ D:\BackEnd\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\BackEnd\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\BackEnd\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\BackEnd\obj\Debug\net8.0\MVCmodel.MvcApplicationPartsAssemblyInfo.cs
+D:\BackEnd\obj\Debug\net8.0\scopedcss\Views\Shared\_HomeLayout.cshtml.rz.scp.css

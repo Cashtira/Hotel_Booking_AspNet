@@ -13881,6 +13881,114 @@
       "PackagePath": "staticwebassets\\starter.html"
     },
     {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\css\\core.css",
+      "PackagePath": "staticwebassets\\vendor\\css\\core.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\css\\pages\\page-account-settings.css",
+      "PackagePath": "staticwebassets\\vendor\\css\\pages\\page-account-settings.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\css\\pages\\page-auth.css",
+      "PackagePath": "staticwebassets\\vendor\\css\\pages\\page-auth.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\css\\pages\\page-icons.css",
+      "PackagePath": "staticwebassets\\vendor\\css\\pages\\page-icons.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\css\\pages\\page-misc.css",
+      "PackagePath": "staticwebassets\\vendor\\css\\pages\\page-misc.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\css\\theme-default.css",
+      "PackagePath": "staticwebassets\\vendor\\css\\theme-default.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\fonts\\remixicon\\remixicon.css",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\remixicon\\remixicon.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\fonts\\remixicon\\remixicon.eot",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\remixicon\\remixicon.eot"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\fonts\\remixicon\\remixicon.svg",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\remixicon\\remixicon.svg"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\fonts\\remixicon\\remixicon.ttf",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\remixicon\\remixicon.ttf"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\fonts\\remixicon\\remixicon.woff",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\remixicon\\remixicon.woff"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\fonts\\remixicon\\remixicon.woff2",
+      "PackagePath": "staticwebassets\\vendor\\fonts\\remixicon\\remixicon.woff2"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\vendor\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\js\\helpers.js",
+      "PackagePath": "staticwebassets\\vendor\\js\\helpers.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\js\\menu.js",
+      "PackagePath": "staticwebassets\\vendor\\js\\menu.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\apex-charts\\apex-charts.css",
+      "PackagePath": "staticwebassets\\vendor\\libs\\apex-charts\\apex-charts.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\apex-charts\\apexcharts.js",
+      "PackagePath": "staticwebassets\\vendor\\libs\\apex-charts\\apexcharts.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\highlight\\highlight-github.css",
+      "PackagePath": "staticwebassets\\vendor\\libs\\highlight\\highlight-github.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\highlight\\highlight.css",
+      "PackagePath": "staticwebassets\\vendor\\libs\\highlight\\highlight.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\highlight\\highlight.js",
+      "PackagePath": "staticwebassets\\vendor\\libs\\highlight\\highlight.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\jquery\\jquery.js",
+      "PackagePath": "staticwebassets\\vendor\\libs\\jquery\\jquery.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\masonry\\masonry.js",
+      "PackagePath": "staticwebassets\\vendor\\libs\\masonry\\masonry.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\node-waves\\node-waves.css",
+      "PackagePath": "staticwebassets\\vendor\\libs\\node-waves\\node-waves.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\node-waves\\node-waves.js",
+      "PackagePath": "staticwebassets\\vendor\\libs\\node-waves\\node-waves.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\perfect-scrollbar\\perfect-scrollbar.css",
+      "PackagePath": "staticwebassets\\vendor\\libs\\perfect-scrollbar\\perfect-scrollbar.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\perfect-scrollbar\\perfect-scrollbar.js",
+      "PackagePath": "staticwebassets\\vendor\\libs\\perfect-scrollbar\\perfect-scrollbar.js"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\vendor\\libs\\popper\\popper.js",
+      "PackagePath": "staticwebassets\\vendor\\libs\\popper\\popper.js"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MVCmodel.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
