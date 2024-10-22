@@ -4441,6 +4441,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\BackEnd\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
       "Id": "D:\\BackEnd\\wwwroot\\dist\\css\\adminlte.css",
       "PackagePath": "staticwebassets\\dist\\css\\adminlte.css"
     },
@@ -5395,6 +5399,10 @@
     {
       "Id": "D:\\BackEnd\\wwwroot\\images\\hotel.png",
       "PackagePath": "staticwebassets\\images\\hotel.png"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\hotelbackground.jpg",
+      "PackagePath": "staticwebassets\\images\\hotelbackground.jpg"
     },
     {
       "Id": "D:\\BackEnd\\wwwroot\\index.html",

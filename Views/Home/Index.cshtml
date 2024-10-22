@@ -1,8 +1,20 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hotel Management - Homepage";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UIT Hotel</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+</head>
+<body>
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Luxury and glamour<br /> waiting for your arrival</h1>
+            <a asp-area="" asp-controller="Bookings" asp-action="Index" class="cta-button button w-button">Book a Stay</a>
+        </div>
+    </header>
+</body>
+</html>
