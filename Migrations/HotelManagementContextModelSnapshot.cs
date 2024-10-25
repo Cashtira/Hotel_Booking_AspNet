@@ -21,7 +21,7 @@ namespace MVCmodel.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Booking", b =>
+            modelBuilder.Entity("MVCmodel.Models.Booking", b =>
                 {
                     b.Property<int>("BookingID")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace MVCmodel.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("Feedback", b =>
+            modelBuilder.Entity("MVCmodel.Models.Feedback", b =>
                 {
                     b.Property<int>("FeedbackID")
                         .ValueGeneratedOnAdd()
@@ -83,7 +83,7 @@ namespace MVCmodel.Migrations
                     b.ToTable("Feedbacks");
                 });
 
-            modelBuilder.Entity("Guest", b =>
+            modelBuilder.Entity("MVCmodel.Models.Guest", b =>
                 {
                     b.Property<int>("GuestID")
                         .ValueGeneratedOnAdd()
@@ -147,8 +147,8 @@ namespace MVCmodel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
                     b.HasKey("HotelID");
 
@@ -452,9 +452,9 @@ namespace MVCmodel.Migrations
                     b.ToTable("Staffs");
                 });
 
-            modelBuilder.Entity("Booking", b =>
+            modelBuilder.Entity("MVCmodel.Models.Booking", b =>
                 {
-                    b.HasOne("Guest", "Guest")
+                    b.HasOne("MVCmodel.Models.Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -471,9 +471,9 @@ namespace MVCmodel.Migrations
                     b.Navigation("Room");
                 });
 
-            modelBuilder.Entity("Feedback", b =>
+            modelBuilder.Entity("MVCmodel.Models.Feedback", b =>
                 {
-                    b.HasOne("Guest", "Guest")
+                    b.HasOne("MVCmodel.Models.Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -511,7 +511,7 @@ namespace MVCmodel.Migrations
 
             modelBuilder.Entity("MVCmodel.Models.Invoice", b =>
                 {
-                    b.HasOne("Booking", "Booking")
+                    b.HasOne("MVCmodel.Models.Booking", "Booking")
                         .WithMany()
                         .HasForeignKey("BookingID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -522,7 +522,7 @@ namespace MVCmodel.Migrations
 
             modelBuilder.Entity("MVCmodel.Models.LoyaltyProgram", b =>
                 {
-                    b.HasOne("Guest", "Guest")
+                    b.HasOne("MVCmodel.Models.Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -544,7 +544,7 @@ namespace MVCmodel.Migrations
 
             modelBuilder.Entity("MVCmodel.Models.Payment", b =>
                 {
-                    b.HasOne("Booking", "Booking")
+                    b.HasOne("MVCmodel.Models.Booking", "Booking")
                         .WithMany()
                         .HasForeignKey("BookingID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -555,7 +555,7 @@ namespace MVCmodel.Migrations
 
             modelBuilder.Entity("MVCmodel.Models.Reservation", b =>
                 {
-                    b.HasOne("Guest", "Guest")
+                    b.HasOne("MVCmodel.Models.Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestID")
                         .OnDelete(DeleteBehavior.Cascade)

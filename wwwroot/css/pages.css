@@ -1,0 +1,304 @@
+﻿
+/* Định dạng tiêu đề */
+h1 {
+    color: var(--midnight-blue);
+    text-align: left;
+    letter-spacing: 1px;
+    text-transform: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: Quattrocento, sans-serif;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 64px;
+}
+
+/* Định dạng link "Create New" */
+a.create-button {
+    display: inline-block;
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    a.create-button:hover {
+        background-color: #27ae60;
+    }
+
+/* Định dạng bảng */
+table.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Định dạng cho các link Edit, Details, Delete */
+td a {
+    margin-right: 10px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+    td a:hover {
+        color: #e74c3c;
+    }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    color: white;
+    padding: 0px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+    nav ul li {
+        display: inline;
+        margin: 0 15px;
+    }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+.hero {
+    background: url('https://example.com/your-image.jpg') no-repeat center center/cover;
+    height: 400px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+    .hero h2 {
+        font-size: 2.5em;
+        margin: 0;
+    }
+
+    .hero p {
+        font-size: 1.2em;
+    }
+
+.btn {
+    background: #FF5722;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.features {
+    padding: 20px;
+    text-align: center;
+}
+
+    .features h2 {
+        margin: 20px 0;
+    }
+
+.feature-item {
+    margin: 20px;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.content-wrapper {
+    padding: 20px; /* Khoảng trống bên trong content-wrapper */
+    margin: 0 auto; /* Canh giữa nội dung nếu cần */
+}
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 100px;
+    padding-top: 100px;
+    z-index: 1;
+}
+
+    .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .slide.active {
+        opacity: 1;
+        z-index: 2;
+    }
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    color: white;
+    text-align: left;
+    margin-top: 30px;
+}
+
+
+
+.cta-button {
+    color: #fff; /* Màu chữ trắng */
+    text-align: center; /* Căn giữa chữ */
+    letter-spacing: 1px; /* Khoảng cách giữa các chữ */
+    text-transform: uppercase; /* Chữ in hoa */
+    background-color: rgba(0, 0, 0, 0); /* Nền trong suốt */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Viền trắng trong suốt */
+    min-width: 40%; /* Chiều rộng tối thiểu */
+    margin-top: 30px; /* Tăng khoảng cách phía trên */
+    padding: 14px 0; /* Khoảng cách trên và dưới */
+    font-size: 18px; /* Kích thước chữ lớn hơn */
+    border-radius: 5px; /* Bo góc nếu cần */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển tiếp */
+}
+
+    .cta-button:hover {
+        background-color: #C6E2FF; /* Màu nền khi hover */
+        color: #fff; /* Màu chữ khi hover (trắng hoàn toàn) */
+    }
+
+.w-button {
+    line-height: inherit; /* Chiều cao dòng kế thừa từ phần tử cha */
+    cursor: pointer; /* Hiển thị con trỏ tay khi di chuột qua nút */
+    padding: 15px 15py; /* Khoảng cách bên trong nút */
+    text-decoration: none; /* Bỏ gạch chân */
+    display: inline-block; /* Hiển thị như một khối nội tuyến */
+}
+
+
+.nav-head {
+    background-color: #333; /* Màu nền của thanh điều hướng */
+    color: white; /* Màu chữ */
+    padding: 15px 20px; /* Khoảng cách bên trong */
+    display: flex; /* Sử dụng Flexbox để căn chỉnh nội dung */
+    justify-content: center; /* Căn chỉnh khoảng cách giữa các mục */
+    align-items: center; /* Căn giữa nội dung theo chiều dọc */
+    position: relative; /* Thiết lập vị trí tương đối cho các thành phần con */
+    z-index: 10; /* Đưa thanh điều hướng lên trên các phần tử khác */
+}
+
+    /* Định dạng cho các liên kết trong nav-head */
+    .nav-head a {
+        color: white; /* Màu chữ của liên kết */
+        text-decoration: none; /* Bỏ gạch chân */
+        margin: 0 15px; /* Khoảng cách giữa các liên kết */
+        font-size: 16px; /* Kích thước chữ */
+        transition: color 0.3s ease; /* Hiệu ứng chuyển tiếp màu chữ */
+    }
+
+        /* Hiệu ứng hover cho các liên kết */
+        .nav-head a:hover {
+            color: #C6E2FF; /* Màu chữ khi hover */
+        }
+
+.navbar-nav li {
+    margin-bottom: 10px; /* Khoảng cách giữa các mục */
+}
+
+.navbar-nav {
+    display: flex; /* Sử dụng flexbox cho navbar */
+    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không đủ không gian */
+    justify-content: center; /* Căn giữa các mục */
+    padding: 0; /* Bỏ padding mặc định */
+    margin: 0; /* Bỏ margin mặc định */
+}
+
+
+
+h2 {
+    color: var(--midnight-blue);
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: Quattrocento, sans-serif;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 64px;
+}
+
