@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Component css-->
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <!--Component css-->
+    <link rel="stylesheet" href="~/css/styles.css">
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <!-- Nút Toggler khi navbar bị thu nhỏ -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Phần navbar sẽ tự co lại khi kích thước màn hình nhỏ -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-head nav-item-home">
+                            <a class="nav-head" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head" asp-area="" asp-controller="Hotels" asp-action="Index">Hotel</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head" asp-area="" asp-controller="Bookings" asp-action="Index">Booking</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head" asp-area="" asp-controller="Feedbacks" asp-action="Index">Feedback</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head " asp-area="" asp-controller="Guests" asp-action="Index">Guest</a>
+                        </li>
+
+                        <li class="nav-head">
+                            <a class="nav-head " asp-area="" asp-controller="Housekeepings" asp-action="Index">Housekeeping</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head " asp-area="" asp-controller="Invoices" asp-action="Index">Invoice</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head " asp-area="" asp-controller="LoyaltyPrograms" asp-action="Index">Loyalty Program</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head " asp-area="" asp-controller="Maintenances" asp-action="Index">Maintenance</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head " asp-area="" asp-controller="Payments" asp-action="Index">Payment</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head" asp-area="" asp-controller="Reservations" asp-action="Index">Reservation</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head" asp-area="" asp-controller="Rooms" asp-action="Index">Room</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head" asp-area="" asp-controller="RoomTypes" asp-action="Index">RoomType</a>
+                        </li>
+                        <li class="nav-head">
+                            <a class="nav-head" asp-area="" asp-controller="Services" asp-action="Index">Service</a>
+                        </li>
+
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-head">
+                            <a class="nav-head" asp-area="" asp-controller="Admin" asp-action="Index">Dashboard</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Hotel - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
