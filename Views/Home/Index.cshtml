@@ -1,20 +1,141 @@
 ﻿@{
     ViewData["Title"] = "Hotel Management - Homepage";
 }
+
+@{
+    // Đây là một biến C# từ server-side
+    var totalSlides = 3;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UIT Hotel</title>
-    <link rel="stylesheet" href="~/css/styles.css">
+    
 </head>
 <body>
     <header class="hero-section">
-        <div class="hero-content">
-            <h1>Luxury and glamour<br /> waiting for your arrival</h1>
-            <a asp-area="" asp-controller="Bookings" asp-action="Index" class="cta-button button w-button">Book a Stay</a>
+        <div class="slider">
+            <div class="slide active">
+                <img src="~/images/hotelbackground.jpg" alt="Image 1">
+                <div class="hero-content">
+                    <h1>beautiful<br /> RESORT</h1>
+                    <p class="slider-text">Our hotel is a peaceful place to rest, to recover your energies and to have great laughs with your family.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="~/images/hotelbackground2.jpg" alt="Image 2">
+                <div class="hero-content">
+                    <h1>BOOK HOTEL<br /> RESORT</h1>
+                    <p class="slider-text">Our hotel is a peaceful place to rest, to recover your energies and to have great laughs with your family.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="~/images/hotelbackground3.jpg" alt="Image 3">
+                <div class="hero-content">
+                    <h1>FEEL AT HOME<br /> WITH US</h1>
+                    <p class="slider-text">Our hotel is a peaceful place to rest, to recover your energies and to have great laughs with your family.</p>
+                </div>
+            </div>
         </div>
+        <button class="arrow left-arrow">⮜</button>
+        <button class="arrow right-arrow">⮞</button>
     </header>
+
+
+    <div class="section">
+        <div class="container-room">
+            <div class="room-heading-wrap">
+                <div class="label-text">high comfort rooms</div>
+                <h2 class="large-heading margin-none">Enjoy our lovely rooms<br /> with your family</h2>
+            </div>
+            <div class="w-dyn-list">
+                <div class="image-item">
+                    <img src="~/images/room1.jpg" alt="Room 1">
+                    <div class="text-overlay">
+                        <div class="text-left">Restfulness room</div>
+                        <div class="text-right">$210</div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="~/images/room2.jpg" alt="Room 2">
+                    <div class="text-overlay">
+                        <div class="text-left">Premium room</div>
+                        <div class="text-right">$184</div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="~/images/room3.jpg" alt="Room 3">
+                    <div class="text-overlay">
+                        <div class="text-left">Meditation room</div>
+                        <div class="text-right">$115</div>
+                    </div>
+                </div>
+                <div class="image-item">
+                    <img src="~/images/room4.jpg" alt="Room 4">
+                    <div class="text-overlay">
+                        <div class="text-left">Relaxation room</div>
+                        <div class="text-right">$130</div>
+                    </div>
+                </div>
+            </div>        
+        </div>
+        <div class="cta-button-wrap" style="text-align: center; margin-top: 50px;">
+            <a href="/RoomReview/Index" class="cta-button">View more room</a>
+        </div>
+    </div>
+    <!-- JavaScript -->
+    @section Scripts {
+        <script>
+            //hero-container
+            const slides = document.querySelectorAll('.slide');
+            const rightArrow = document.querySelector('.right-arrow');
+            const leftArrow = document.querySelector('.left-arrow');
+            let currentIndex = 0;
+
+            function updateArrows() {
+                // Ẩn mũi tên trái khi ở slide đầu tiên
+                if (currentIndex === 0) {
+                    leftArrow.style.display = 'none';
+                } else {
+                    leftArrow.style.display = 'block';
+                }
+
+                // Ẩn mũi tên phải khi ở slide cuối cùng
+                if (currentIndex === slides.length - 1) {
+                    rightArrow.style.display = 'none';
+                } else {
+                    rightArrow.style.display = 'block';
+                }
+            }
+
+            function showSlide(index) {
+                // Ẩn slide hiện tại
+                slides[currentIndex].classList.remove('active');
+                // Hiển thị slide mới
+                currentIndex = index;
+                slides[currentIndex].classList.add('active');
+                // Cập nhật mũi tên
+                updateArrows();
+            }
+
+            rightArrow.addEventListener('click', () => {
+                let nextIndex = (currentIndex + 1) % slides.length;
+                showSlide(nextIndex);
+            });
+
+            leftArrow.addEventListener('click', () => {
+                let prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+                showSlide(prevIndex);
+            });
+
+            // Cập nhật trạng thái mũi tên khi tải trang
+            updateArrows();
+            //ket thuc hero
+           
+        </script>
+    }
 </body>
 </html>

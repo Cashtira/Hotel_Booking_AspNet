@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Edit";
 }
+@{
+    Layout = "_AdminLayout";
+
+}
+
 
 <h1>Edit</h1>
 
@@ -40,5 +45,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
