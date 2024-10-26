@@ -12,7 +12,7 @@ namespace MVCmodel.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            return View(new ContactFormModel()); // Trả về mô hình trống cho lần tải đầu tiên
         }
 
         // POST: Contact/Index
@@ -28,9 +28,12 @@ namespace MVCmodel.Controllers
                 // Gửi email
                 await SendEmailAsync(model, senderEmail, recipientEmail);
                 ViewBag.Message = "Email đã được gửi thành công!";
+
+                // Làm sạch mô hình sau khi gửi thành công
+                model = new ContactFormModel(); // Tạo mô hình mới để làm trống các ô nhập
                 ModelState.Clear(); // Làm sạch ModelState để chuẩn bị cho lần gửi tiếp theo
             }
-            return View(model); // Trả về model để giữ thông tin đã nhập
+            return View(model); // Trả về mô hình (trống) để hiển thị
         }
 
         // Phương thức gửi email sử dụng SMTP
