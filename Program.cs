@@ -46,6 +46,11 @@ app.UseAuthorization();
 
 // Đăng ký route cho các controller
 app.MapControllerRoute(
+    name: "contact",
+    pattern: "Contact",
+    defaults: new { controller = "Contact", action = "Index" });
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 

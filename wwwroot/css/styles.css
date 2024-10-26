@@ -70,6 +70,13 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; /* Thay đổi độ mờ trong 0.5 giây */
+    max-width: 100%;
+
+}
+.fade-out {
+    opacity: 0; /* Mờ dần khi chuyển trang */
 }
 
 header {
@@ -93,16 +100,6 @@ nav ul {
             text-decoration: none;
         }
 
-.hero {
-    background: url('https://example.com/your-image.jpg') no-repeat center center/cover;
-    height: 400px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
     .hero h2 {
         font-size: 2.5em;
@@ -291,50 +288,148 @@ button.arrow {
     cursor: pointer;
     border-radius: 0;
 }
-
-
-
-.nav-head {
-    background-color: #333; /* Màu nền của thanh điều hướng */
-    color: white; /* Màu chữ */
-    padding: 15px 20px; /* Khoảng cách bên trong */
-    display: flex; /* Sử dụng Flexbox để căn chỉnh nội dung */
-    justify-content: center; /* Căn chỉnh khoảng cách giữa các mục */
-    align-items: center; /* Căn giữa nội dung theo chiều dọc */
-    position: relative; /* Thiết lập vị trí tương đối cho các thành phần con */
-    z-index: 10; /* Đưa thanh điều hướng lên trên các phần tử khác */
+.home-container {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các phần tử con xuống hàng */
+    padding: 50px;
 }
 
-    /* Định dạng cho các liên kết trong nav-head */
-    .nav-head a {
-        color: white; /* Màu chữ của liên kết */
-        text-decoration: none; /* Bỏ gạch chân */
-        margin: 0 15px; /* Khoảng cách giữa các liên kết */
-        font-size: 16px; /* Kích thước chữ */
-        transition: color 0.3s ease; /* Hiệu ứng chuyển tiếp màu chữ */
+.text-section {
+    flex: 1; /* Chiếm 50% chiều rộng */
+    max-width: 50%; /* Giới hạn chiều rộng tối đa */
+    font-family: 'Literata', sans-serif;
+    padding: 20px; /* Thêm padding để văn bản không chạm vào cạnh */
+}
+
+.text-section h1 {
+    font-size: 50px;
+    color: #003366;
+    text-align: left;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.text-section p {
+    font-family: Epilogue, sans-serif;
+    color: #667380;
+    font-size: 17px;
+    line-height: 1.7;
+    text-align:left;
+}
+
+.learn-more {
+    margin: 0; /* Xóa margin để nó nằm sát bên trái */
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #667380;
+    text-decoration: none;
+    text-align: left; /* Căn trái văn bản */
+    display: block; /* Đặt thành block để căn trái hoạt động */
+}
+
+    .learn-more:hover {
+        color: black;
     }
 
-        /* Hiệu ứng hover cho các liên kết */
-        .nav-head a:hover {
-            color: #C6E2FF; /* Màu chữ khi hover */
-        }
-.navbar-nav li {
-    margin-bottom: 10px; /* Khoảng cách giữa các mục */
+.home-image-section {
+    flex: 1; /* Chiếm 50% chiều rộng */
+    max-width: 50%; /* Giới hạn chiều rộng tối đa */
+    display: flex; /* Để có thể căn giữa hình ảnh nếu cần */
+    justify-content: center; /* Căn giữa hình ảnh */
+    padding: 20px; /* Thêm padding để hình ảnh không chạm vào cạnh */
 }
 
-.navbar-nav {
-    display: flex; /* Sử dụng flexbox cho navbar */
-    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không đủ không gian */
-    justify-content: center; /* Căn giữa các mục */
-    padding: 0; /* Bỏ padding mặc định */
-    margin: 0; /* Bỏ margin mặc định */
+    .home-image-section img {
+        max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng của phần tử cha */
+        height: auto; /* Giữ tỷ lệ khung hình của hình ảnh */
+        border-radius: 10px;
+    }
+
+/* Media query cho màn hình nhỏ hơn 768px */
+@media (max-width: 1000px) {
+    .text-section,
+    .home-image-section {
+        max-width: 100%; /* Đặt lại chiều rộng tối đa thành 100% */
+        flex: 100%; /* Chiếm toàn bộ chiều rộng */
+    }
+}
+
+/* Header styling */
+.header {
+    position: absolute; /* Fix the header to the top */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
+    display: flex;
+    justify-content: space-between; /* Space between logo and nav */
+    align-items: center; /* Center items vertically */
+    padding: 20px; /* Space inside the header */
+    color: #fff; /* Text color */
+    z-index: 3; /* Ensure the header is on top of other elements */
+}
+/* Logo styling */
+.logo img {
+    height: 80px; /* Adjust logo height */
+}
+
+/* Navbar styling */
+.navbar {
+    display: flex; /* Use flex for navigation */
 
 }
 
-.nav-head nav-item-home {
-    padding: 0; /* Bỏ padding mặc định */
-    margin: 0; /* Bỏ margin mặc định */
+.nav-list {
+    list-style: none; /* Remove bullet points */
+    display: flex; /* Flex layout for nav items */
+    margin: 50px;; /* No margin */
+    padding: 10px; /* No padding */
+    gap:50px;
 }
+
+.nav-list li {
+    margin-left: 20px; /* Space between nav items */
+    justify-content:space-around;
+}
+
+    .nav-list a {
+        color: #05396b; /* Link color */
+        text-decoration: none; /* No underline */
+        font-weight: bold; /* Bold text */
+        font-size: 20px;
+    }
+
+/* Nav button for mobile view */
+.nav-button {
+    display: none; /* Hide by default */
+    font-size: 24px; /* Size for the button */
+    cursor: pointer; /* Pointer on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .nav-list {
+        display: none; /* Hide nav items by default on mobile */
+        flex-direction: column; /* Stack items vertically */
+        position: absolute; /* Absolute positioning for dropdown */
+        background-color: #05396b; /* Background for dropdown */
+        width: 100%; /* Full width */
+        top: 60px; /* Position below the header */
+        left: 0; /* Align left */
+    }
+
+    .nav-list.show {
+        display: flex; /* Show nav items when toggled */
+    }
+
+    .nav-button {
+        display: block; /* Show nav button on mobile */
+    }
+}
+
+
+
+
 
 .container{
     max-width:100%;
@@ -347,14 +442,15 @@ button.arrow {
 }
 
 .container-room {
-    max-width: 95%; /* Độ rộng tối đa của phần container */
+    max-width: 90%; /* Độ rộng tối đa của phần container */
     margin: 0 auto; /* Canh giữa container */
     padding: 0 15px; /* Khoảng cách giữa container và viền */
 }
 
 .room-heading-wrap {
-    margin-bottom: 150px; /* Khoảng cách dưới tiêu đề */
-    margin-top:100px;
+    margin-bottom: 50px; /* Khoảng cách dưới tiêu đề */
+    margin-top: 50px;
+
 }
 
 .label-text {
@@ -371,6 +467,7 @@ button.arrow {
     text-align: center;
     line-height: 1;
     font-weight: 300;
+    font-weight:100;
 }
 
 .margin-none {
@@ -433,7 +530,380 @@ button.arrow {
     .image-item:hover .text-overlay {
         opacity: 1; /* Hiện chữ khi di chuột vào */
     }
+/*roompage*/
+.roompage-heading-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Đẩy logo sang phải */
+    width: 90%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+}
+.extra-large-heading {
+    font-family: "Literata", sans-serif;
+    color: #05396b;
+    font-size: 120px;/* Tăng kích thước chữ */
+    text-align: left; /* Căn lề trái */
+    line-height: 1;
+    font-weight: 100;
+    margin-left: 0; /* Đảm bảo sát lề trái */
+}
+.rotating-logo {
+    width: 220px; /* Kích thước logo phù hợp với tiêu đề */
+    height: 220px;
+    animation: rotation 14s linear infinite;
+}
+
+/* Keyframes cho hiệu ứng quay */
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/*amenities*/
+.amenities-wrap {
+    display: flex;
+    max-width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+    justify-content: center;
+    flex-wrap: wrap;
+
+}
+
+.amenities-column {
+    flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+    gap:100px;
+    justify-content: center;
+    -webkit-box-align: stretch;
+}
 
 
-/*    background-repeat: no-repeat; /* Không lặp lại ảnh nền */
-/*/background-attachment: fixed; /* Giữ ảnh nền cố định khi cuộn trang hoặc thay đổi kích thước */ 
+.amenities-item {
+    height: auto; /* Để chiều cao tự động điều chỉnh theo nội dung */
+    text-align: center; /* Căn giữa chữ và ảnh */
+}
+
+    .amenities-item img {
+        width: 60px;
+        height: auto;
+        object-fit: cover; /* Đảm bảo ảnh phù hợp với kích thước item */
+        border-radius: 10px; /* Bo góc ảnh (tuỳ chọn) */
+    }
+
+    .amenities-item p {
+        margin-top: 10px; /* Khoảng cách giữa ảnh và chữ */
+        font-size: 14px; /* Kích thước chữ */
+        font-weight: 700;
+        color: #667380;
+    }
+.cta-section {
+    display: flex; /* Hiển thị hai container theo hàng ngang */
+    height: 70vh; /* Chiều cao của section bằng 100% chiều cao viewport */
+    flex-wrap: wrap;
+}
+
+.container1, .container2 {
+    flex: 1; /* Cho phép các container có chiều rộng bằng nhau */
+    position: relative; /* Để overlay hoạt động đúng */
+    flex-basis: 400px;
+}
+.container1{
+    background-image: url(../images/room6.jpg); /* Hình ảnh nền cho container 1 */
+    background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ container */
+    background-position: center; /* Căn giữa hình ảnh */
+}
+.container2 {
+    background-image: url(../images/room2.jpg); /* Hình ảnh nền cho container 1 */
+    background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ container */
+    background-position: center; /* Căn giữa hình ảnh */
+}
+
+.cta-link {
+    position: relative; /* Để các thành phần con có thể sử dụng position tuyệt đối */
+    display: block; /* Đảm bảo toàn bộ vùng link có thể nhấn được */
+    text-decoration: none; /* Bỏ gạch chân */
+    color: black; /* Màu chữ */
+    height: 100%; /* Đảm bảo link chiếm toàn bộ chiều cao của container */
+    background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ phần tử */
+    background-position: center; /* Căn giữa hình ảnh */
+    
+    );
+}
+
+.ctaoverlay {
+    position: absolute; /* Đặt overlay ở vị trí tuyệt đối */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền tối với độ trong suốt */
+    opacity: 0; /* Bắt đầu với độ trong suốt 0 (ẩn) */
+    transition: opacity 0.8s ease; /* Hiệu ứng chuyển tiếp khi thay đổi độ trong suốt */
+    z-index: 3; /* Đặt overlay trên hình ảnh */
+}
+
+.cta-link:hover .ctaoverlay {
+    opacity: 1; /* Khi di chuột vào, overlay hiện ra */
+}
+
+.cta-subtitle-wrap {
+    position: absolute; /* Đặt tiêu đề và văn bản ở vị trí tuyệt đối */
+    bottom: 10px; /* Căn dưới một chút */
+    left: 10px; /* Căn trái một chút */
+    color: white;
+    font-family: "Literata", sans-serif;
+    margin-left: 20px;
+    z-index: 4; /* Đặt nội dung trên overlay và hình ảnh */
+}
+    .cta-subtitle-wrap h2 {
+        font-size: 50px; /* Kíc h thước font cho h2, điều chỉnh lớn hơn nếu cần */
+        font-weight: bold; /* Tăng độ đậm của tiêu đề */
+        margin: 0; /* Xóa khoảng cách mặc định nếu không cần */
+    }
+
+    .cta-subtitle-wrap p {
+        font-size: 30px; /* Kích thước font cho p, có thể nhỏ hơn so với h2 */
+        margin: 0; /* Xóa khoảng cách mặc định nếu không cần */
+    }
+
+/*footer*/
+footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    flex-direction: column;
+    margin-top:80px;
+
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom:50px;
+
+}
+
+
+.footer-links img {
+    width: 150px; /* Đặt chiều rộng của ảnh, có thể điều chỉnh tùy ý */
+    height: auto; /* Giữ nguyên tỉ lệ khung hình */
+    max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng của container */
+    align-items: center;
+}
+
+
+.footer-links {
+    display: flex;
+    justify-content: space-evenly;
+    width:100%;
+    margin-left: 20px;
+}
+
+.footer-section {
+    margin: 0 20px;
+    text-align:left;
+}
+
+    .footer-section h3 {
+        font-size: 18px;
+        color: #003366;
+        font-family: "Literata", sans-serif;
+    }
+
+    .footer-section ul {
+        list-style-type: none;
+        padding: 0;
+
+    }
+
+        .footer-section ul li {
+            margin: 5px 0;
+        }
+    .footer-section p {
+        font-size: 15px;
+        color: #003366;
+        line-height: 2;
+    }
+
+    .footer-section a {
+        text-decoration: none;
+        color: #555;
+        line-height: 2;
+    }
+
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+/*about page*/
+.about-page {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #f7f7f7; /* Light gray background */
+    padding: 40px; /* Add some padding */
+}
+
+.medium-column {
+    width: 48%; /* Adjust width to fit two columns */
+    font-family: 'Epilogue', sans-serif;
+    color: #4a4a4a; /* Text color */
+    line-height: 1.6; /* Line height for better readability */
+    text-align: left;
+    margin-right:20px;
+
+}   
+
+    .medium-column p {
+        margin: 10px; /* Remove default margin */
+    }
+
+.about-section {
+    display: flex; /* Hiển thị hai container theo hàng ngang */
+    height: 100vh; /* Chiều cao của section bằng 100% chiều cao viewport */
+    flex-wrap: wrap;
+}
+
+
+.about-container {
+    background-image: url(../images/about-background.jpg); /* Hình ảnh nền cho container 1 */
+    background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ container */
+    flex: 1; /* Cho phép các container có chiều rộng bằng nhau */
+    position: relative; /* Để overlay hoạt động đúng */
+    flex-basis: 400px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin-bottom: 50px;
+}
+
+.grid.half.about-view {
+    margin-top:100px;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 2/3 cho ảnh và 1/3 cho text */
+    height: 90%; /* Chiều cao tùy chọn */
+}
+
+.view {
+    width: 100%; /* Chiếm toàn bộ chiều rộng của cột ảnh */
+    height: 95vh; /* Giữ tỷ lệ của ảnh */
+    object-fit: cover; /* Cắt ảnh nếu cần thiết để phù hợp với cột */
+
+}
+
+.text {
+    padding: 20px; /* Thêm khoảng cách cho text */
+    display: flex;
+    font-family: 'Literata', sans-serif;
+    flex-direction: column; /* Căn chỉnh theo chiều dọc */
+    justify-content: flex-end; /* Căn giữa nội dung theo chiều dọc */
+    text-align:left;
+}
+
+/*contact page*/
+/* Main container to wrap footer and form side-by-side */
+.contact-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    margin: auto;
+}
+
+
+.small-column {
+    margin: 0 20px;
+    text-align: left;
+    flex: 1;
+}
+
+    .small-column ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .small-column ul li {
+            margin: 5px 0;
+        }
+
+    .small-column p {
+        font-size: 20px;
+        color: #003366;
+        line-height: 2;
+    }
+        /* Form container */
+.form-container {
+    flex: 2;
+    width: 50% ; /* Allow full width */
+    max-width: none; /* Remove max-width restriction if any */
+    padding: 20px; /* Keep padding for spacing */
+    display: grid;
+    gap: 10px; /* Space between items */
+
+}
+
+
+
+.contact-node {
+    display: flex;
+    flex-wrap: wrap;
+    flex:1;
+}
+
+    /* Make Name and Phone, Email and Room fields occupy one row each */
+    .contact-node.full-width {
+        grid-column: span 2; /* Full-width elements */
+    }
+
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #05396b;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="tel"],
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    height: 38px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333333;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+}
+
+    .form-container input:focus,
+    .form-container select:focus,
+    .form-container textarea:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+.form-container button {
+    grid-column: span 2; /* Button spans full width */
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #05396b;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .form-container button:hover {
+        background-color: #0056b3;
+    }

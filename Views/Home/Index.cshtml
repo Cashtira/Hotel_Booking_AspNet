@@ -83,8 +83,25 @@
             </div>        
         </div>
         <div class="cta-button-wrap" style="text-align: center; margin-top: 50px;">
-            <a href="/RoomReview/Index" class="cta-button">View more room</a>
+            <a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "RoomReview")')" class="cta-button">View more room</a>
         </div>
+        <div class="home-container">
+            <div class="text-section">
+                <h1>Grand hotel is respected by our customers</h1>
+                <p>
+                    Praesent malesuada semper eros, non egestas leo interdum ut. Sed non sapien pretium,
+                    efficitur nibh nec, semper lorem. Pellentesque volutpat laoreet diam, sit amet tincidun
+                    velit semper ut. Morbi id imperdiet arcu. Proin enim odio, placerat vel suscipit vitae,
+                    lobortis id augue. Quisque eu nisl id diam tempor.
+                </p>
+                <a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "About")')" class="learn-more">Learn more</a>
+            </div>
+            <div class="home-image-section">
+                <img src="~/images/view.jpg" alt="Hotel View">
+            </div>
+        </div>
+
+
     </div>
     <!-- JavaScript -->
     @section Scripts {

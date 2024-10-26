@@ -5401,6 +5401,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\about-background.jpg",
+      "PackagePath": "staticwebassets\\images\\about-background.jpg"
+    },
+    {
       "Id": "D:\\BackEnd\\wwwroot\\images\\admin.png",
       "PackagePath": "staticwebassets\\images\\admin.png"
     },
@@ -5419,6 +5423,34 @@
     {
       "Id": "D:\\BackEnd\\wwwroot\\images\\hotelbackground3.jpg",
       "PackagePath": "staticwebassets\\images\\hotelbackground3.jpg"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\icon1.png",
+      "PackagePath": "staticwebassets\\images\\icon1.png"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\icon2.png",
+      "PackagePath": "staticwebassets\\images\\icon2.png"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\icon3.png",
+      "PackagePath": "staticwebassets\\images\\icon3.png"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\icon4.png",
+      "PackagePath": "staticwebassets\\images\\icon4.png"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\icon5.png",
+      "PackagePath": "staticwebassets\\images\\icon5.png"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\icon6.png",
+      "PackagePath": "staticwebassets\\images\\icon6.png"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\icon7.png",
+      "PackagePath": "staticwebassets\\images\\icon7.png"
     },
     {
       "Id": "D:\\BackEnd\\wwwroot\\images\\intro-left.jpg",
@@ -5443,6 +5475,22 @@
     {
       "Id": "D:\\BackEnd\\wwwroot\\images\\room4.jpg",
       "PackagePath": "staticwebassets\\images\\room4.jpg"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\room5.jpg",
+      "PackagePath": "staticwebassets\\images\\room5.jpg"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\room6.jpg",
+      "PackagePath": "staticwebassets\\images\\room6.jpg"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\rotatelogo.png",
+      "PackagePath": "staticwebassets\\images\\rotatelogo.png"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\view.jpg",
+      "PackagePath": "staticwebassets\\images\\view.jpg"
     },
     {
       "Id": "D:\\BackEnd\\wwwroot\\index.html",

@@ -71,6 +71,13 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; /* Thay đổi độ mờ trong 0.5 giây */
+    max-width: 100%;
+}
+
+.fade-out {
+    opacity: 0; /* Mờ dần khi chuyển trang */
 }
 
 header {
