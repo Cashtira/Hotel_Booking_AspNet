@@ -357,20 +357,18 @@ button.arrow {
 
 /* Header styling */
 .header {
-    position: absolute; /* Fix the header to the top */
-    top: 0; /* Align to the top */
-    left: 0; /* Align to the left */
     width: 100%; /* Full width */
+    height: 80px;
     display: flex;
     justify-content: space-between; /* Space between logo and nav */
     align-items: center; /* Center items vertically */
     padding: 20px; /* Space inside the header */
     color: #fff; /* Text color */
-    z-index: 3; /* Ensure the header is on top of other elements */
+
 }
 /* Logo styling */
 .logo img {
-    height: 80px; /* Adjust logo height */
+    height: 40px; /* Adjust logo height */
 }
 
 /* Navbar styling */
@@ -382,18 +380,23 @@ button.arrow {
 .nav-list {
     list-style: none; /* Remove bullet points */
     display: flex; /* Flex layout for nav items */
-    margin: 50px;; /* No margin */
+    margin: 50px; /* No margin */
     padding: 10px; /* No padding */
     gap:50px;
 }
+
 
 .nav-list li {
     margin-left: 20px; /* Space between nav items */
     justify-content:space-around;
 }
+    .nav-list li a:hover {
+        text-decoration: underline; /* Underline text on hover */
+        border-radius: 4px; /* Slight rounding on hover */
+    }
 
     .nav-list a {
-        color: #05396b; /* Link color */
+        color:#00539C;
         text-decoration: none; /* No underline */
         font-weight: bold; /* Bold text */
         font-size: 20px;
@@ -402,25 +405,50 @@ button.arrow {
 /* Nav button for mobile view */
 .nav-button {
     display: none; /* Hide by default */
-    font-size: 24px; /* Size for the button */
+    font-size: 30px; /* Size for the button */
     cursor: pointer; /* Pointer on hover */
+    color: #05396b
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
     .nav-list {
-        display: none; /* Hide nav items by default on mobile */
+        display: flex; /* Hide nav items by default */
         flex-direction: column; /* Stack items vertically */
-        position: absolute; /* Absolute positioning for dropdown */
-        background-color: #05396b; /* Background for dropdown */
-        width: 100%; /* Full width */
-        top: 60px; /* Position below the header */
-        left: 0; /* Align left */
+        position: absolute; /* Position for dropdown */
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+        width: 200px; /* Width for dropdown */
+        top: 0px; /* Position below the header */
+        right: 0px; /* Align to the right edge */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow */
+        overflow: hidden; /* Hide content when collapsed */
+        max-height: 0; /* Collapse by default */
+        transition: max-height 0.8s ease, padding 0.8s ease; /* Smooth opening */
+        padding: 0;
+        z-index: 1000; /* Ensure it appears above other content */
     }
 
-    .nav-list.show {
-        display: flex; /* Show nav items when toggled */
-    }
+        .nav-list.show {
+            max-height: 100vh; /* Set max height to accommodate items when expanded */
+            padding: 10px 0; /* Add padding when expanded */
+        }
+
+        .nav-list li {
+            padding: 10px 20px; /* Spacing for each item */
+            text-align: center; /* Align text to the left */
+            list-style: none; /* Remove bullet points */
+        }
+
+            .nav-list li a {
+                font-weight: bold; /* Bold text */
+                display: block; /* Full clickable area */
+            }
+
+                .nav-list li a:hover {
+                    text-decoration: underline; /* Underline text on hover */
+                    border-radius: 4px; /* Slight rounding on hover */
+                }
 
     .nav-button {
         display: block; /* Show nav button on mobile */
@@ -463,10 +491,9 @@ button.arrow {
 .large-heading {
     font-family: "Literata", sans-serif;
     color: #05396b;
-    font-size: 70px;
+    font-size: 60px;
     text-align: center;
     line-height: 1;
-    font-weight: 300;
     font-weight:100;
 }
 
@@ -632,8 +659,6 @@ button.arrow {
     height: 100%; /* Đảm bảo link chiếm toàn bộ chiều cao của container */
     background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ phần tử */
     background-position: center; /* Căn giữa hình ảnh */
-    
-    );
 }
 
 .ctaoverlay {

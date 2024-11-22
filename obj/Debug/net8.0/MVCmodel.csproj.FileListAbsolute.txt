@@ -675,3 +675,5 @@ D:\BackEnd\obj\Debug\net8.0\MVCmodel.genruntimeconfig.cache
 D:\BackEnd\obj\Debug\net8.0\ref\MVCmodel.dll
 D:\BackEnd\bin\Debug\net8.0\SendGrid.dll
 D:\BackEnd\bin\Debug\net8.0\StarkbankEcdsa.dll
+D:\BackEnd\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\BackEnd\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll

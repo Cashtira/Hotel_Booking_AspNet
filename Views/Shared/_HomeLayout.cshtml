@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <!-- Component css -->
-    <link rel="stylesheet" href="@Url.Content("~/css/styles.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/home_styles.css")">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <header class="header">
         <div class="logo">
             <a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Home")')">
-                <img src="~/images/hotel.png" alt="Logo" />
+                <img src="~/images/logo.png" alt="Logo" />
             </a>
         </div>
         <nav class="navbar">
@@ -16,9 +16,10 @@
                 <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "RoomReview")')">Room</a></li>
                 <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Contact")')">Contact</a></li>
                 <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "About")')">About</a></li>
-                <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Bookings")')">Admin</a></li>
+                <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Account")')">Login</a></li>
 
             </ul>
+ 
         </nav>
         <div class="nav-button" onclick="toggleMenu()">☰</div>
     </header>
@@ -68,7 +69,7 @@
         </div>
         <section class="cta-section">
             <div class="container1">
-                <a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "About")')" class="cta-link">
+                <a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "RoomReview")')" class="cta-link">
                     <div class="ctaoverlay"></div>
                     <div class="cta-subtitle-wrap">
                         <h2 class="cta-heading">Our Rooms</h2>
@@ -140,6 +141,18 @@
                 window.location.href = url; // Chuyển đến URL mới
             }, 500); // Thời gian mờ bằng thời gian trong CSS (500ms)
         }
+        function toggleMenu() {
+            const navList = document.querySelector('.nav-list');
+            navList.classList.toggle('show');
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            function toggleMenu() {
+                const navList = document.querySelector('.nav-list');
+                navList.classList.toggle('show');
+            }
+            // Attach the toggle function to the nav-button
+            document.querySelector('.nav-button').onclick = toggleMenu;
+        });
     </script>
 
 </body>

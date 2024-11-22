@@ -4437,16 +4437,20 @@
       "PackagePath": "staticwebassets\\build\\scss\\plugins\\_toastr.scss"
     },
     {
-      "Id": "D:\\BackEnd\\wwwroot\\css\\pages.css",
-      "PackagePath": "staticwebassets\\css\\pages.css"
+      "Id": "D:\\BackEnd\\wwwroot\\css\\admin_styles.css",
+      "PackagePath": "staticwebassets\\css\\admin_styles.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\css\\home_styles.css",
+      "PackagePath": "staticwebassets\\css\\home_styles.css"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\css\\login_styles.css",
+      "PackagePath": "staticwebassets\\css\\login_styles.css"
     },
     {
       "Id": "D:\\BackEnd\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
-    },
-    {
-      "Id": "D:\\BackEnd\\wwwroot\\css\\styles.css",
-      "PackagePath": "staticwebassets\\css\\styles.css"
     },
     {
       "Id": "D:\\BackEnd\\wwwroot\\dist\\css\\adminlte.css",
@@ -5459,6 +5463,10 @@
     {
       "Id": "D:\\BackEnd\\wwwroot\\images\\intro-right.jpg",
       "PackagePath": "staticwebassets\\images\\intro-right.jpg"
+    },
+    {
+      "Id": "D:\\BackEnd\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
     },
     {
       "Id": "D:\\BackEnd\\wwwroot\\images\\room1.jpg",

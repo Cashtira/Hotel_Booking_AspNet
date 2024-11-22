@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MVCmodel.Models;
 
-public class HotelManagementContext : DbContext
+public class HotelManagementContext : IdentityDbContext<AppUserModel>
 {
     // Constructor for dependency injection
     public HotelManagementContext(DbContextOptions<HotelManagementContext> options) : base(options)
@@ -39,6 +40,8 @@ public class HotelManagementContext : DbContext
     // Fluent API and entity configurations can go here
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         // Configure relationships and entity settings with Fluent API here
     }
 }
