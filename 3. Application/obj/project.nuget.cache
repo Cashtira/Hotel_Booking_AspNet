@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4JlUszgBuE4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\PC\\source\\repos\\ooad\\3. Application\\3. Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.net.sdk.compilers.toolset\\9.0.101\\microsoft.net.sdk.compilers.toolset.9.0.101.nupkg.sha512"
+  ],
+  "logs": []
+}
