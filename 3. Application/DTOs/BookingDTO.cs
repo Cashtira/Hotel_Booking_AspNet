@@ -1,6 +1,4 @@
-﻿using _3._Application.Models;
-
-namespace _3._Application.DTOs;
+﻿namespace _3._Application.DTOs;
 
 public class BookingDTO
 {
@@ -18,7 +16,7 @@ public class BookingDTO
 
     public required int GuestId { get; set; }
 
-    public required IList<Invoice> Invoices { get; set; } = [];
+    public required IList<InvoiceDTO> Invoices { get; set; } = [];
 
     public required IList<RoomBookingDTO> RoomBookingDTOs { get; set; } = [];
 
