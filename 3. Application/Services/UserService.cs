@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _3._Application.Services
 {
-    internal interface UserService
+    internal class UserService
     {
     }
 }

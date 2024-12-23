@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _2._Domain.Entities
 {
-    internal class Hotel
+    public class Hotel
     {
     }
 }

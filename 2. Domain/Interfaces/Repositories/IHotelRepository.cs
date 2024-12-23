@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace _2._Domain.Interfaces.Repositories
 {
-    internal interface IHotelRepository
+    
+    interface IHotelRepository
     {
     }
 }

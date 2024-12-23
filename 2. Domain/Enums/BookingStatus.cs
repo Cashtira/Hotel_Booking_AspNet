@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _2._Domain.Interfaces.Repositories
+namespace _2._Domain.Enums
 {
-    public interface IUserRepository
+    public enum BookingStatus
     {
+        Pending,
+        Confirmed,
+        Cancelled
     }
 }

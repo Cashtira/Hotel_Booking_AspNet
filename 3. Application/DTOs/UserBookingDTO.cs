@@ -1,6 +1,6 @@
 ﻿namespace _3._Application.DTOs;
 
-public class GuestBookingDTO
+public class UserBookingDTO
 {
     public required int BookingId { get; set; }
 

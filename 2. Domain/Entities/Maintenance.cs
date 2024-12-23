@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _1._Infrastructure.Persistence
+namespace _2._Domain.Entities
 {
-    internal class DbContext
+    public class Maintenance
     {
     }
 }

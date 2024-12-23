@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2. Domain", "2. Domain\2. D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3. Application", "3. Application\3. Application.csproj", "{051090EB-D32E-4F55-8579-8C7F3D263871}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4. Presentation", "4. Presentation\4. Presentation.csproj", "{DD99D465-EDD5-47AC-8E29-738654B9D549}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4. Presentation", "4. Presentation\4. Presentation.csproj", "{DD99D465-EDD5-47AC-8E29-738654B9D549}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{B7DAB5B9-1EA0-4E69-AF50-FA87BB85342C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

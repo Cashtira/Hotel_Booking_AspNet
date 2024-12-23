@@ -22,5 +22,5 @@ public class BookingDTO
 
     public required IList<ServiceBookingDTO> ServiceBookingDTOs { get; set; } = [];
 
-    public required IList<GuestBookingDTO> GuestBookingDTOs { get; set; } = [];
+    public required IList<UserBookingDTO> GuestBookingDTOs { get; set; } = [];
 }

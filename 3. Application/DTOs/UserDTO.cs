@@ -6,7 +6,7 @@ public class UserDTO
 
     public required int RoleId { get; set; }
 
-    public required IList<GuestBookingDTO> GuestBookingDTOs { get; set; } = [];
+    public required IList<UserBookingDTO> GuestBookingDTOs { get; set; } = [];
 
     public required IList<FeedbackDTO> FeedbackDTOs { get; set; } = [];
 
