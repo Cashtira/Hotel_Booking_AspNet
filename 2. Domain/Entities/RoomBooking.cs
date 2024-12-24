@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace _2._Domain.Entities;
 
-namespace _2._Domain.Entities
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+[PrimaryKey(nameof(BookingId), nameof(RoomId))]
+[Table(nameof(RoomBooking))]
+public sealed class RoomBooking
 {
-    public class RoomBooking
-    {
-    }
+    [Key]
+    public required int BookingId { get; set; }
+
+    [Key]
+    public required int RoomId { get; set; }
+
+    [Range(0, double.MaxValue)]
+    [Precision(18, 2)]
+    public required decimal Price { get; set; }
+
+    [ForeignKey(nameof(BookingId))]
+    [InverseProperty(nameof(Booking.RoomBookings))]
+    public required Booking Booking { get; set; } = null!;
+
+    [ForeignKey(nameof(RoomId))]
+    [InverseProperty(nameof(Booking.RoomBookings))]
+    public required Room Room { get; set; } = null!;
 }
