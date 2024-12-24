@@ -12,5 +12,5 @@ public interface ILoyaltyProgramService
 
     Task UpdateLoyaltyProgramAsync(LoyaltyProgramDTO loyaltyProgramDto);
 
-    Task DeleteLoyaltyProgramAsync(int loyaltyProgramId);
+    Task DeleteLoyaltyProgramByIdAsync(int loyaltyProgramId);
 }

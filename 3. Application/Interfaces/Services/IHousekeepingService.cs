@@ -12,5 +12,5 @@ public interface IHousekeepingService
 
     Task UpdateHousekeepingAsync(HousekeepingDTO housekeepingDto);
 
-    Task DeleteHousekeepingAsync(int housekeepingId);
+    Task DeleteHousekeepingByIdAsync(int housekeepingId);
 }

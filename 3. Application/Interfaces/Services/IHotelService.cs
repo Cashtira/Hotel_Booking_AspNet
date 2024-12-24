@@ -12,5 +12,5 @@ public interface IHotelService
 
     Task UpdateHotelAsync(HotelDTO hotelDto);
 
-    Task DeleteHotelAsync(int hotelId);
+    Task DeleteHotelByIdAsync(int hotelId);
 }

@@ -12,5 +12,5 @@ public interface IBookingService
 
     Task UpdateBookingAsync(BookingDTO bookingDto);
 
-    Task DeleteBookingAsync(int bookingId);
+    Task DeleteBookingByIdAsync(int bookingId);
 }

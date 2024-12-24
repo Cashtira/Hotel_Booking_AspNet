@@ -12,5 +12,5 @@ public interface IInvoiceService
 
     Task UpdateInvoiceAsync(InvoiceDTO invoiceDto);
 
-    Task DeleteInvoiceAsync(int invoiceId);
+    Task DeleteInvoiceByIdAsync(int invoiceId);
 }

@@ -12,5 +12,5 @@ public interface IRoleService
 
     Task UpdateRoleAsync(RoleDTO roleDto);
 
-    Task DeleteRoleAsync(int roleId);
+    Task DeleteRoleByIdAsync(int roleId);
 }
