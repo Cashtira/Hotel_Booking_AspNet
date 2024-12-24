@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 public sealed class LoyaltyProgram
 {
     [Key]
-    public int ProgramId { get; set; }
+    public int LoyaltyProgramId { get; set; }
 
     public required int UserId { get; set; }
 
