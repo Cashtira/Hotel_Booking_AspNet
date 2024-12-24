@@ -1,20 +1,39 @@
-﻿using _2._Domain.Entities;
+﻿namespace _1._Infrastructure.Persistence;
+
+using _2._Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace _1._Infrastructure.Persistence
+public sealed class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, int>
 {
-    public  class ApplicationDbContext: IdentityDbContext<User, IdentityRole, string>
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-          : base(options)
-        {
-        }
-    }
+    public ApplicationDbContext() { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+      : base(options) { }
+
+    public DbSet<Booking> Bookings { get; set; } = null!;
+
+    public DbSet<Feedback> Feedbacks { get; set; } = null!;
+
+    public DbSet<Hotel> Hotels { get; set; } = null!;
+
+    public DbSet<Housekeeping> Housekeepings { get; set; } = null!;
+
+    public DbSet<Invoice> Invoices { get; set; } = null!;
+
+    public DbSet<LoyaltyProgram> LoyaltyPrograms { get; set; } = null!;
+
+    public DbSet<Maintenance> Maintenances { get; set; } = null!;
+
+    public DbSet<Room> Rooms { get; set; } = null!;
+
+    public DbSet<RoomBooking> RoomBookings { get; set; } = null!;
+
+    public DbSet<RoomType> RoomTypes { get; set; } = null!;
+
+    public DbSet<Service> Services { get; set; } = null!;
+
+    public DbSet<ServiceBooking> ServiceBookings { get; set; } = null!;
+
+    public DbSet<UserBooking> UserBookings { get; set; } = null!;
 }
