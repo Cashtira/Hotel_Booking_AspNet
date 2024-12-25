@@ -13,15 +13,15 @@ public sealed class ServiceController(IServiceService serviceService) : Controll
     [HttpGet]
     public async Task<IActionResult> GetAllServicesAsync()
     {
-        var genres = await this.serviceService.GetAllServicesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var services = await this.serviceService.GetAllServicesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(services);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetServiceByIdAsync(int id)
     {
-        var genre = await this.serviceService.GetServiceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var service = await this.serviceService.GetServiceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(service);
     }
 
     [HttpPost]

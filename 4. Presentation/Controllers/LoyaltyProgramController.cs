@@ -13,15 +13,15 @@ public sealed class LoyaltyProgramController(ILoyaltyProgramService loyaltyProgr
     [HttpGet]
     public async Task<IActionResult> GetAllLoyaltyProgramsAsync()
     {
-        var genres = await this.loyaltyProgramService.GetAllLoyaltyProgramsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var loyaltyPrograms = await this.loyaltyProgramService.GetAllLoyaltyProgramsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(loyaltyPrograms);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetLoyaltyProgramByIdAsync(int id)
     {
-        var genre = await this.loyaltyProgramService.GetLoyaltyProgramByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var loyaltyProgram = await this.loyaltyProgramService.GetLoyaltyProgramByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(loyaltyProgram);
     }
 
     [HttpPost]

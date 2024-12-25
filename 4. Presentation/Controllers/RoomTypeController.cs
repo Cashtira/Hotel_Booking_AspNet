@@ -13,15 +13,15 @@ public sealed class RoomTypeController(IRoomTypeService roomTypeService) : Contr
     [HttpGet]
     public async Task<IActionResult> GetAllRoomTypesAsync()
     {
-        var genres = await this.roomTypeService.GetAllRoomTypesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var roomTypes = await this.roomTypeService.GetAllRoomTypesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(roomTypes);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetRoomTypeByIdAsync(int id)
     {
-        var genre = await this.roomTypeService.GetRoomTypeByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var roomType = await this.roomTypeService.GetRoomTypeByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(roomType);
     }
 
     [HttpPost]

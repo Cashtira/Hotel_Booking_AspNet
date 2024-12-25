@@ -13,15 +13,15 @@ public sealed class HotelController(IHotelService hotelService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllHotelsAsync()
     {
-        var genres = await this.hotelService.GetAllHotelsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var hotels = await this.hotelService.GetAllHotelsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(hotels);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetHotelByIdAsync(int id)
     {
-        var genre = await this.hotelService.GetHotelByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var hotel = await this.hotelService.GetHotelByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(hotel);
     }
 
     [HttpPost]

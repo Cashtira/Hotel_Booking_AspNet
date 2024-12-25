@@ -13,15 +13,15 @@ public sealed class FeedbackController(IFeedbackService feedbackService) : Contr
     [HttpGet]
     public async Task<IActionResult> GetAllFeedbacksAsync()
     {
-        var genres = await this.feedbackService.GetAllFeedbacksAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var feedbacks = await this.feedbackService.GetAllFeedbacksAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(feedbacks);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetFeedbackByIdAsync(int id)
     {
-        var genre = await this.feedbackService.GetFeedbackByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var feedback = await this.feedbackService.GetFeedbackByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(feedback);
     }
 
     [HttpPost]

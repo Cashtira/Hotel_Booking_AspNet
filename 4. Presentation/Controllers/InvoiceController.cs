@@ -13,15 +13,15 @@ public sealed class InvoiceController(IInvoiceService invoiceService) : Controll
     [HttpGet]
     public async Task<IActionResult> GetAllInvoicesAsync()
     {
-        var genres = await this.invoiceService.GetAllInvoicesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var invoices = await this.invoiceService.GetAllInvoicesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(invoices);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetInvoiceByIdAsync(int id)
     {
-        var genre = await this.invoiceService.GetInvoiceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var invoice = await this.invoiceService.GetInvoiceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(invoice);
     }
 
     [HttpPost]

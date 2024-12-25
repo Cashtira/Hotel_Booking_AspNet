@@ -13,15 +13,15 @@ public sealed class RoomController(IRoomService roomService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllRoomsAsync()
     {
-        var genres = await this.roomService.GetAllRoomsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var rooms = await this.roomService.GetAllRoomsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(rooms);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetRoomByIdAsync(int id)
     {
-        var genre = await this.roomService.GetRoomByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var room = await this.roomService.GetRoomByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(room);
     }
 
     [HttpPost]

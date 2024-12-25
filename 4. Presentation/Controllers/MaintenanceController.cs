@@ -13,15 +13,15 @@ public sealed class MaintenanceController(IMaintenanceService maintenanceService
     [HttpGet]
     public async Task<IActionResult> GetAllMaintenancesAsync()
     {
-        var genres = await this.maintenanceService.GetAllMaintenancesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var maintenances = await this.maintenanceService.GetAllMaintenancesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(maintenances);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetMaintenanceByIdAsync(int id)
     {
-        var genre = await this.maintenanceService.GetMaintenanceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var maintenance = await this.maintenanceService.GetMaintenanceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(maintenance);
     }
 
     [HttpPost]

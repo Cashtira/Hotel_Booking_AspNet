@@ -4,7 +4,7 @@ public class UserDTO
 {
     // TODO: Khóa chính là gì?
     // Có role hay không?
-    public int Id { get; set; }
+    public int UserId { get; set; }
 
     public required string Username { get; set; }
 

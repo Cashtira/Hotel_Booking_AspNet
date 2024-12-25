@@ -13,15 +13,15 @@ public sealed class BookingController(IBookingService bookingService) : Controll
     [HttpGet]
     public async Task<IActionResult> GetAllBookingsAsync()
     {
-        var genres = await this.bookingService.GetAllBookingsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var bookings = await this.bookingService.GetAllBookingsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(bookings);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetBookingByIdAsync(int id)
     {
-        var genre = await this.bookingService.GetBookingByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var booking = await this.bookingService.GetBookingByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(booking);
     }
 
     [HttpPost]

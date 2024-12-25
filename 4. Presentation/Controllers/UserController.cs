@@ -13,15 +13,15 @@ public sealed class UserController(IUserService userService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllUsersAsync()
     {
-        var genres = await this.userService.GetAllUsersAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var users = await this.userService.GetAllUsersAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(users);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUserByIdAsync(int id)
     {
-        var genre = await this.userService.GetUserByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var user = await this.userService.GetUserByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(user);
     }
 
     [HttpPost]

@@ -13,15 +13,15 @@ public sealed class HousekeepingController(IHousekeepingService housekeepingServ
     [HttpGet]
     public async Task<IActionResult> GetAllHousekeepingsAsync()
     {
-        var genres = await this.housekeepingService.GetAllHousekeepingsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genres);
+        var housekeepings = await this.housekeepingService.GetAllHousekeepingsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(housekeepings);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetHousekeepingByIdAsync(int id)
     {
-        var genre = await this.housekeepingService.GetHousekeepingByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(genre);
+        var housekeeping = await this.housekeepingService.GetHousekeepingByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(housekeeping);
     }
 
     [HttpPost]
