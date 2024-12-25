@@ -6,37 +6,37 @@ using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
 using AutoMapper;
 
-public class HotelService(IHotelRepository hotelRepository, IMapper mapper) : IHotelService
+public class HousekeepingService(IHousekeepingRepository housekeepingRepository, IMapper mapper) : IHousekeepingService
 {
-    private readonly IHotelRepository hotelRepository = hotelRepository;
+    private readonly IHousekeepingRepository housekeepingRepository = housekeepingRepository;
     private readonly IMapper mapper = mapper;
 
-    public async Task<List<HotelDTO>> GetAllHotelsAsync()
+    public async Task<List<HousekeepingDTO>> GetAllHousekeepingsAsync()
     {
-        var hotels = await this.hotelRepository.GetAllHotelsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return this.mapper.Map<List<HotelDTO>>(hotels);
+        var housekeepings = await this.housekeepingRepository.GetAllHousekeepingsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return this.mapper.Map<List<HousekeepingDTO>>(housekeepings);
     }
 
-    public async Task<HotelDTO?> GetHotelByIdAsync(int hotelId)
+    public async Task<HousekeepingDTO?> GetHousekeepingByIdAsync(int housekeepingId)
     {
-        var hotel = await this.hotelRepository.GetHotelByIdAsync(hotelId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return this.mapper.Map<HotelDTO>(hotel);
+        var housekeeping = await this.housekeepingRepository.GetHousekeepingByIdAsync(housekeepingId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return this.mapper.Map<HousekeepingDTO>(housekeeping);
     }
 
-    public async Task AddHotelAsync(HotelDTO hotelDto)
+    public async Task AddHousekeepingAsync(HousekeepingDTO housekeepingDto)
     {
-        var hotel = this.mapper.Map<Hotel>(hotelDto);
-        await this.hotelRepository.AddHotelAsync(hotel).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        var housekeeping = this.mapper.Map<Housekeeping>(housekeepingDto);
+        await this.housekeepingRepository.AddHousekeepingAsync(housekeeping).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
-    public async Task UpdateHotelAsync(HotelDTO hotelDto)
+    public async Task UpdateHousekeepingAsync(HousekeepingDTO housekeepingDto)
     {
-        var hotel = this.mapper.Map<Hotel>(hotelDto);
-        await this.hotelRepository.UpdateHotelAsync(hotel).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        var housekeeping = this.mapper.Map<Housekeeping>(housekeepingDto);
+        await this.housekeepingRepository.UpdateHousekeepingAsync(housekeeping).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
-    public async Task DeleteHotelByIdAsync(int hotelId)
+    public async Task DeleteHousekeepingByIdAsync(int housekeepingId)
     {
-        await this.hotelRepository.DeleteHotelByIdAsync(hotelId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        await this.housekeepingRepository.DeleteHousekeepingByIdAsync(housekeepingId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }
