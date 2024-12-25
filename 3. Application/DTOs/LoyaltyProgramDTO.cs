@@ -2,7 +2,7 @@
 
 public class LoyaltyProgramDTO
 {
-    public int ProgramId { get; set; }
+    public int LoyaltyProgramId { get; set; }
 
     public required int GuestId { get; set; }
 
