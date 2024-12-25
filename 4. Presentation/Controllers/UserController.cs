@@ -1,43 +1,62 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿namespace _4._Presentation.Controllers;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using _3._Application.DTOs;
+using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
 
-namespace _4._Presentation.Controllers
+[Route("api/[controller]")]
+[ApiController]
+public sealed class UserController(IUserService userService) : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    private readonly IUserService userService = userService;
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllUsersAsync()
     {
-        // GET: api/<UserController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        var genres = await this.userService.GetAllUsersAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(genres);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserByIdAsync(int id)
+    {
+        var genre = await this.userService.GetUserByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return HandleResult(genre);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddUserAsync([FromBody] UserDTO userDto)
+    {
+        if ((!ModelState.IsValid) || (userDto == null))
         {
-            return new string[] { "value1", "value2" };
+            return BadRequest(ModelState);
         }
 
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        await this.userService.AddUserAsync(userDto).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return CreatedAtAction(nameof(GetUserByIdAsync), new { id = userDto.UserId }, userDto);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] UserDTO userDto)
+    {
+        if (userDto == null)
         {
-            return "value";
+            return BadRequest();
         }
 
-        // POST api/<UserController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        if (id != userDto.UserId)
         {
+            return BadRequest("Invalid ID.");
         }
 
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        await this.userService.UpdateUserAsync(userDto).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return NoContent();
+    }
 
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUserByIdAsync(int id)
+    {
+        await this.userService.DeleteUserByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return NoContent();
     }
 }
