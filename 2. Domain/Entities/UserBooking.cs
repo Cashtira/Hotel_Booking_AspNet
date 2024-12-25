@@ -16,9 +16,11 @@ public class UserBooking
 
     [ForeignKey(nameof(UserId))]
     [InverseProperty(nameof(User.UserBookings))]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public User User { get; set; } = null!;
 
     [ForeignKey(nameof(BookingId))]
     [InverseProperty(nameof(Booking.UserBookings))]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public Booking Booking { get; set; } = null!;
 }

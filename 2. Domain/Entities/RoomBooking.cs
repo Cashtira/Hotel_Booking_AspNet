@@ -24,5 +24,6 @@ public sealed class RoomBooking
 
     [ForeignKey(nameof(RoomId))]
     [InverseProperty(nameof(Booking.RoomBookings))]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public Room Room { get; set; } = null!;
 }

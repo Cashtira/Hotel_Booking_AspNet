@@ -20,9 +20,11 @@ public sealed class ServiceBooking
 
     [ForeignKey(nameof(BookingId))]
     [InverseProperty(nameof(Booking.ServiceBookings))]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public Booking Booking { get; set; } = null!;
 
     [ForeignKey(nameof(ServiceId))]
     [InverseProperty(nameof(Service.ServiceBookings))]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
     public Service Service { get; set; } = null!;
 }
