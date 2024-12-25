@@ -1,6 +1,6 @@
 ﻿namespace _3._Application.DTOs;
 
-public class HotelDTO
+public sealed class HotelDTO
 {
     public int HotelId { get; set; }
 
@@ -12,16 +12,16 @@ public class HotelDTO
 
     public required string Email { get; set; }
 
-    public required float Rating { get; set; }
+    public float? Rating { get; set; } = null;
 
-    public required TimeOnly CheckinTime { get; set; }
+    public TimeOnly CheckinTime { get; set; } = new TimeOnly(14, 0, 0);
 
-    public required TimeOnly CheckoutTime { get; set; }
+    public TimeOnly CheckoutTime { get; set; } = new TimeOnly(12, 0, 0);
 
-    public required IList<UserDTO> UserDTOs { get; set; } = [];
+    public IList<UserDTO> UserDTOs { get; set; } = [];
 
-    public required IList<RoomDTO> RoomDTOs { get; set; } = [];
+    public IList<RoomDTO> RoomDTOs { get; set; } = [];
 
-    public required IList<FeedbackDTO> FeedbackDTOs { get; set; } = [];
+    public IList<FeedbackDTO> FeedbackDTOs { get; set; } = [];
 }
 
