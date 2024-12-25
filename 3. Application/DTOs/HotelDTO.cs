@@ -18,10 +18,10 @@ public sealed class HotelDTO
 
     public TimeOnly CheckoutTime { get; set; } = new TimeOnly(12, 0, 0);
 
-    public IList<UserDTO> UserDTOs { get; set; } = [];
+    //public IList<UserDTO> UserDTOs { get; set; } = [];
 
-    public IList<RoomDTO> RoomDTOs { get; set; } = [];
+    //public IList<RoomDTO> RoomDTOs { get; set; } = [];
 
-    public IList<FeedbackDTO> FeedbackDTOs { get; set; } = [];
+    //public IList<FeedbackDTO> FeedbackDTOs { get; set; } = [];
 }
 

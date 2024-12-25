@@ -10,12 +10,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-public sealed class AuthService(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration) : IAuthService
+public sealed class AuthService : IAuthService
 {
-    private readonly UserManager<User> userManager = userManager;
-    private readonly SignInManager<User> signInManager = signInManager;
-    private readonly IConfiguration configuration = configuration;
+    private readonly UserManager<User> _userManager;
+    private readonly SignInManager<User> _signInManager;
+    private readonly IConfiguration _configuration;
 
+    // Constructor injection
+    public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+    {
+        _userManager = userManager;
+        _signInManager = signInManager;
+        _configuration = configuration;
+    }
+
+    // Register user and assign role
     public async Task<string> RegisterAsync(RegisterDTO registerDto)
     {
         var user = new User
@@ -25,47 +34,58 @@ public sealed class AuthService(UserManager<User> userManager, SignInManager<Use
             FullName = registerDto.FullName,
         };
 
-        var result = await this.userManager.CreateAsync(user, registerDto.Password).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        var result = await _userManager.CreateAsync(user, registerDto.Password);
         if (result.Succeeded)
         {
+            // Assign default role (e.g., "Customer")
+            await _userManager.AddToRoleAsync(user, "Customer");
+
             return "User registered successfully!";
         }
 
-        throw new OperationCanceledException("Registration failed");
+        // Return detailed error message if registration fails
+        throw new OperationCanceledException($"Registration failed: {string.Join(", ", result.Errors.Select(e => e.Description))}");
     }
 
+    // Login user and generate JWT token
     public async Task<string> LoginAsync(LoginDTO loginDto)
     {
-        var user = await this.userManager.FindByNameAsync(loginDto.Username).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        var user = await _userManager.FindByNameAsync(loginDto.Username);
         if (user == null)
         {
-            throw new Exception("User not found");
+            throw new KeyNotFoundException("User not found");
         }
 
-        var result = await this.signInManager.PasswordSignInAsync(user, loginDto.Password, false, false).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        var result = await _signInManager.PasswordSignInAsync(user, loginDto.Password, false, false);
         if (result.Succeeded)
         {
-            var token = await GenerateJwtTokenAsync(user.UserName).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+            // Generate JWT token if login is successful
+            var token = await GenerateJwtTokenAsync(user.UserName);
             return token;
         }
 
-        throw new Exception("Invalid login attempt");
+        // Invalid login attempt
+        throw new UnauthorizedAccessException("Invalid login attempt");
     }
 
+    // Generate JWT token with user claims
     public async Task<string> GenerateJwtTokenAsync(string userName)
     {
-        var user = await this.userManager.FindByNameAsync(userName).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        var user = await _userManager.FindByNameAsync(userName);
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.Email, user.Email),
+            // Additional claim for user role
+            new Claim(ClaimTypes.Role, "Customer") // Example of adding role to token
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["Jwt:Key"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            this.configuration["Jwt:Issuer"],
-            this.configuration["Jwt:Audience"],
+            _configuration["Jwt:Issuer"],
+            _configuration["Jwt:Audience"],
             claims,
             expires: DateTime.Now.AddDays(1),
             signingCredentials: creds

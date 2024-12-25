@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 [Table(nameof(User))]
-public sealed class User : IdentityUser<int>
+public sealed class User : IdentityUser
 {
     [MinLength(5)]
     [StringLength(50)]

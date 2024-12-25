@@ -1,4 +1,7 @@
-﻿namespace _3._Application.DTOs;
+﻿using _2._Domain.Enums;
+using _3._Application.Services;
+
+namespace _3._Application.DTOs;
 
 public sealed class RoomDTO
 {
@@ -10,7 +13,7 @@ public sealed class RoomDTO
 
     public required int RoomTypeId { get; set; }
 
-    public required int Status { get; set; }
+    public required RoomStatus RoomStatus { get; set; }
 
     public HotelDTO? Hotel { get; set; } = null;
 

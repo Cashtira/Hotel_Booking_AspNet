@@ -18,7 +18,7 @@ public sealed class UserController(IUserService userService) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetUserByIdAsync(int id)
+    public async Task<IActionResult> GetUserByIdAsync(string id)
     {
         var user = await this.userService.GetUserByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return HandleResult(user);
@@ -37,7 +37,7 @@ public sealed class UserController(IUserService userService) : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] UserDTO userDto)
+    public async Task<IActionResult> UpdateUserAsync(string id, [FromBody] UserDTO userDto)
     {
         if (userDto == null)
         {
@@ -54,7 +54,7 @@ public sealed class UserController(IUserService userService) : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteUserByIdAsync(int id)
+    public async Task<IActionResult> DeleteUserByIdAsync(string id)
     {
         await this.userService.DeleteUserByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return NoContent();

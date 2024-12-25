@@ -9,7 +9,7 @@ public sealed class Feedback
     [Key]
     public int FeedbackId { get; set; }
 
-    public required int UserId { get; set; }
+    public required string UserId { get; set; }
 
     public required int HotelId { get; set; }
 

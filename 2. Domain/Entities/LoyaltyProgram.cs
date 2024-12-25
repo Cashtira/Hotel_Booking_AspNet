@@ -9,7 +9,7 @@ public sealed class LoyaltyProgram
     [Key]
     public int LoyaltyProgramId { get; set; }
 
-    public required int UserId { get; set; }
+    public required string UserId { get; set; }
 
     public required int Points { get; set; }
 

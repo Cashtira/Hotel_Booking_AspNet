@@ -6,11 +6,11 @@ public interface IUserRepository
 {
     Task<IEnumerable<User>> GetAllUsersAsync();
 
-    Task<User?> GetUserByIdAsync(int userId);
+    Task<User?> GetUserByIdAsync(string userId);
 
     Task AddUserAsync(User user);
 
     Task UpdateUserAsync(User user);
 
-    Task DeleteUserByIdAsync(int userId);
+    Task DeleteUserByIdAsync(string userId);
 }

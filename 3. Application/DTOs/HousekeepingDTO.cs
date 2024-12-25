@@ -6,7 +6,7 @@ public sealed class HousekeepingDTO
 
     public required int RoomId { get; set; }
 
-    public required int UserId { get; set; }
+    public required string UserId { get; set; }
 
     public DateTimeOffset? CleanDate { get; set; } = null;
 

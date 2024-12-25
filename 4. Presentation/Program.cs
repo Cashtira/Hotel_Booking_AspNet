@@ -1,6 +1,9 @@
 ﻿using _1._Infrastructure.Persistence;
 using _1._Infrastructure.Persistence.Repositories;
+using _1._Infrastructure.Data.Seeder;
+using _1._Infrastructure.Middlewares;
 using _2._Domain.Entities;
+
 using _2._Domain.Interfaces.Repositories;
 using _3._Application.Interfaces.Services;
 using _3._Application.Services;
@@ -10,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Cấu hình dịch vụ cho Identity
-builder.Services.AddIdentity<User, IdentityRole<int>>()
+builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
@@ -49,11 +52,31 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+//middleware register
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
+// Seed roles và user
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
+
+    try
+    {
+        await SeedRolesAndUsers.Initialize(roleManager, userManager);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -68,4 +91,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await app.RunAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+app.Run();

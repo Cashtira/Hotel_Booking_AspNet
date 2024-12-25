@@ -2,7 +2,7 @@
 
 public sealed class UserBookingDTO
 {
-    public required int UserId { get; set; }
+    public required string UserId { get; set; }
 
     public required int BookingId { get; set; }
 

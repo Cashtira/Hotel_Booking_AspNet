@@ -12,7 +12,7 @@ public sealed class Booking
 
     public required DateTime BookingTime { get; set; }
 
-    public required int UserId { get; set; }
+    public required string UserId { get; set; }
 
     public required DateTime CheckinDate { get; set; }
 

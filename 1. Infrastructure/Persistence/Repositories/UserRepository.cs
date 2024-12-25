@@ -8,14 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
 {
-    private readonly ApplicationDbContext dbContext = dbContext ?? new ApplicationDbContext();
+    private readonly ApplicationDbContext dbContext = dbContext;
 
     public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
         return await this.dbContext.Users.ToListAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
-    public async Task<User?> GetUserByIdAsync(int userId)
+    public async Task<User?> GetUserByIdAsync(string userId)
     {
         return await this.dbContext.Users.FirstOrDefaultAsync(e => e.Id == userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
@@ -31,7 +31,7 @@ public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
         await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
-    public async Task DeleteUserByIdAsync(int userId)
+    public async Task DeleteUserByIdAsync(string userId)
     {
         var user = await this.GetUserByIdAsync(userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         if (user != null)

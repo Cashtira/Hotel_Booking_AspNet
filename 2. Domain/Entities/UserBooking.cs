@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 public class UserBooking
 {
     [Key]
-    public required int UserId { get; set; }
+    public required string UserId { get; set; }
 
     [Key]
     public required int BookingId { get; set; }

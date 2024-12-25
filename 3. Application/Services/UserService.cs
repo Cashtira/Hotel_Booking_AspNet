@@ -17,7 +17,7 @@ public class UserService(IUserRepository userRepository, IMapper mapper) : IUser
         return this.mapper.Map<List<UserDTO>>(users);
     }
 
-    public async Task<UserDTO?> GetUserByIdAsync(int userId)
+    public async Task<UserDTO?> GetUserByIdAsync(string userId)
     {
         var user = await this.userRepository.GetUserByIdAsync(userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<UserDTO>(user);
@@ -35,7 +35,7 @@ public class UserService(IUserRepository userRepository, IMapper mapper) : IUser
         await this.userRepository.UpdateUserAsync(user).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
-    public async Task DeleteUserByIdAsync(int userId)
+    public async Task DeleteUserByIdAsync(string userId)
     {
         await this.userRepository.DeleteUserByIdAsync(userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
