@@ -12,32 +12,32 @@ public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllUsersAsync()
     {
-        return await this.dbContext.Users.ToListAsync().ConfigureAwait(true);
+        return await this.dbContext.Users.ToListAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task<User?> GetUserByIdAsync(int userId)
     {
-        return await this.dbContext.Users.FirstOrDefaultAsync(e => e.UserId == userId).ConfigureAwait(true);
+        return await this.dbContext.Users.FirstOrDefaultAsync(e => e.UserId == userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task AddUserAsync(User user)
     {
         this.dbContext.Add(user);
-        await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+        await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
     public async Task UpdateUserAsync(User user)
     {
         this.dbContext.Update(user);
-        await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+        await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteUserByIdAsync(int userId)
     {
-        var user = await this.GetUserByIdAsync(userId).ConfigureAwait(true);
+        var user = await this.GetUserByIdAsync(userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         if (user != null)
         {
             this.dbContext.Remove(user);
-            await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+            await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         }
     }
 }

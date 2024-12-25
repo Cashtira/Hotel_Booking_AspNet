@@ -12,32 +12,32 @@ public class ServiceRepository(ApplicationDbContext dbContext) : IServiceReposit
 
     public async Task<IEnumerable<Service>> GetAllServicesAsync()
     {
-        return await this.dbContext.Services.ToListAsync().ConfigureAwait(true);
+        return await this.dbContext.Services.ToListAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task<Service?> GetServiceByIdAsync(int serviceId)
     {
-        return await this.dbContext.Services.FirstOrDefaultAsync(e => e.ServiceId == serviceId).ConfigureAwait(true);
+        return await this.dbContext.Services.FirstOrDefaultAsync(e => e.ServiceId == serviceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task AddServiceAsync(Service service)
     {
         this.dbContext.Add(service);
-        await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+        await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
     public async Task UpdateServiceAsync(Service service)
     {
         this.dbContext.Update(service);
-        await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+        await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteServiceByIdAsync(int serviceId)
     {
-        var service = await this.GetServiceByIdAsync(serviceId).ConfigureAwait(true);
+        var service = await this.GetServiceByIdAsync(serviceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         if (service != null)
         {
             this.dbContext.Remove(service);
-            await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+            await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         }
     }
 }

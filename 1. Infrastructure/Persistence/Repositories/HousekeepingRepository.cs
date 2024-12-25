@@ -12,32 +12,32 @@ public class HousekeepingRepository(ApplicationDbContext dbContext) : IHousekeep
 
     public async Task<IEnumerable<Housekeeping>> GetAllHousekeepingsAsync()
     {
-        return await this.dbContext.Housekeepings.ToListAsync().ConfigureAwait(true);
+        return await this.dbContext.Housekeepings.ToListAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task<Housekeeping?> GetHousekeepingByIdAsync(int housekeepingId)
     {
-        return await this.dbContext.Housekeepings.FirstOrDefaultAsync(e => e.HousekeepingId == housekeepingId).ConfigureAwait(true);
+        return await this.dbContext.Housekeepings.FirstOrDefaultAsync(e => e.HousekeepingId == housekeepingId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task AddHousekeepingAsync(Housekeeping housekeeping)
     {
         this.dbContext.Add(housekeeping);
-        await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+        await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
     public async Task UpdateHousekeepingAsync(Housekeeping housekeeping)
     {
         this.dbContext.Update(housekeeping);
-        await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+        await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteHousekeepingByIdAsync(int housekeepingId)
     {
-        var housekeeping = await this.GetHousekeepingByIdAsync(housekeepingId).ConfigureAwait(true);
+        var housekeeping = await this.GetHousekeepingByIdAsync(housekeepingId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         if (housekeeping != null)
         {
             this.dbContext.Remove(housekeeping);
-            await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+            await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         }
     }
 }

@@ -12,32 +12,32 @@ public class InvoiceRepository(ApplicationDbContext dbContext) : IInvoiceReposit
 
     public async Task<IEnumerable<Invoice>> GetAllInvoicesAsync()
     {
-        return await this.dbContext.Invoices.ToListAsync().ConfigureAwait(true);
+        return await this.dbContext.Invoices.ToListAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task<Invoice?> GetInvoiceByIdAsync(int invoiceId)
     {
-        return await this.dbContext.Invoices.FirstOrDefaultAsync(e => e.InvoiceId == invoiceId).ConfigureAwait(true);
+        return await this.dbContext.Invoices.FirstOrDefaultAsync(e => e.InvoiceId == invoiceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task AddInvoiceAsync(Invoice invoice)
     {
         this.dbContext.Add(invoice);
-        await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+        await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
     public async Task UpdateInvoiceAsync(Invoice invoice)
     {
         this.dbContext.Update(invoice);
-        await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+        await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteInvoiceByIdAsync(int invoiceId)
     {
-        var invoice = await this.GetInvoiceByIdAsync(invoiceId).ConfigureAwait(true);
+        var invoice = await this.GetInvoiceByIdAsync(invoiceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         if (invoice != null)
         {
             this.dbContext.Remove(invoice);
-            await this.dbContext.SaveChangesAsync().ConfigureAwait(true);
+            await this.dbContext.SaveChangesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         }
     }
 }
