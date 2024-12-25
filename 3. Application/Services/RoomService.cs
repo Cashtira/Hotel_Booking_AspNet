@@ -13,30 +13,30 @@ public class RoomService(IRoomRepository roomRepository, IMapper mapper) : IRoom
 
     public async Task<List<RoomDTO>> GetAllRoomsAsync()
     {
-        var rooms = await this.roomRepository.GetAllRoomsAsync().ConfigureAwait(true);
+        var rooms = await this.roomRepository.GetAllRoomsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<RoomDTO>>(rooms);
     }
 
     public async Task<RoomDTO?> GetRoomByIdAsync(int roomId)
     {
-        var room = await this.roomRepository.GetRoomByIdAsync(roomId).ConfigureAwait(true);
+        var room = await this.roomRepository.GetRoomByIdAsync(roomId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<RoomDTO>(room);
     }
 
     public async Task AddRoomAsync(RoomDTO roomDto)
     {
         var room = this.mapper.Map<Room>(roomDto);
-        await this.roomRepository.AddRoomAsync(room).ConfigureAwait(true);
+        await this.roomRepository.AddRoomAsync(room).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateRoomAsync(RoomDTO roomDto)
     {
         var room = this.mapper.Map<Room>(roomDto);
-        await this.roomRepository.UpdateRoomAsync(room).ConfigureAwait(true);
+        await this.roomRepository.UpdateRoomAsync(room).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteRoomByIdAsync(int roomId)
     {
-        await this.roomRepository.DeleteRoomByIdAsync(roomId).ConfigureAwait(true);
+        await this.roomRepository.DeleteRoomByIdAsync(roomId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }

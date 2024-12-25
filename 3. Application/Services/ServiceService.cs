@@ -13,30 +13,30 @@ public class ServiceService(IServiceRepository serviceRepository, IMapper mapper
 
     public async Task<List<ServiceDTO>> GetAllServicesAsync()
     {
-        var services = await this.serviceRepository.GetAllServicesAsync().ConfigureAwait(true);
+        var services = await this.serviceRepository.GetAllServicesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<ServiceDTO>>(services);
     }
 
     public async Task<ServiceDTO?> GetServiceByIdAsync(int serviceId)
     {
-        var service = await this.serviceRepository.GetServiceByIdAsync(serviceId).ConfigureAwait(true);
+        var service = await this.serviceRepository.GetServiceByIdAsync(serviceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<ServiceDTO>(service);
     }
 
     public async Task AddServiceAsync(ServiceDTO serviceDto)
     {
         var service = this.mapper.Map<Service>(serviceDto);
-        await this.serviceRepository.AddServiceAsync(service).ConfigureAwait(true);
+        await this.serviceRepository.AddServiceAsync(service).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateServiceAsync(ServiceDTO serviceDto)
     {
         var service = this.mapper.Map<Service>(serviceDto);
-        await this.serviceRepository.UpdateServiceAsync(service).ConfigureAwait(true);
+        await this.serviceRepository.UpdateServiceAsync(service).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteServiceByIdAsync(int serviceId)
     {
-        await this.serviceRepository.DeleteServiceByIdAsync(serviceId).ConfigureAwait(true);
+        await this.serviceRepository.DeleteServiceByIdAsync(serviceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }

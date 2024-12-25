@@ -13,30 +13,30 @@ public class MaintenanceService(IMaintenanceRepository maintenanceRepository, IM
 
     public async Task<List<MaintenanceDTO>> GetAllMaintenancesAsync()
     {
-        var maintenances = await this.maintenanceRepository.GetAllMaintenancesAsync().ConfigureAwait(true);
+        var maintenances = await this.maintenanceRepository.GetAllMaintenancesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<MaintenanceDTO>>(maintenances);
     }
 
     public async Task<MaintenanceDTO?> GetMaintenanceByIdAsync(int maintenanceId)
     {
-        var maintenance = await this.maintenanceRepository.GetMaintenanceByIdAsync(maintenanceId).ConfigureAwait(true);
+        var maintenance = await this.maintenanceRepository.GetMaintenanceByIdAsync(maintenanceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<MaintenanceDTO>(maintenance);
     }
 
     public async Task AddMaintenanceAsync(MaintenanceDTO maintenanceDto)
     {
         var maintenance = this.mapper.Map<Maintenance>(maintenanceDto);
-        await this.maintenanceRepository.AddMaintenanceAsync(maintenance).ConfigureAwait(true);
+        await this.maintenanceRepository.AddMaintenanceAsync(maintenance).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateMaintenanceAsync(MaintenanceDTO maintenanceDto)
     {
         var maintenance = this.mapper.Map<Maintenance>(maintenanceDto);
-        await this.maintenanceRepository.UpdateMaintenanceAsync(maintenance).ConfigureAwait(true);
+        await this.maintenanceRepository.UpdateMaintenanceAsync(maintenance).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteMaintenanceByIdAsync(int maintenanceId)
     {
-        await this.maintenanceRepository.DeleteMaintenanceByIdAsync(maintenanceId).ConfigureAwait(true);
+        await this.maintenanceRepository.DeleteMaintenanceByIdAsync(maintenanceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }

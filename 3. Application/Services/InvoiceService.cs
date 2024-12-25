@@ -13,30 +13,30 @@ public class InvoiceService(IInvoiceRepository invoiceRepository, IMapper mapper
 
     public async Task<List<InvoiceDTO>> GetAllInvoicesAsync()
     {
-        var invoices = await this.invoiceRepository.GetAllInvoicesAsync().ConfigureAwait(true);
+        var invoices = await this.invoiceRepository.GetAllInvoicesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<InvoiceDTO>>(invoices);
     }
 
     public async Task<InvoiceDTO?> GetInvoiceByIdAsync(int invoiceId)
     {
-        var invoice = await this.invoiceRepository.GetInvoiceByIdAsync(invoiceId).ConfigureAwait(true);
+        var invoice = await this.invoiceRepository.GetInvoiceByIdAsync(invoiceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<InvoiceDTO>(invoice);
     }
 
     public async Task AddInvoiceAsync(InvoiceDTO invoiceDto)
     {
         var invoice = this.mapper.Map<Invoice>(invoiceDto);
-        await this.invoiceRepository.AddInvoiceAsync(invoice).ConfigureAwait(true);
+        await this.invoiceRepository.AddInvoiceAsync(invoice).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateInvoiceAsync(InvoiceDTO invoiceDto)
     {
         var invoice = this.mapper.Map<Invoice>(invoiceDto);
-        await this.invoiceRepository.UpdateInvoiceAsync(invoice).ConfigureAwait(true);
+        await this.invoiceRepository.UpdateInvoiceAsync(invoice).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteInvoiceByIdAsync(int invoiceId)
     {
-        await this.invoiceRepository.DeleteInvoiceByIdAsync(invoiceId).ConfigureAwait(true);
+        await this.invoiceRepository.DeleteInvoiceByIdAsync(invoiceId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }

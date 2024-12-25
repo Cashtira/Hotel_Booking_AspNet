@@ -13,30 +13,30 @@ public class RoomTypeService(IRoomTypeRepository roomTypeRepository, IMapper map
 
     public async Task<List<RoomTypeDTO>> GetAllRoomTypesAsync()
     {
-        var roomTypes = await this.roomTypeRepository.GetAllRoomTypesAsync().ConfigureAwait(true);
+        var roomTypes = await this.roomTypeRepository.GetAllRoomTypesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<RoomTypeDTO>>(roomTypes);
     }
 
     public async Task<RoomTypeDTO?> GetRoomTypeByIdAsync(int roomTypeId)
     {
-        var roomType = await this.roomTypeRepository.GetRoomTypeByIdAsync(roomTypeId).ConfigureAwait(true);
+        var roomType = await this.roomTypeRepository.GetRoomTypeByIdAsync(roomTypeId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<RoomTypeDTO>(roomType);
     }
 
     public async Task AddRoomTypeAsync(RoomTypeDTO roomTypeDto)
     {
         var roomType = this.mapper.Map<RoomType>(roomTypeDto);
-        await this.roomTypeRepository.AddRoomTypeAsync(roomType).ConfigureAwait(true);
+        await this.roomTypeRepository.AddRoomTypeAsync(roomType).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateRoomTypeAsync(RoomTypeDTO roomTypeDto)
     {
         var roomType = this.mapper.Map<RoomType>(roomTypeDto);
-        await this.roomTypeRepository.UpdateRoomTypeAsync(roomType).ConfigureAwait(true);
+        await this.roomTypeRepository.UpdateRoomTypeAsync(roomType).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteRoomTypeByIdAsync(int roomTypeId)
     {
-        await this.roomTypeRepository.DeleteRoomTypeByIdAsync(roomTypeId).ConfigureAwait(true);
+        await this.roomTypeRepository.DeleteRoomTypeByIdAsync(roomTypeId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }

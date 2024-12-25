@@ -13,30 +13,30 @@ public class UserService(IUserRepository userRepository, IMapper mapper) : IUser
 
     public async Task<List<UserDTO>> GetAllUsersAsync()
     {
-        var users = await this.userRepository.GetAllUsersAsync().ConfigureAwait(true);
+        var users = await this.userRepository.GetAllUsersAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<UserDTO>>(users);
     }
 
     public async Task<UserDTO?> GetUserByIdAsync(int userId)
     {
-        var user = await this.userRepository.GetUserByIdAsync(userId).ConfigureAwait(true);
+        var user = await this.userRepository.GetUserByIdAsync(userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<UserDTO>(user);
     }
 
     public async Task AddUserAsync(UserDTO userDto)
     {
         var user = this.mapper.Map<User>(userDto);
-        await this.userRepository.AddUserAsync(user).ConfigureAwait(true);
+        await this.userRepository.AddUserAsync(user).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateUserAsync(UserDTO userDto)
     {
         var user = this.mapper.Map<User>(userDto);
-        await this.userRepository.UpdateUserAsync(user).ConfigureAwait(true);
+        await this.userRepository.UpdateUserAsync(user).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteUserByIdAsync(int userId)
     {
-        await this.userRepository.DeleteUserByIdAsync(userId).ConfigureAwait(true);
+        await this.userRepository.DeleteUserByIdAsync(userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }

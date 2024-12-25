@@ -13,30 +13,30 @@ public class FeedbackService(IFeedbackRepository feedbackRepository, IMapper map
 
     public async Task<List<FeedbackDTO>> GetAllFeedbacksAsync()
     {
-        var feedbacks = await this.feedbackRepository.GetAllFeedbacksAsync().ConfigureAwait(true);
+        var feedbacks = await this.feedbackRepository.GetAllFeedbacksAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<FeedbackDTO>>(feedbacks);
     }
 
     public async Task<FeedbackDTO?> GetFeedbackByIdAsync(int feedbackId)
     {
-        var feedback = await this.feedbackRepository.GetFeedbackByIdAsync(feedbackId).ConfigureAwait(true);
+        var feedback = await this.feedbackRepository.GetFeedbackByIdAsync(feedbackId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<FeedbackDTO>(feedback);
     }
 
     public async Task AddFeedbackAsync(FeedbackDTO feedbackDto)
     {
         var feedback = this.mapper.Map<Feedback>(feedbackDto);
-        await this.feedbackRepository.AddFeedbackAsync(feedback).ConfigureAwait(true);
+        await this.feedbackRepository.AddFeedbackAsync(feedback).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateFeedbackAsync(FeedbackDTO feedbackDto)
     {
         var feedback = this.mapper.Map<Feedback>(feedbackDto);
-        await this.feedbackRepository.UpdateFeedbackAsync(feedback).ConfigureAwait(true);
+        await this.feedbackRepository.UpdateFeedbackAsync(feedback).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteFeedbackByIdAsync(int feedbackId)
     {
-        await this.feedbackRepository.DeleteFeedbackByIdAsync(feedbackId).ConfigureAwait(true);
+        await this.feedbackRepository.DeleteFeedbackByIdAsync(feedbackId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }

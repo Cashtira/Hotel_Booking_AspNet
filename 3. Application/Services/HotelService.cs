@@ -13,30 +13,30 @@ public class HotelService(IHotelRepository hotelRepository, IMapper mapper) : IH
 
     public async Task<List<HotelDTO>> GetAllHotelsAsync()
     {
-        var hotels = await this.hotelRepository.GetAllHotelsAsync().ConfigureAwait(true);
+        var hotels = await this.hotelRepository.GetAllHotelsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<HotelDTO>>(hotels);
     }
 
     public async Task<HotelDTO?> GetHotelByIdAsync(int hotelId)
     {
-        var hotel = await this.hotelRepository.GetHotelByIdAsync(hotelId).ConfigureAwait(true);
+        var hotel = await this.hotelRepository.GetHotelByIdAsync(hotelId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<HotelDTO>(hotel);
     }
 
     public async Task AddHotelAsync(HotelDTO hotelDto)
     {
         var hotel = this.mapper.Map<Hotel>(hotelDto);
-        await this.hotelRepository.AddHotelAsync(hotel).ConfigureAwait(true);
+        await this.hotelRepository.AddHotelAsync(hotel).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateHotelAsync(HotelDTO hotelDto)
     {
         var hotel = this.mapper.Map<Hotel>(hotelDto);
-        await this.hotelRepository.UpdateHotelAsync(hotel).ConfigureAwait(true);
+        await this.hotelRepository.UpdateHotelAsync(hotel).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteHotelByIdAsync(int hotelId)
     {
-        await this.hotelRepository.DeleteHotelByIdAsync(hotelId).ConfigureAwait(true);
+        await this.hotelRepository.DeleteHotelByIdAsync(hotelId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }

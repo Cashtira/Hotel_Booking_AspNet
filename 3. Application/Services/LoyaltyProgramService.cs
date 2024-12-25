@@ -13,30 +13,30 @@ public class LoyaltyProgramService(ILoyaltyProgramRepository loyaltyProgramRepos
 
     public async Task<List<LoyaltyProgramDTO>> GetAllLoyaltyProgramsAsync()
     {
-        var loyaltyPrograms = await this.loyaltyProgramRepository.GetAllLoyaltyProgramsAsync().ConfigureAwait(true);
+        var loyaltyPrograms = await this.loyaltyProgramRepository.GetAllLoyaltyProgramsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<List<LoyaltyProgramDTO>>(loyaltyPrograms);
     }
 
     public async Task<LoyaltyProgramDTO?> GetLoyaltyProgramByIdAsync(int loyaltyProgramId)
     {
-        var loyaltyProgram = await this.loyaltyProgramRepository.GetLoyaltyProgramByIdAsync(loyaltyProgramId).ConfigureAwait(true);
+        var loyaltyProgram = await this.loyaltyProgramRepository.GetLoyaltyProgramByIdAsync(loyaltyProgramId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return this.mapper.Map<LoyaltyProgramDTO>(loyaltyProgram);
     }
 
     public async Task AddLoyaltyProgramAsync(LoyaltyProgramDTO loyaltyProgramDto)
     {
         var loyaltyProgram = this.mapper.Map<LoyaltyProgram>(loyaltyProgramDto);
-        await this.loyaltyProgramRepository.AddLoyaltyProgramAsync(loyaltyProgram).ConfigureAwait(true);
+        await this.loyaltyProgramRepository.AddLoyaltyProgramAsync(loyaltyProgram).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task UpdateLoyaltyProgramAsync(LoyaltyProgramDTO loyaltyProgramDto)
     {
         var loyaltyProgram = this.mapper.Map<LoyaltyProgram>(loyaltyProgramDto);
-        await this.loyaltyProgramRepository.UpdateLoyaltyProgramAsync(loyaltyProgram).ConfigureAwait(true);
+        await this.loyaltyProgramRepository.UpdateLoyaltyProgramAsync(loyaltyProgram).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task DeleteLoyaltyProgramByIdAsync(int loyaltyProgramId)
     {
-        await this.loyaltyProgramRepository.DeleteLoyaltyProgramByIdAsync(loyaltyProgramId).ConfigureAwait(true);
+        await this.loyaltyProgramRepository.DeleteLoyaltyProgramByIdAsync(loyaltyProgramId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 }
