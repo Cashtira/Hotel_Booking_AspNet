@@ -37,6 +37,6 @@ public sealed class ApplicationDbContext : IdentityDbContext<User, IdentityRole<
 
     public DbSet<UserBooking> UserBookings { get; set; } = null!;
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-COFIP2B;Initial Catalog=HotelTest;Integrated Security=True;Encrypt=True;Trust Server Certificate=True;Command Timeout=300");
+    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-COFIP2B;Initial Catalog=HotelTest;Integrated Security=True;Encrypt=True;Trust Server Certificate=True;Command Timeout=300");*/
 }

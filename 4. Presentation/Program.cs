@@ -15,7 +15,7 @@ builder.Services.AddIdentity<User, IdentityRole<int>>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MainConnection"))
+    options.UseSqlServer(builder.Configuration.GetConnectionString("KhiemConnection"))
 );
 
 // Đăng ký các dịch vụ
