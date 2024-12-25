@@ -24,5 +24,5 @@ public sealed class RoomBooking
 
     [ForeignKey(nameof(RoomId))]
     [InverseProperty(nameof(Booking.RoomBookings))]
-    public Booking Room { get; set; } = null!;
+    public Room Room { get; set; } = null!;
 }
