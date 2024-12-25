@@ -1,11 +1,9 @@
+namespace _2._Domain.Enums;
 
-namespace _2._Domain.Enums
+public enum RoomStatus
 {
-    public enum RoomStatus
-    {
-        Available,
-        Occupied,
-        Maintenance,
-        Cleaning
-    }
+    Available,
+    Occupied,
+    Maintenance,
+    Cleaning,
 }

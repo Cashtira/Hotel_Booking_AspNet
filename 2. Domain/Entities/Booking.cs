@@ -1,30 +1,37 @@
-﻿using _2._Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace _2._Domain.Entities;
 
-namespace _2._Domain.Entities
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using _2._Domain.Enums;
+
+[Table(nameof(Booking))]
+public sealed class Booking
 {
-    public class Booking
-    {
-        public int BookingId { get; set; }
-        public DateTime BookingTime { get; set; }
-        public required DateTime CheckinDate { get; set; }
-        public required DateTime CheckoutDate { get; set; }
-        public BookingStatus Status { get; set; } = BookingStatus.Pending;
-        public required int RoomId { get; set; }
-        public required int UserId { get; set; }
+    [Key]
+    public int BookingId { get; set; }
 
+    public required DateTime BookingTime { get; set; }
 
+    public required int UserId { get; set; }
 
-        //mock
-        public Room Room { get; set; } = null!;
-        public User User { get; set; } = null!;
-        public required ICollection<Invoice> Invoices { get; set; } = [];
-        public required ICollection<RoomBooking> RoomBookings { get; set; } = [];
-        public required ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
-        public required ICollection<UserBooking> UserBookings { get; set;} = [];
-    }
+    public required DateTime CheckinDate { get; set; }
+
+    public required DateTime CheckoutDate { get; set; }
+
+    public BookingStatus Status { get; set; } = BookingStatus.Pending;
+
+    [InverseProperty(nameof(User.Bookings))]
+    public User User { get; set; } = null!;
+
+    [InverseProperty(nameof(RoomBooking.Booking))]
+    public ICollection<RoomBooking> RoomBookings { get; set; } = [];
+
+    [InverseProperty(nameof(ServiceBooking.Booking))]
+    public ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
+
+    [InverseProperty(nameof(UserBooking.Booking))]
+    public ICollection<UserBooking> UserBookings { get; set; } = [];
+
+    [InverseProperty(nameof(Invoice.Booking))]
+    public ICollection<Invoice> Invoices { get; set; } = [];
 }

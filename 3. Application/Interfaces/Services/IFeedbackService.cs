@@ -12,5 +12,5 @@ public interface IFeedbackService
 
     Task UpdateFeedbackAsync(FeedbackDTO feedbackDto);
 
-    Task DeleteFeedbackAsync(int feedbackId);
+    Task DeleteFeedbackByIdAsync(int feedbackId);
 }

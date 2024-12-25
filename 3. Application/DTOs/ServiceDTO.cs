@@ -1,6 +1,6 @@
 ﻿namespace _3._Application.DTOs;
 
-public class ServiceDTO
+public sealed class ServiceDTO
 {
     public int ServiceId { get; set; }
 
@@ -10,5 +10,5 @@ public class ServiceDTO
 
     public required string Description { get; set; }
 
-    public required IList<ServiceBookingDTO> ServiceBookingDTOs { get; set; } = [];
+    public IList<ServiceBookingDTO> ServiceBookingDTOs { get; set; } = [];
 }

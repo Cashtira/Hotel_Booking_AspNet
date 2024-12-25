@@ -1,19 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace _2._Domain.Entities;
 
-namespace _2._Domain.Entities
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+[PrimaryKey(nameof(BookingId), nameof(ServiceId))]
+[Table(nameof(ServiceBooking))]
+public sealed class ServiceBooking
 {
-    public class ServiceBooking
-    {
-        public int BookingId { get; set; }
-        public int ServiceId { get; set; }
-        public decimal Price { get; set; }
+    [Key]
+    public required int BookingId { get; set; }
 
-        public Booking Booking { get; set; } = null!;
-        public Service Service { get; set; } = null!;
-    }
+    [Key]
+    public required int ServiceId { get; set; }
+
+    [Range(0, double.MaxValue)]
+    [Precision(18, 2)]
+    public required decimal Price { get; set; }
+
+    [ForeignKey(nameof(BookingId))]
+    [InverseProperty(nameof(Booking.ServiceBookings))]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
+    public Booking Booking { get; set; } = null!;
+
+    [ForeignKey(nameof(ServiceId))]
+    [InverseProperty(nameof(Service.ServiceBookings))]
+    [DeleteBehavior(DeleteBehavior.Restrict)]
+    public Service Service { get; set; } = null!;
 }
- 

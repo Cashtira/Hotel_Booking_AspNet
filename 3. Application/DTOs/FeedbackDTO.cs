@@ -1,14 +1,18 @@
 ﻿namespace _3._Application.DTOs;
 
-public class FeedbackDTO
+public sealed class FeedbackDTO
 {
     public int FeedbackId { get; set; }
 
-    public required int GuestId { get; set; }
+    public required int UserId { get; set; }
 
     public required int HotelId { get; set; }
 
     public required float Rating { get; set; }
 
-    public required string Comment { get; set; }
+    public string Comment { get; set; } = string.Empty;
+
+    public UserDTO? User { get; set; } = null;
+
+    public HotelDTO? Hotel { get; set; } = null;
 }

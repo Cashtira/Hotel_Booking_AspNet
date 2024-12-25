@@ -1,6 +1,6 @@
 ﻿namespace _3._Application.DTOs;
 
-public class RoomDTO
+public sealed class RoomDTO
 {
     public int RoomId { get; set; }
 
@@ -8,9 +8,13 @@ public class RoomDTO
 
     public required int HotelId { get; set; }
 
-    public required int TypeId { get; set; }
+    public required int RoomTypeId { get; set; }
 
     public required int Status { get; set; }
+
+    public HotelDTO? Hotel { get; set; } = null;
+
+    public RoomTypeDTO? RoomType { get; set; } = null;
 
     public required IList<BookingDTO> BookingDTOs { get; set; } = [];
 

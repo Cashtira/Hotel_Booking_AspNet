@@ -1,18 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace _2._Domain.Entities;
 
-namespace _2._Domain.Entities
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+[Table(nameof(Service))]
+public class Service
 {
-    public class Service
-    {
-        public int ServiceId { get; set; }
-        public required string Name { get; set; }
-        public required string Description { get; set; }
-        public required decimal Price { get; set; }
+    [Key]
+    public int ServiceId { get; set; }
 
-        public ICollection<ServiceBooking> ServiceBookings { get; set; } = new List<ServiceBooking>();
-    }
+    [MaxLength(50)]
+    public required string Name { get; set; }
+
+    [Range(0, double.MaxValue)]
+    [Precision(18, 2)]
+    public required decimal Price { get; set; }
+
+    [MaxLength(200)]
+    public string Description { get; set; } = string.Empty;
+
+    [InverseProperty(nameof(ServiceBooking.Service))]
+    public ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
 }

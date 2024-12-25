@@ -12,5 +12,5 @@ public interface IMaintenanceService
 
     Task UpdateMaintenanceAsync(MaintenanceDTO loyaltyProgramDto);
 
-    Task DeleteMaintenanceAsync(int loyaltyProgramId);
+    Task DeleteMaintenanceByIdAsync(int loyaltyProgramId);
 }

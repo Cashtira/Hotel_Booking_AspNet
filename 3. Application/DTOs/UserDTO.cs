@@ -2,15 +2,19 @@
 
 public class UserDTO
 {
+    // TODO: Khóa chính là gì?
+    // Có role hay không?
     public int UserId { get; set; }
 
-    public required int RoleId { get; set; }
+    public required string UserName { get; set; }
 
-    public required IList<UserBookingDTO> GuestBookingDTOs { get; set; } = [];
+    public required IList<string> Roles { get; set; }
 
-    public required IList<FeedbackDTO> FeedbackDTOs { get; set; } = [];
+    public IList<UserBookingDTO> GuestBookingDTOs { get; set; } = [];
 
-    public required IList<HousekeepingDTO> HousekeepingDTOs { get; set; } = [];
+    public IList<FeedbackDTO> FeedbackDTOs { get; set; } = [];
 
-    public required IList<LoyaltyProgramDTO> LoyaltyProgramDTOs { get; set; } = [];
+    public IList<HousekeepingDTO> HousekeepingDTOs { get; set; } = [];
+
+    public IList<LoyaltyProgramDTO> LoyaltyProgramDTOs { get; set; } = [];
 }

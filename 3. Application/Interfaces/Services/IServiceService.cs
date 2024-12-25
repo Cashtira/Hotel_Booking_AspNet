@@ -12,5 +12,5 @@ public interface IServiceService
 
     Task UpdateServiceAsync(ServiceDTO serviceDto);
 
-    Task DeleteServiceAsync(int serviceId);
+    Task DeleteServiceByIdAsync(int serviceId);
 }

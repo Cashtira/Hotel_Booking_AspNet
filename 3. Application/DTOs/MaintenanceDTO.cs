@@ -1,6 +1,6 @@
 ﻿namespace _3._Application.DTOs;
 
-public class MaintenanceDTO
+public sealed class MaintenanceDTO
 {
     public int MaintenanceId { get; set; }
 
@@ -11,4 +11,6 @@ public class MaintenanceDTO
     public required DateTimeOffset ReportTime { get; set; }
 
     public DateTimeOffset? RepairDate { get; set; }
+
+    public RoomDTO? Room { get; set; } = null;
 }

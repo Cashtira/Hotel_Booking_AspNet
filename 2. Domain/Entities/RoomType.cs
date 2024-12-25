@@ -1,20 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace _2._Domain.Entities;
 
-namespace _2._Domain.Entities
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+[Table(nameof(RoomType))]
+public class RoomType
 {
-    public class RoomType
-    {
-        public int RoomTypeId { get; set; }
-        public required string Name { get; set; }
-        public required int Capacity { get; set; }
-        public required decimal PricePerNight { get; set; }
-        public decimal PricePerHour { get; set; }
-        public string Description { get; set; } = string.Empty;
+    [Key]
+    public int RoomTypeId { get; set; }
 
-        public ICollection<Room> Rooms { get; set; } = new List<Room>();
-    }
+    [StringLength(50)]
+    public required string Name { get; set; }
+
+    [Range(0, int.MaxValue)]
+    public required int Capacity { get; set; }
+
+    [Range(0, double.MaxValue)]
+    [Precision(18, 2)]
+    public required decimal PricePerNight { get; set; }
+
+    [Range(0, double.MaxValue)]
+    [Precision(18, 2)]
+    public required decimal PricePerHour { get; set; }
+
+    [StringLength(200)]
+    public string Description { get; set; } = string.Empty;
+
+    [InverseProperty(nameof(Room.RoomType))]
+    public ICollection<Room> Rooms { get; set; } = [];
 }

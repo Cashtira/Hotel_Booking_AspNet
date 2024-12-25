@@ -1,12 +1,14 @@
 ﻿namespace _3._Application.DTOs;
 
-public class LoyaltyProgramDTO
+public sealed class LoyaltyProgramDTO
 {
-    public int ProgramId { get; set; }
+    public int LoyaltyProgramId { get; set; }
 
     public required int GuestId { get; set; }
 
     public required int Points { get; set; }
 
     public required int Tier { get; set; }
+
+    public UserDTO? User { get; set; } = null;
 }

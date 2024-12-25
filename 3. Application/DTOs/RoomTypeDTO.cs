@@ -1,6 +1,6 @@
 ﻿namespace _3._Application.DTOs;
 
-public class RoomTypeDTO
+public sealed class RoomTypeDTO
 {
     public int RoomTypeId { get; set; }
 
@@ -12,7 +12,7 @@ public class RoomTypeDTO
 
     public required decimal PricePerHour { get; set; }
 
-    public required string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
-    public required IList<RoomDTO> RoomDTOs { get; set; } = [];
+    public IList<RoomDTO> RoomDTOs { get; set; } = [];
 }
