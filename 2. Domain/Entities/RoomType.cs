@@ -25,8 +25,8 @@ public class RoomType
     public required decimal PricePerHour { get; set; }
 
     [StringLength(200)]
-    public required string Description { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 
     [InverseProperty(nameof(Room.RoomType))]
-    public required ICollection<Room> Rooms { get; set; } = [];
+    public ICollection<Room> Rooms { get; set; } = [];
 }

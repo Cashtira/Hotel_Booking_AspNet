@@ -20,9 +20,9 @@ public sealed class ServiceBooking
 
     [ForeignKey(nameof(BookingId))]
     [InverseProperty(nameof(Booking.ServiceBookings))]
-    public required Booking Booking { get; set; } = null!;
+    public Booking Booking { get; set; } = null!;
 
     [ForeignKey(nameof(ServiceId))]
     [InverseProperty(nameof(Service.ServiceBookings))]
-    public required Service Service { get; set; } = null!;
+    public Service Service { get; set; } = null!;
 }

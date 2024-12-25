@@ -14,16 +14,16 @@ public sealed class Feedback
     public required int HotelId { get; set; }
 
     [Range(1, 5)]
-    public required int Rating { get; set; }
+    public int Rating { get; set; } = 5;
 
     [StringLength(200)]
-    public required string Comment { get; set; }
+    public string Comment { get; set; } = string.Empty;
 
     [ForeignKey(nameof(UserId))]
     [InverseProperty(nameof(User.Feedbacks))]
-    public required User User { get; set; } = null!;
+    public User User { get; set; } = null!;
 
     [ForeignKey(nameof(HotelId))]
     [InverseProperty(nameof(Hotel.Feedbacks))]
-    public required Hotel Hotel { get; set; } = null!;
+    public Hotel Hotel { get; set; } = null!;
 }

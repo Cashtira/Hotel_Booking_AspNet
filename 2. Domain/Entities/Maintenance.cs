@@ -16,9 +16,9 @@ public sealed class Maintenance
 
     public required DateTimeOffset ReportTime { get; set; }
 
-    public required DateTimeOffset? RepairDate { get; set; } = null;
+    public DateTimeOffset? RepairDate { get; set; } = null;
 
     [ForeignKey(nameof(RoomId))]
     [InverseProperty(nameof(Room.Maintenances))]
-    public required Room Room { get; set; } = null!;
+    public Room Room { get; set; } = null!;
 }

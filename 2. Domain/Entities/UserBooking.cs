@@ -16,9 +16,9 @@ public class UserBooking
 
     [ForeignKey(nameof(UserId))]
     [InverseProperty(nameof(User.UserBookings))]
-    public required User User { get; set; } = null!;
+    public User User { get; set; } = null!;
 
     [ForeignKey(nameof(BookingId))]
     [InverseProperty(nameof(Booking.UserBookings))]
-    public required Booking Booking { get; set; } = null!;
+    public Booking Booking { get; set; } = null!;
 }

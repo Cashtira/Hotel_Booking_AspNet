@@ -17,22 +17,22 @@ public sealed class Room
 
     public required int RoomTypeId { get; set; }
 
-    public required RoomStatus Status { get; set; } = RoomStatus.Available;
+    public RoomStatus Status { get; set; } = RoomStatus.Available;
 
     [ForeignKey(nameof(HotelId))]
     [InverseProperty(nameof(Hotel.Rooms))]
-    public required Hotel Hotel { get; set; } = null!;
+    public Hotel Hotel { get; set; } = null!;
 
     [ForeignKey(nameof(RoomTypeId))]
     [InverseProperty(nameof(RoomType.Rooms))]
-    public required RoomType RoomType { get; set; } = null!;
+    public RoomType RoomType { get; set; } = null!;
 
     [InverseProperty(nameof(Housekeeping.Room))]
-    public required ICollection<Housekeeping> Housekeepings { get; set; } = [];
+    public ICollection<Housekeeping> Housekeepings { get; set; } = [];
 
     [InverseProperty(nameof(Maintenance.Room))]
-    public required ICollection<Maintenance> Maintenances { get; set; } = [];
+    public ICollection<Maintenance> Maintenances { get; set; } = [];
 
     [InverseProperty(nameof(RoomBooking.Room))]
-    public required ICollection<RoomBooking> RoomBookings { get; set; } = [];
+    public ICollection<RoomBooking> RoomBookings { get; set; } = [];
 }

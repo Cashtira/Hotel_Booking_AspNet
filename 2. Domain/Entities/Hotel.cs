@@ -25,15 +25,15 @@ public sealed class Hotel
     public required string Email { get; set; }
 
     [Range(1.0F, 5.0F)]
-    public required float? Rating { get; set; } = null;
+    public float? Rating { get; set; } = null;
 
-    public required TimeOnly CheckinTime { get; set; } = new TimeOnly(14, 0, 0);
+    public TimeOnly CheckinTime { get; set; } = new TimeOnly(14, 0, 0);
 
-    public required TimeOnly CheckoutTime { get; set; } = new TimeOnly(12, 0, 0);
+    public TimeOnly CheckoutTime { get; set; } = new TimeOnly(12, 0, 0);
 
     [InverseProperty(nameof(Feedback.Hotel))]
-    public required ICollection<Feedback> Feedbacks { get; set; } = [];
+    public ICollection<Feedback> Feedbacks { get; set; } = [];
 
     [InverseProperty(nameof(Room.Hotel))]
-    public required ICollection<Room> Rooms { get; set; } = [];
+    public ICollection<Room> Rooms { get; set; } = [];
 }

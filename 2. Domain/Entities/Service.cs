@@ -18,8 +18,8 @@ public class Service
     public required decimal Price { get; set; }
 
     [MaxLength(200)]
-    public required string Description { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 
     [InverseProperty(nameof(ServiceBooking.Service))]
-    public required ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
+    public ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
 }

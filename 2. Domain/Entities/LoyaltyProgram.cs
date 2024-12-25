@@ -17,5 +17,5 @@ public sealed class LoyaltyProgram
 
     [ForeignKey(nameof(UserId))]
     [InverseProperty(nameof(User.LoyaltyPrograms))]
-    public required User User { get; set; } = null!;
+    public User User { get; set; } = null!;
 }

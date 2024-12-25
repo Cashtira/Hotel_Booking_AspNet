@@ -16,13 +16,13 @@ public sealed class Housekeeping
     [StringLength(200)]
     public required string IssueDescription { get; set; }
 
-    public required DateTimeOffset? CleanTime { get; set; } = null;
+    public DateTimeOffset? CleanTime { get; set; } = null;
 
     [ForeignKey(nameof(RoomId))]
     [InverseProperty(nameof(Room.Housekeepings))]
-    public required Room Room { get; set; } = null!;
+    public Room Room { get; set; } = null!;
 
     [ForeignKey(nameof(UserId))]
     [InverseProperty(nameof(User.Housekeepings))]
-    public required User User { get; set; } = null!;
+    public User User { get; set; } = null!;
 }

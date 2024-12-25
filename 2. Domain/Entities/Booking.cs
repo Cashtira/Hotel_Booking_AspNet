@@ -18,20 +18,20 @@ public sealed class Booking
 
     public required DateTime CheckoutDate { get; set; }
 
-    public required BookingStatus Status { get; set; } = BookingStatus.Pending;
+    public BookingStatus Status { get; set; } = BookingStatus.Pending;
 
     [InverseProperty(nameof(User.Bookings))]
-    public required User User { get; set; } = null!;
+    public User User { get; set; } = null!;
 
     [InverseProperty(nameof(RoomBooking.Booking))]
-    public required ICollection<RoomBooking> RoomBookings { get; set; } = [];
+    public ICollection<RoomBooking> RoomBookings { get; set; } = [];
 
     [InverseProperty(nameof(ServiceBooking.Booking))]
-    public required ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
+    public ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
 
     [InverseProperty(nameof(UserBooking.Booking))]
-    public required ICollection<UserBooking> UserBookings { get; set; } = [];
+    public ICollection<UserBooking> UserBookings { get; set; } = [];
 
     [InverseProperty(nameof(Invoice.Booking))]
-    public required ICollection<Invoice> Invoices { get; set; } = [];
+    public ICollection<Invoice> Invoices { get; set; } = [];
 }

@@ -14,9 +14,9 @@ public sealed class Invoice
 
     public required int BookingId { get; set; }
 
-    public required PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
+    public PaymentMethod PaymentMethod { get; set; }
 
     [ForeignKey(nameof(BookingId))]
     [InverseProperty(nameof(Booking.Invoices))]
-    public required Booking Booking { get; set; } = null!;
+    public Booking Booking { get; set; } = null!;
 }
