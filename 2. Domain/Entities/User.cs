@@ -7,15 +7,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 [Table(nameof(User))]
 public sealed class User : IdentityUser<int>
 {
-    [Key]
-    public int UserId { get; set; }
-
-    [MinLength(5)]
-    public required string Username { get; set; }
-
-    public required string Password { get; set; }
-
-
     [MinLength(5)]
     [StringLength(50)]
     public required string FullName { get; set; }

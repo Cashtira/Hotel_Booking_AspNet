@@ -17,7 +17,7 @@ public class UserRepository(ApplicationDbContext dbContext) : IUserRepository
 
     public async Task<User?> GetUserByIdAsync(int userId)
     {
-        return await this.dbContext.Users.FirstOrDefaultAsync(e => e.UserId == userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        return await this.dbContext.Users.FirstOrDefaultAsync(e => e.Id == userId).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
     }
 
     public async Task AddUserAsync(User user)

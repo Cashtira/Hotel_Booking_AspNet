@@ -6,11 +6,9 @@ public class UserDTO
     // Có role hay không?
     public int UserId { get; set; }
 
-    public required string Username { get; set; }
+    public required string UserName { get; set; }
 
-    public required string Password { get; set; }
-
-    public required int RoleId { get; set; }
+    public required IList<string> Roles { get; set; }
 
     public IList<UserBookingDTO> GuestBookingDTOs { get; set; } = [];
 

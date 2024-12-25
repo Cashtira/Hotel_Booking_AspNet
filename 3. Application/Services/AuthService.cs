@@ -20,8 +20,7 @@ public sealed class AuthService(UserManager<User> userManager, SignInManager<Use
     {
         var user = new User
         {
-            Username = registerDto.Username,
-            Password = registerDto.Password,
+            UserName = registerDto.Username,
             Email = registerDto.Email,
             FullName = registerDto.FullName,
         };
