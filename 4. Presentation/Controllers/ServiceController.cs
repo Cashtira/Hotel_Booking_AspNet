@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class ServiceController(IServiceService serviceService) : Controll
     private readonly IServiceService serviceService = serviceService;
 
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllServicesAsync()
     {
         var services = await this.serviceService.GetAllServicesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -18,6 +21,8 @@ public sealed class ServiceController(IServiceService serviceService) : Controll
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetServiceByIdAsync(int id)
     {
         var service = await this.serviceService.GetServiceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -25,6 +30,8 @@ public sealed class ServiceController(IServiceService serviceService) : Controll
     }
 
     [HttpPost]
+    [AllowAnonymous]
+
     public async Task<IActionResult> AddServiceAsync([FromBody] ServiceDTO serviceDto)
     {
         if ((!ModelState.IsValid) || (serviceDto == null))
@@ -37,6 +44,8 @@ public sealed class ServiceController(IServiceService serviceService) : Controll
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateServiceAsync(int id, [FromBody] ServiceDTO serviceDto)
     {
         if (serviceDto == null)

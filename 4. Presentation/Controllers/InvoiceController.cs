@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class InvoiceController(IInvoiceService invoiceService) : Controll
     private readonly IInvoiceService invoiceService = invoiceService;
 
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllInvoicesAsync()
     {
         var invoices = await this.invoiceService.GetAllInvoicesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -18,6 +21,8 @@ public sealed class InvoiceController(IInvoiceService invoiceService) : Controll
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetInvoiceByIdAsync(int id)
     {
         var invoice = await this.invoiceService.GetInvoiceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -25,6 +30,8 @@ public sealed class InvoiceController(IInvoiceService invoiceService) : Controll
     }
 
     [HttpPost]
+    [AllowAnonymous]
+
     public async Task<IActionResult> AddInvoiceAsync([FromBody] InvoiceDTO invoiceDto)
     {
         if ((!ModelState.IsValid) || (invoiceDto == null))
@@ -37,6 +44,8 @@ public sealed class InvoiceController(IInvoiceService invoiceService) : Controll
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateInvoiceAsync(int id, [FromBody] InvoiceDTO invoiceDto)
     {
         if (invoiceDto == null)

@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class FeedbackController(IFeedbackService feedbackService) : Contr
     private readonly IFeedbackService feedbackService = feedbackService;
 
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllFeedbacksAsync()
     {
         var feedbacks = await this.feedbackService.GetAllFeedbacksAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -18,6 +21,8 @@ public sealed class FeedbackController(IFeedbackService feedbackService) : Contr
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetFeedbackByIdAsync(int id)
     {
         var feedback = await this.feedbackService.GetFeedbackByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -25,6 +30,8 @@ public sealed class FeedbackController(IFeedbackService feedbackService) : Contr
     }
 
     [HttpPost]
+    [AllowAnonymous]
+
     public async Task<IActionResult> AddFeedbackAsync([FromBody] FeedbackDTO feedbackDto)
     {
         if ((!ModelState.IsValid) || (feedbackDto == null))
@@ -37,6 +44,8 @@ public sealed class FeedbackController(IFeedbackService feedbackService) : Contr
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateFeedbackAsync(int id, [FromBody] FeedbackDTO feedbackDto)
     {
         if (feedbackDto == null)

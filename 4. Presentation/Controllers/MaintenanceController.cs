@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class MaintenanceController(IMaintenanceService maintenanceService
     private readonly IMaintenanceService maintenanceService = maintenanceService;
 
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllMaintenancesAsync()
     {
         var maintenances = await this.maintenanceService.GetAllMaintenancesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -18,6 +21,8 @@ public sealed class MaintenanceController(IMaintenanceService maintenanceService
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetMaintenanceByIdAsync(int id)
     {
         var maintenance = await this.maintenanceService.GetMaintenanceByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -25,6 +30,8 @@ public sealed class MaintenanceController(IMaintenanceService maintenanceService
     }
 
     [HttpPost]
+    [AllowAnonymous]
+
     public async Task<IActionResult> AddMaintenanceAsync([FromBody] MaintenanceDTO maintenanceDto)
     {
         if ((!ModelState.IsValid) || (maintenanceDto == null))
@@ -37,6 +44,8 @@ public sealed class MaintenanceController(IMaintenanceService maintenanceService
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateMaintenanceAsync(int id, [FromBody] MaintenanceDTO maintenanceDto)
     {
         if (maintenanceDto == null)

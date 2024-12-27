@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class RoomTypeController(IRoomTypeService roomTypeService) : Contr
     private readonly IRoomTypeService roomTypeService = roomTypeService;
 
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllRoomTypesAsync()
     {
         var roomTypes = await this.roomTypeService.GetAllRoomTypesAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -18,6 +21,8 @@ public sealed class RoomTypeController(IRoomTypeService roomTypeService) : Contr
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetRoomTypeByIdAsync(int id)
     {
         var roomType = await this.roomTypeService.GetRoomTypeByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -25,6 +30,8 @@ public sealed class RoomTypeController(IRoomTypeService roomTypeService) : Contr
     }
 
     [HttpPost]
+    [AllowAnonymous]
+
     public async Task<IActionResult> AddRoomTypeAsync([FromBody] RoomTypeDTO roomTypeDto)
     {
         if ((!ModelState.IsValid) || (roomTypeDto == null))
@@ -37,6 +44,8 @@ public sealed class RoomTypeController(IRoomTypeService roomTypeService) : Contr
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateRoomTypeAsync(int id, [FromBody] RoomTypeDTO roomTypeDto)
     {
         if (roomTypeDto == null)

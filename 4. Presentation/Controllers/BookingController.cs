@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class BookingController(IBookingService bookingService) : Controll
     private readonly IBookingService bookingService = bookingService;
 
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllBookingsAsync()
     {
         var bookings = await this.bookingService.GetAllBookingsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -18,6 +21,8 @@ public sealed class BookingController(IBookingService bookingService) : Controll
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetBookingByIdAsync(int id)
     {
         var booking = await this.bookingService.GetBookingByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -25,6 +30,8 @@ public sealed class BookingController(IBookingService bookingService) : Controll
     }
 
     [HttpPost]
+    [AllowAnonymous]
+
     public async Task<IActionResult> AddBookingAsync([FromBody] BookingDTO bookingDto)
     {
         if ((!ModelState.IsValid) || (bookingDto == null))
@@ -37,6 +44,8 @@ public sealed class BookingController(IBookingService bookingService) : Controll
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateBookingAsync(int id, [FromBody] BookingDTO bookingDto)
     {
         if (bookingDto == null)

@@ -12,7 +12,7 @@ public sealed class HotelController(IHotelService hotelService) : ControllerBase
     private readonly IHotelService hotelService = hotelService;
 
     [HttpGet]
-    [Authorize(Roles = "Admin, Manager, User")]
+    [AllowAnonymous]
 
     public async Task<IActionResult> GetAllHotelsAsync()
     {
@@ -21,13 +21,19 @@ public sealed class HotelController(IHotelService hotelService) : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<IActionResult> GetHotelByIdAsync(int id)
     {
-        var hotel = await this.hotelService.GetHotelByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return HandleResult(hotel);
+        var hotel = await this.hotelService.GetHotelByIdAsync(id);
+        if (hotel == null)
+        {
+            return NotFound();
+        }
+        return Ok(hotel);
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> AddHotelAsync([FromBody] HotelDTO hotelDto)
     {
         if ((!ModelState.IsValid) || (hotelDto == null))
@@ -35,11 +41,13 @@ public sealed class HotelController(IHotelService hotelService) : ControllerBase
             return BadRequest(ModelState);
         }
 
-        await this.hotelService.AddHotelAsync(hotelDto).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        await this.hotelService.AddHotelAsync(hotelDto);
         return CreatedAtAction(nameof(GetHotelByIdAsync), new { id = hotelDto.HotelId }, hotelDto);
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateHotelAsync(int id, [FromBody] HotelDTO hotelDto)
     {
         if (hotelDto == null)
@@ -55,6 +63,7 @@ public sealed class HotelController(IHotelService hotelService) : ControllerBase
         await this.hotelService.UpdateHotelAsync(hotelDto).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
         return NoContent();
     }
+    [Authorize(Roles = "Admin, Manager")]
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteHotelByIdAsync(int id)

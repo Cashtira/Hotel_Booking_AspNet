@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class HousekeepingController(IHousekeepingService housekeepingServ
     private readonly IHousekeepingService housekeepingService = housekeepingService;
 
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllHousekeepingsAsync()
     {
         var housekeepings = await this.housekeepingService.GetAllHousekeepingsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -18,6 +21,8 @@ public sealed class HousekeepingController(IHousekeepingService housekeepingServ
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetHousekeepingByIdAsync(int id)
     {
         var housekeeping = await this.housekeepingService.GetHousekeepingByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -25,6 +30,8 @@ public sealed class HousekeepingController(IHousekeepingService housekeepingServ
     }
 
     [HttpPost]
+    [AllowAnonymous]
+
     public async Task<IActionResult> AddHousekeepingAsync([FromBody] HousekeepingDTO housekeepingDto)
     {
         if ((!ModelState.IsValid) || (housekeepingDto == null))
@@ -37,6 +44,8 @@ public sealed class HousekeepingController(IHousekeepingService housekeepingServ
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateHousekeepingAsync(int id, [FromBody] HousekeepingDTO housekeepingDto)
     {
         if (housekeepingDto == null)

@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class LoyaltyProgramController(ILoyaltyProgramService loyaltyProgr
     private readonly ILoyaltyProgramService loyaltyProgramService = loyaltyProgramService;
 
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllLoyaltyProgramsAsync()
     {
         var loyaltyPrograms = await this.loyaltyProgramService.GetAllLoyaltyProgramsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -18,6 +21,8 @@ public sealed class LoyaltyProgramController(ILoyaltyProgramService loyaltyProgr
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> GetLoyaltyProgramByIdAsync(int id)
     {
         var loyaltyProgram = await this.loyaltyProgramService.GetLoyaltyProgramByIdAsync(id).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
@@ -25,6 +30,8 @@ public sealed class LoyaltyProgramController(ILoyaltyProgramService loyaltyProgr
     }
 
     [HttpPost]
+    [AllowAnonymous]
+
     public async Task<IActionResult> AddLoyaltyProgramAsync([FromBody] LoyaltyProgramDTO loyaltyProgramDto)
     {
         if ((!ModelState.IsValid) || (loyaltyProgramDto == null))
@@ -37,6 +44,8 @@ public sealed class LoyaltyProgramController(ILoyaltyProgramService loyaltyProgr
     }
 
     [HttpPut("{id}")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateLoyaltyProgramAsync(int id, [FromBody] LoyaltyProgramDTO loyaltyProgramDto)
     {
         if (loyaltyProgramDto == null)
