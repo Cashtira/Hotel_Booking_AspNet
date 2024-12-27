@@ -72,13 +72,24 @@ public sealed class AuthService : IAuthService
     public async Task<string> GenerateJwtTokenAsync(string userName)
     {
         var user = await _userManager.FindByNameAsync(userName);
-        var claims = new List<Claim>
+        if (user == null)
         {
-            new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.Email, user.Email),
-            // Additional claim for user role
-            new Claim(ClaimTypes.Role, "Customer") // Example of adding role to token
-        };
+            throw new KeyNotFoundException("User not found");
+        }
+
+        var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.Name, user.UserName),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.NameIdentifier, user.Id)
+    };
+
+        // Get user's roles
+        var roles = await _userManager.GetRolesAsync(user);
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

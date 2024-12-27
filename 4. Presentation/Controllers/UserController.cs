@@ -33,7 +33,7 @@ public sealed class UserController(IUserService userService) : ControllerBase
         }
 
         await this.userService.AddUserAsync(userDto).ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
-        return CreatedAtAction(nameof(GetUserByIdAsync), new { id = userDto.UserId }, userDto);
+        return CreatedAtAction(nameof(GetUserByIdAsync), new { id = userDto.Id }, userDto);
     }
 
     [HttpPut("{id}")]
@@ -44,7 +44,7 @@ public sealed class UserController(IUserService userService) : ControllerBase
             return BadRequest();
         }
 
-        if (id != userDto.UserId)
+        if (id != userDto.Id)
         {
             return BadRequest("Invalid ID.");
         }
