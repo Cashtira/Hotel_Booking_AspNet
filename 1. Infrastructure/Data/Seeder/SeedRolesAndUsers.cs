@@ -12,7 +12,7 @@ namespace _1._Infrastructure.Data.Seeder
     {
         public static async Task Initialize(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
-            var roleNames = new[] { "Admin", "Customer", "Manager" };
+            var roleNames = new[] { "Admin", "Customer", "Manager","User" };
 
             foreach (var roleName in roleNames)
             {

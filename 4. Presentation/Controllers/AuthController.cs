@@ -6,12 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AuthController(IAuthService authService) : ControllerBase
+public class AuthController : ControllerBase
 {
-    private readonly IAuthService _authService = authService;
+    private readonly IAuthService _authService;
 
-    // POST: api/Auth/register
+    // Constructor injection for IAuthService
+    public AuthController(IAuthService authService)
+    {
+        _authService = authService;
+    }
+
+    /// <summary>
+    /// Register a new user with provided credentials.
+    /// </summary>
+    /// <param name="registerDto">User registration data including username, email, and password</param>
+    /// <returns>A message indicating the success or failure of the registration process</returns>
+    /// <response code="200">Registration successful</response>
+    /// <response code="400">Invalid data or user already exists</response>
     [HttpPost("register")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
     public async Task<IActionResult> RegisterAsync([FromBody] RegisterDTO registerDto)
     {
         if (!ModelState.IsValid || registerDto == null)
@@ -30,8 +44,17 @@ public class AuthController(IAuthService authService) : ControllerBase
         }
     }
 
-    // POST: api/Auth/login
+    /// <summary>
+    /// Authenticate a user and return a JWT token.
+    /// </summary>
+    /// <param name="loginDto">User login data including username and password</param>
+    /// <returns>A JWT token if login is successful</returns>
+    /// <response code="200">Login successful and token returned</response>
+    /// <response code="400">Invalid login data</response>
+    /// <response code="401">Unauthorized access, invalid credentials</response>
     [HttpPost("login")]
+    [Produces("application/json")]
+    [Consumes("application/json")]
     public async Task<IActionResult> LoginAsync([FromBody] LoginDTO loginDto)
     {
         if (!ModelState.IsValid || loginDto == null)

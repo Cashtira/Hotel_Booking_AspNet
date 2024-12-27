@@ -37,8 +37,8 @@ public sealed class AuthService : IAuthService
         var result = await _userManager.CreateAsync(user, registerDto.Password);
         if (result.Succeeded)
         {
-            // Assign default role (e.g., "Customer")
-            await _userManager.AddToRoleAsync(user, "Customer");
+            // Assign default role (e.g., "User")
+            await _userManager.AddToRoleAsync(user, "User");
 
             return "User registered successfully!";
         }

@@ -2,6 +2,7 @@
 
 using _3._Application.DTOs;
 using _3._Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public sealed class HotelController(IHotelService hotelService) : ControllerBase
     private readonly IHotelService hotelService = hotelService;
 
     [HttpGet]
+    [Authorize(Roles = "Admin, Manager, User")]
+
     public async Task<IActionResult> GetAllHotelsAsync()
     {
         var hotels = await this.hotelService.GetAllHotelsAsync().ConfigureAwait(ConfigureAwaitOptions.ContinueOnCapturedContext);
