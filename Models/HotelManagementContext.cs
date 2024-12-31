@@ -1,47 +1,42 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MVCmodel.Models;
 
-public class HotelManagementContext : IdentityDbContext<AppUserModel>
+public sealed class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
 {
     // Constructor for dependency injection
-    public HotelManagementContext(DbContextOptions<HotelManagementContext> options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
 
-    // Parameterless constructor for design-time tools (like migrations)
-    public HotelManagementContext() { }
+    public ApplicationDbContext() { }
 
-    // DbSets for your entities
-    public DbSet<Staff> Staffs { get; set; }
-    public DbSet<Hotel> Hotels { get; set; }
-    public DbSet<Room> Rooms { get; set; }
-    public DbSet<RoomType> RoomTypes { get; set; }
-    public DbSet<Guest> Guests { get; set; }
-    public DbSet<Booking> Bookings { get; set; }
-    public DbSet<Payment> Payments { get; set; }
-    public DbSet<Service> Services { get; set; }
-    public DbSet<Reservation> Reservations { get; set; }
-    public DbSet<Invoice> Invoices { get; set; }
-    public DbSet<Feedback> Feedbacks { get; set; }
-    public DbSet<Housekeeping> Housekeepings { get; set; }
-    public DbSet<LoyaltyProgram> LoyaltyPrograms { get; set; }
-    public DbSet<Maintenance> Maintenances { get; set; }
+    public DbSet<Booking> Bookings { get; set; } = null!;
 
-    // This is where we configure the connection string (only in OnConfiguring if options not set externally)
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-UG4BEPP;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
-        }
-    }
+    public DbSet<Feedback> Feedbacks { get; set; } = null!;
 
-    // Fluent API and entity configurations can go here
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
+    public DbSet<Hotel> Hotels { get; set; } = null!;
 
-        // Configure relationships and entity settings with Fluent API here
-    }
+    public DbSet<Housekeeping> Housekeepings { get; set; } = null!;
+
+    public DbSet<Invoice> Invoices { get; set; } = null!;
+
+    public DbSet<LoyaltyProgram> LoyaltyPrograms { get; set; } = null!;
+
+    public DbSet<Maintenance> Maintenances { get; set; } = null!;
+
+    public DbSet<Room> Rooms { get; set; } = null!;
+
+    public DbSet<RoomBooking> RoomBookings { get; set; } = null!;
+
+    public DbSet<RoomType> RoomTypes { get; set; } = null!;
+
+    public DbSet<Service> Services { get; set; } = null!;
+
+    public DbSet<ServiceBooking> ServiceBookings { get; set; } = null!;
+
+    public DbSet<UserBooking> UserBookings { get; set; } = null!;
+
+
 }

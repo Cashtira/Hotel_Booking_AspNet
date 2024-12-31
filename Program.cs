@@ -4,73 +4,68 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MVCmodel.Models;
 using Microsoft.AspNetCore.Identity;
+using MVCmodel.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-// Add services to the container.
+// Thêm dịch vụ cho MVC (controllers với views)
 builder.Services.AddControllersWithViews();
 
 // Cấu hình DbContext
-builder.Services.AddDbContext<HotelManagementContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("KhiemConnecion"));
 });
 
-builder.Services.AddIdentity<AppUserModel,IdentityRole>()
-    .AddEntityFrameworkStores<HotelManagementContext>().AddDefaultTokenProviders();
+// Cấu hình Identity (cho người dùng và phân quyền)
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
-
+// Cấu hình IdentityOptions cho mật khẩu, khóa tài khoản, và cài đặt người dùng
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    // Password settings.
-    options.Password.RequireDigit = true;
-    options.Password.RequiredLength = 6;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireLowercase = true;
 
-    // Lockout settings.
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-
-    // User settings.
+    // Cài đặt người dùng
     options.User.AllowedUserNameCharacters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = false;
 });
-// Đăng ký AutoMapper (nếu bạn đã sử dụng)
+
+// Đăng ký AutoMapper (nếu bạn sử dụng AutoMapper)
 builder.Services.AddAutoMapper(typeof(Program));
 
-// Cấu hình Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+// Xây dựng ứng dụng
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Seed Roles (thêm roles mặc định vào cơ sở dữ liệu nếu cần)
+SeedRolesAndUsers.SeedRolesAndUsersMethod(app);
+
+// Cấu hình HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();   
+    // Cấu hình Swagger cho môi trường phát triển
+    app.UseSwagger();
     app.UseSwaggerUI();
 }
 else
 {
+    // Cấu hình trang lỗi trong môi trường sản xuất
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
+// Cấu hình các middleware
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+// Cấu hình các middleware bảo mật
 app.UseAuthentication();
-    app.UseAuthorization();
+app.UseAuthorization();
 
-// Đăng ký route cho các controller
+// Định nghĩa các route cho các controller
 app.MapControllerRoute(
     name: "contact",
     pattern: "Contact",

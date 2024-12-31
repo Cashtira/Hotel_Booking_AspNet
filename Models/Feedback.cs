@@ -1,20 +1,30 @@
 ﻿using MVCmodel.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace MVCmodel.Models
 {
-    public class Feedback
+    [Table(nameof(Feedback))]
+    public sealed class Feedback
     {
-        public int FeedbackID { get; set; }
-        public int GuestID { get; set; }
-        public int HotelID { get; set; }
+        [Key]
+        public int FeedbackId { get; set; }
+
+        public required string UserId { get; set; }
+
+        public required int HotelId { get; set; }
 
         [Range(1, 5)]
-        public double Rating { get; set; }
+        public int Rating { get; set; } = 5;
 
-        [MaxLength(500)]
-        public string? Comments { get; set; }
+        [StringLength(200)]
+        public string Comment { get; set; } = string.Empty;
 
-        public required Guest Guest { get; set; }
-        public required Hotel Hotel { get; set; }
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty(nameof(User.Feedbacks))]
+        public User User { get; set; } = null!;
+
+        [ForeignKey(nameof(HotelId))]
+        [InverseProperty(nameof(Hotel.Feedbacks))]
+        public Hotel Hotel { get; set; } = null!;
     }
 }

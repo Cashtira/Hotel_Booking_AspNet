@@ -1,29 +1,41 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCmodel.Models
 {
-    public class Hotel
+    [Table(nameof(Hotel))]
+    public sealed class Hotel
     {
-        public int HotelID { get; set; }  // ID duy nhất của khách sạn
+        [Key]
+        public int HotelId { get; set; }
 
-        public required string Name { get; set; } // Tên khách sạn, bắt buộc
+        [StringLength(50)]
+        public required string Name { get; set; }
 
-        public required string Address { get; set; } // Địa chỉ khách sạn, bắt buộc
+        [StringLength(200)]
+        public required string Address { get; set; }
 
-        [Phone]
-        public required string Phone { get; set; } // Số điện thoại khách sạn, bắt buộc và phải là số điện thoại hợp lệ
+        [StringLength(50)]
+        [Unicode(false)]
+        public required string Phone { get; set; }
 
-        [EmailAddress]
-        public required string Email { get; set; } // Địa chỉ email khách sạn, bắt buộc và phải là địa chỉ email hợp lệ
+        [StringLength(50)]
+        [Unicode(false)]
+        public required string Email { get; set; }
 
-        [Range(1, 5)]
-        public double Rating { get; set; } // Đánh giá của khách sạn từ 1 đến 5
+        [Range(1.0F, 5.0F)]
+        public float? Rating { get; set; } = null;
 
-        public TimeSpan CheckinTime { get; set; } // Thời gian nhận phòng
+        public TimeOnly CheckinTime { get; set; } = new TimeOnly(14, 0, 0);
 
-        public TimeSpan CheckoutTime { get; set; } // Thời gian trả phòng
+        public TimeOnly CheckoutTime { get; set; } = new TimeOnly(12, 0, 0);
 
+        [InverseProperty(nameof(Feedback.Hotel))]
+        public ICollection<Feedback> Feedbacks { get; set; } = [];
 
+        [InverseProperty(nameof(Room.Hotel))]
+        public ICollection<Room> Rooms { get; set; } = [];
     }
 }
