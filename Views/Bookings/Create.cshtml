@@ -1,0 +1,56 @@
+﻿@model Booking
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@{
+    Layout = "_AdminLayout";
+}
+
+
+<h1>Create</h1>
+
+<h4>Booking</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GuestID" class="control-label"></label>
+                <select asp-for="GuestID" class ="form-control" asp-items="ViewBag.GuestID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomID" class="control-label"></label>
+                <select asp-for="RoomID" class ="form-control" asp-items="ViewBag.RoomID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckinDate" class="control-label"></label>
+                <input asp-for="CheckinDate" class="form-control" />
+                <span asp-validation-for="CheckinDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckoutDate" class="control-label"></label>
+                <input asp-for="CheckoutDate" class="form-control" />
+                <span asp-validation-for="CheckoutDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalPrice" class="control-label"></label>
+                <input asp-for="TotalPrice" class="form-control" />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

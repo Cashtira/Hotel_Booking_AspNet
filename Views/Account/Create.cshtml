@@ -1,0 +1,91 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model MVCmodel.Models.UserModel
+@{
+    ViewData["Title"] = "Register User";
+}
+@{
+    Layout = "_LoginLayout";
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+</head>
+<body>
+    <section id="form">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-8 col-sm-offset-1">
+                    <div class="signup-form">
+                        <form asp-action="Create" asp-controller="Account" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label for="Username">Username</label>
+                                <input asp-for="UserName" class="form-control" placeholder="Enter your username" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for ="Email">Email</label>
+                                <input asp-for="Email" class="form-control" placeholder="Enter your username" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Password">Password</label>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <small class="form-text text-muted">
+                                Password must contain at least 6 characters, including uppercase, lowercase letters and a number.
+                            </small>
+                            <button type="submit" class="btn btn-default">Log up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- JavaScript -->
+    @section Scripts {
+        <script>
+            // Tạo một phần tử highlight
+            const highlight = document.createElement("div");
+            highlight.classList.add("highlight");
+            document.body.appendChild(highlight);
+
+            // Lắng nghe sự kiện di chuột và di chuyển highlight
+            document.addEventListener("mousemove", (event) => {
+                const x = event.clientX;
+                const y = event.clientY;
+
+                // Đặt vị trí của highlight theo vị trí chuột
+                highlight.style.transform = `translate(${x - 75}px, ${y - 75}px)`;
+            });
+        </script>
+    }
+</body>
+</html>
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @ViewData["ErrorMessage"]
+    </div>
+}
+@if (ViewData.ModelState["Password"] != null && ViewData.ModelState["Password"].Errors.Any())
+{
+    @foreach (var error in ViewData.ModelState["Password"].Errors)
+    {
+        <div class="alert alert-danger mt-3">@error.ErrorMessage</div>
+    }
+}

@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Component css -->
+    <link rel="stylesheet" href="@Url.Content("~/css/home_styles.css")">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <header class="header">
+        <div class="logo">
+            <a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Home")')">
+                <img src="~/images/logo.png" alt="Logo" />
+            </a>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "RoomReview")')">Room</a></li>
+                <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Contact")')">Contact</a></li>
+                <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "About")')">About</a></li>
+                <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Account")')">Login</a></li>
+
+            </ul>
+ 
+        </nav>
+        <div class="nav-button" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+        <div class="room-heading-wrap">
+            <h2 class="large-heading margin-none">Grand Hotels<br /> facilities & services</h2>
+        </div>
+
+        <div class="amenities-wrap">
+            <div class="amenities-column">
+                <div class="amenities-item">
+                    <img src="~/images/icon1.png" alt="Amenity 1">
+                    <p>WIFI-ROOM</p>
+                </div>
+                <div class="amenities-item">
+                    <img src="~/images/icon2.png" alt="Amenity 2">
+                    <p>24/7 HOTEL STAFF</p>
+                </div>
+                <div class="amenities-item">
+                    <img src="~/images/icon3.png" alt="Amenity 3">
+                    <p>WEEKLY EVENTS</p>
+                </div>
+                <div class="amenities-item">
+                    <img src="~/images/icon4.png" alt="Amenity 4">
+                    <p>INDOOR POOL</p>
+                </div>
+            </div>
+            <div class="amenities-column">
+                <div class="amenities-item">
+                    <img src="~/images/icon5.png" alt="Amenity 5">
+                    <p>FITNESS CENTER</p>
+                </div>
+                <div class="amenities-item">
+                    <img src="~/images/icon6.png" alt="Amenity 6">
+                    <p>SPA AND WELLNESS</p>
+                </div>
+                <div class="amenities-item">
+                    <img src="~/images/icon7.png" alt="Amenity 7">
+                    <p>RESTAURANT</p>
+                </div>
+            </div>
+        </div>
+        <section class="cta-section">
+            <div class="container1">
+                <a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "RoomReview")')" class="cta-link">
+                    <div class="ctaoverlay"></div>
+                    <div class="cta-subtitle-wrap">
+                        <h2 class="cta-heading">Our Rooms</h2>
+                        <p>Make your reservation →</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="container2">
+                <a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Contact")')" class="cta-link">
+                    <div class="ctaoverlay"></div>
+                    <div class="cta-subtitle-wrap">
+                        <h2 class="cta-heading">Contact</h2>
+                        <p>Get to know us! →</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+
+    </div>
+
+    <footer>
+        <div class="footer-container">      
+            <div class="footer-links">
+                <div class="footer-logo">
+                    <img src="~/images/rotatelogo.png" alt="Hotel & Resort Logo">
+                </div>
+                <div class="footer-section">
+                    <h3>PAGES</h3>
+                    <ul>
+                        <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Home")')">Home</a></li>
+                        <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "RoomReview")')">Room</a></li>
+                        <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "About")')">About</a></li>
+                        <li><a href="javascript:void(0)" onclick="fadeOutAndRedirect('@Url.Action("Index", "Contact")')">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>SOCIAL</h3>
+                    <ul>
+                        <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                        <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+                        <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+                        <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+                    </ul>
+
+                </div>
+                <div class="footer-section">
+                    <h3>CONTACT</h3>
+                    <p>8502 Preston Rd. Inglewood,<br>Maine 98380</p>
+                    <p>(702) 555-0122</p>
+                    <p>hello@template.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        // Hàm để chuyển đổi trạng thái mờ
+        function fadeOutAndRedirect(url) {
+            document.body.classList.add('fade-out'); // Thêm lớp mờ
+
+            // Chờ cho đến khi hiệu ứng mờ hoàn tất
+            setTimeout(function () {
+                window.location.href = url; // Chuyển đến URL mới
+            }, 500); // Thời gian mờ bằng thời gian trong CSS (500ms)
+        }
+        function toggleMenu() {
+            const navList = document.querySelector('.nav-list');
+            navList.classList.toggle('show');
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            function toggleMenu() {
+                const navList = document.querySelector('.nav-list');
+                navList.classList.toggle('show');
+            }
+            // Attach the toggle function to the nav-button
+            document.querySelector('.nav-button').onclick = toggleMenu;
+        });
+    </script>
+
+</body>
+</html>

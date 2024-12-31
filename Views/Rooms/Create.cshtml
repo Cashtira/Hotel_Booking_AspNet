@@ -1,0 +1,55 @@
+﻿@model MVCmodel.Models.Room
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<h1>Create</h1>
+
+<h4>Room</h4>
+<hr />
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="RoomNumber" class="control-label"></label>
+        <input asp-for="RoomNumber" class="form-control" />
+        <span asp-validation-for="RoomNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="control-label"></label>
+        <input asp-for="Status" class="form-control" />
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="HotelID" class="control-label">Hotel</label>
+        <select asp-for="HotelID" class="form-control" asp-items="ViewBag.HotelID"></select>
+        <span asp-validation-for="HotelID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TypeID" class="control-label">Room Type</label>
+        <select asp-for="TypeID" class="form-control" asp-items="ViewBag.TypeID"></select>
+        <span asp-validation-for="TypeID" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+
+</form>
+
+<!-- Back to List Link -->
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
