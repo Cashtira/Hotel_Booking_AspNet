@@ -1,16 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCmodel.Models
 {
-    public class LoyaltyProgram
+    [Table(nameof(LoyaltyProgram))]
+    public sealed class LoyaltyProgram
     {
         [Key]
-        public int ProgramID { get; set; }
-        public int GuestID { get; set; }
-        public int Points { get; set; }
-        public required string Tier { get; set; }
+        public int LoyaltyProgramId { get; set; }
 
-        public required Guest Guest { get; set; }
+        public required string UserId { get; set; }
+
+        public required int Points { get; set; }
+
+        public required int Tier { get; set; }
+
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty(nameof(User.LoyaltyPrograms))]
+        public User User { get; set; } = null!;
     }
 }

@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Edit";
 }
+@{
+    Layout = "_AdminLayout";
+}
 
 <h1>Edit</h1>
 
@@ -23,6 +26,12 @@
                 <input asp-for="TypeID" class="form-control" />
                 <span asp-validation-for="TypeID" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="RoomNumber" class="control-label"></label>
+                <input asp-for="RoomNumber" class="form-control" />
+                <span asp-validation-for="RoomNumber" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
                 <input asp-for="Status" class="form-control" />

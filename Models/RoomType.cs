@@ -1,14 +1,34 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCmodel.Models
 {
+    [Table(nameof(RoomType))]
     public class RoomType
     {
         [Key]
-        public int TypeID { get; set; }
+        public int RoomTypeId { get; set; }
+
+        [StringLength(50)]
         public required string Name { get; set; }
-        public string? Description { get; set; }
-        public double PricePerNight { get; set; }
-        public int Capacity { get; set; }
+
+        [Range(0, int.MaxValue)]
+        public required int Capacity { get; set; }
+
+        [Range(0, double.MaxValue)]
+        [Precision(18, 2)]
+        public required decimal PricePerNight { get; set; }
+
+        [Range(0, double.MaxValue)]
+        [Precision(18, 2)]
+        public required decimal PricePerHour { get; set; }
+
+        [StringLength(200)]
+        public string Description { get; set; } = string.Empty;
+
+        [InverseProperty(nameof(Room.RoomType))]
+        public ICollection<Room> Rooms { get; set; } = [];
     }
 }
+    

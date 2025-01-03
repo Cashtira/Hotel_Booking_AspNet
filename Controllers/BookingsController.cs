@@ -10,9 +10,9 @@ namespace MVCmodel.Controllers
 {
     public class BookingsController : Controller
     {
-        private readonly HotelManagementContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public BookingsController(HotelManagementContext context)
+        public BookingsController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -20,7 +20,7 @@ namespace MVCmodel.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var hotelManagementContext = _context.Bookings.Include(b => b.Guest).Include(b => b.Room);
+            var hotelManagementContext = _context.Bookings.Include(b => b.User).Include(b => b.Room);
             return View(await hotelManagementContext.ToListAsync());
         }
 
@@ -33,9 +33,9 @@ namespace MVCmodel.Controllers
             }
 
             var booking = await _context.Bookings
-                .Include(b => b.Guest)
-                .Include(b => b.Room)
-                .FirstOrDefaultAsync(m => m.BookingID == id);
+                .Include(b => b.User)
+                .Include(b => b.Rooms)
+                .FirstOrDefaultAsync(m => m.BookingId == id);
             if (booking == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace MVCmodel.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            ViewData["GuestID"] = new SelectList(_context.Guests, "GuestID", "GuestID");
+            ViewData["GuestID"] = new SelectList(_context.Users, "GuestID", "GuestID");
             ViewData["RoomID"] = new SelectList(_context.Rooms, "RoomID", "RoomID");
             return View();
         }
@@ -65,7 +65,7 @@ namespace MVCmodel.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GuestID"] = new SelectList(_context.Guests, "GuestID", "GuestID", booking.GuestID);
+            ViewData["GuestID"] = new SelectList(_context.Users, "GuestID", "GuestID", booking.GuestID);
             ViewData["RoomID"] = new SelectList(_context.Rooms, "RoomID", "RoomID", booking.RoomID);
             return View(booking);
         }
@@ -95,7 +95,7 @@ namespace MVCmodel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BookingID,GuestID,RoomID,CheckinDate,CheckoutDate,TotalPrice")] Booking booking)
         {
-            if (id != booking.BookingID)
+            if (id != booking.BookingId)
             {
                 return NotFound();
             }
@@ -109,7 +109,7 @@ namespace MVCmodel.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookingExists(booking.BookingID))
+                    if (!BookingExists(booking.BookingId))
                     {
                         return NotFound();
                     }
@@ -120,7 +120,7 @@ namespace MVCmodel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GuestID"] = new SelectList(_context.Guests, "GuestID", "GuestID", booking.GuestID);
+            ViewData["GuestID"] = new SelectList(_context.Users, "GuestID", "GuestID", booking.GuestID);
             ViewData["RoomID"] = new SelectList(_context.Rooms, "RoomID", "RoomID", booking.RoomID);
             return View(booking);
         }
@@ -134,9 +134,9 @@ namespace MVCmodel.Controllers
             }
 
             var booking = await _context.Bookings
-                .Include(b => b.Guest)
-                .Include(b => b.Room)
-                .FirstOrDefaultAsync(m => m.BookingID == id);
+                .Include(b => b.User)
+                .Include(b => b.Rooms)
+                .FirstOrDefaultAsync(m => m.BookingId == id);
             if (booking == null)
             {
                 return NotFound();
@@ -162,7 +162,7 @@ namespace MVCmodel.Controllers
 
         private bool BookingExists(int id)
         {
-            return _context.Bookings.Any(e => e.BookingID == id);
+            return _context.Bookings.Any(e => e.BookingId== id);
         }
     }
 }

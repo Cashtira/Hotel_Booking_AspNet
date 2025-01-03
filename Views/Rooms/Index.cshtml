@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    Layout = "_AdminLayout";
+}
 
 <h1>Room</h1>
 
@@ -13,35 +16,49 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TypeID)
+                @Html.DisplayNameFor(model => model.RoomID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomType.Name) <!-- Hiển thị tên RoomType -->
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomNumber) <!-- Thêm cột RoomNumber -->
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hotel)
+                @Html.DisplayNameFor(model => model.Hotel.Name) <!-- Hiển thị tên Hotel -->
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hotel.HotelID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RoomID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RoomID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RoomID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomType.Name) <!-- Hiển thị tên RoomType -->
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNumber) <!-- Hiển thị RoomNumber -->
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hotel.Name) <!-- Hiển thị tên Hotel -->
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RoomID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.RoomID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.RoomID">Delete</a>
+                </td>
+            </tr>
+        }
+        }
     </tbody>
 </table>

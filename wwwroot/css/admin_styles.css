@@ -1,0 +1,202 @@
+﻿
+/* Định dạng tiêu đề */
+h1 {
+    color: var(--midnight-blue);
+    text-align: left;
+    letter-spacing: 1px;
+    text-transform: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: Quattrocento, sans-serif;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 64px;
+}
+
+/* Định dạng link "Create New" */
+a.create-button {
+    display: inline-block;
+    background-color: #2ecc71;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    a.create-button:hover {
+        background-color: #27ae60;
+    }
+
+/* Định dạng bảng */
+table.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Định dạng cho các link Edit, Details, Delete */
+td a {
+    margin-right: 10px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+    td a:hover {
+        color: #e74c3c;
+    }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; /* Thay đổi độ mờ trong 0.5 giây */
+    max-width: 100%;
+}
+
+.fade-out {
+    opacity: 0; /* Mờ dần khi chuyển trang */
+}
+
+header {
+    color: white;
+    padding: 0px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+    nav ul li {
+        display: inline;
+        margin: 0 15px;
+    }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+
+.features {
+    padding: 20px;
+    text-align: center;
+}
+
+    .features h2 {
+        margin: 20px 0;
+    }
+
+.feature-item {
+    margin: 20px;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.content-wrapper {
+    padding: 20px; /* Khoảng trống bên trong content-wrapper */
+    margin: 0 auto; /* Canh giữa nội dung nếu cần */
+}
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+h2 {
+    color: var(--midnight-blue);
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: Quattrocento, sans-serif;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 64px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: #34495e;
+    color: white;
+    padding: 12px 25px; /* Tăng padding để nút rộng hơn và dễ nhấn */
+    border-radius: 8px; /* Bo tròn góc nút */
+    font-weight: bold;
+    font-size: 16px; /* Cỡ chữ lớn hơn để dễ nhìn */
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Thêm hiệu ứng chuyển màu và chuyển động */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ cho nút */
+}
+
+    .btn-primary:hover {
+        background-color: #27ae60; /* Màu khi hover */
+        transform: translateY(-2px); /* Di chuyển nút lên nhẹ khi hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ rõ nét khi hover */
+    }
+
+    .btn-primary:active {
+        background-color: #1e8449; /* Màu khi nút bị nhấn */
+        transform: translateY(1px); /* Thêm hiệu ứng thu nhỏ khi nhấn */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ khi nhấn */
+    }
