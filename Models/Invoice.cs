@@ -1,13 +1,23 @@
-﻿namespace MVCmodel.Models
-{
-    public class Invoice
-    {
-        public int InvoiceID { get; set; }
-        public int BookingID { get; set; }
-        public double TotalAmount { get; set; }
-        public DateTime IssuedDate { get; set; }
-        public required  string PaidStatus { get; set; }
+﻿using MVCmodel.Helpers;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-        public required Booking Booking { get; set; }
+namespace MVCmodel.Models
+{
+    [Table(nameof(Invoice))]
+    public sealed class Invoice
+    {
+        [Key]
+        public int InvoiceId { get; set; }
+
+        public required DateTime InvoiceTime { get; set; }
+
+        public required int BookingId { get; set; }
+
+        public PaymentMethod PaymentMethod { get; set; }
+
+        [ForeignKey(nameof(BookingId))]
+        [InverseProperty(nameof(Booking.Invoices))]
+        public Booking Booking { get; set; } = null!;
     }
 }

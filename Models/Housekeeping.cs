@@ -1,14 +1,29 @@
-﻿namespace MVCmodel.Models
-{
-    public class Housekeeping
-    {
-        public int HousekeepingID { get; set; }
-        public int RoomID { get; set; }
-        public int StaffID { get; set; }
-        public required DateTime DateCleaned { get; set; }
-        public required string Status { get; set; }
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-        public required Room Room { get; set; }
-        public required Staff Staff { get; set; }
+namespace MVCmodel.Models
+{
+    [Table(nameof(Housekeeping))]
+    public sealed class Housekeeping
+    {
+        [Key]
+        public int HousekeepingId { get; set; }
+
+        public required int RoomId { get; set; }
+
+        public required string UserId { get; set; }
+
+        [StringLength(200)]
+        public required string IssueDescription { get; set; }
+
+        public DateTimeOffset? CleanTime { get; set; } = null;
+
+        [ForeignKey(nameof(RoomId))]
+        [InverseProperty(nameof(Room.Housekeepings))]
+        public Room Room { get; set; } = null!;
+
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty(nameof(User.Housekeepings))]
+        public User User { get; set; } = null!;
     }
 }

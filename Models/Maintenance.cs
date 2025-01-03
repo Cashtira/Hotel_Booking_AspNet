@@ -1,14 +1,25 @@
-﻿namespace MVCmodel.Models
-{
-    public class Maintenance
-    {
-        public int MaintenanceID { get; set; }
-        public int RoomID { get; set; }
-        public string? IssueDescription { get; set; }
-        public DateTime DateReported { get; set; }
-        public DateTime RepairDate { get; set; }
-        public required string Status { get; set; }
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-        public required  Room Room { get; set; }
+namespace MVCmodel.Models
+{
+    [Table(nameof(Maintenance))]
+    public sealed class Maintenance
+    {
+        [Key]
+        public int MaintenanceId { get; set; }
+
+        public required int RoomId { get; set; }
+
+        [StringLength(200)]
+        public required string IssueDescription { get; set; }
+
+        public required DateTimeOffset ReportTime { get; set; }
+
+        public DateTimeOffset? RepairDate { get; set; } = null;
+
+        [ForeignKey(nameof(RoomId))]
+        [InverseProperty(nameof(Room.Maintenances))]
+        public Room Room { get; set; } = null!;
     }
 }

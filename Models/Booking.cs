@@ -1,17 +1,38 @@
-﻿using MVCmodel.Models;
+﻿using MVCmodel.Helpers;
+using MVCmodel.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 namespace MVCmodel.Models
 {
-    public class Booking
+    [Table(nameof(Booking))]
+    public sealed class Booking
     {
-        public int BookingID { get; set; }
-        public int GuestID { get; set; }
-        public int RoomID { get; set; }
+        [Key]
+        public int BookingId { get; set; }
+
+        public required DateTime BookingTime { get; set; }
+
+        public required string UserId { get; set; }
 
         public required DateTime CheckinDate { get; set; }
+
         public required DateTime CheckoutDate { get; set; }
 
-        public double TotalPrice { get; set; }
-        public required Guest Guest { get; set; }
-        public required Room Room { get; set; }
+        public BookingStatus Status { get; set; } = BookingStatus.Pending;
+
+        [InverseProperty(nameof(User.Bookings))]
+        public User User { get; set; } = null!;
+
+        public ICollection<Room> Rooms { get; set; } = [];
+
+        [InverseProperty(nameof(ServiceBooking.Booking))]
+        public ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
+
+        [InverseProperty(nameof(UserBooking.Booking))]
+        public ICollection<UserBooking> UserBookings { get; set; } = [];
+
+        [InverseProperty(nameof(Invoice.Booking))]
+        public ICollection<Invoice> Invoices { get; set; } = [];
     }
+
 }

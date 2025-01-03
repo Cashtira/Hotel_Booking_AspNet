@@ -22,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Content\" />
+    <Folder Include="Services\" />
+    <Folder Include="Respositories\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
