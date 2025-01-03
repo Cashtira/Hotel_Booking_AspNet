@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h4 class="mt-4">Chi tiết Booking</h4>
+        <div class="card mb-4">
+            <div class="card-header">
+                <a class="btn btn-warning" target="_blank" href="/AdminBooking/Bill/@ViewBag.Booking.idBooking">
+                    In hóa đơn
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="category-film"
+                                   class="col-form-label">Khách hàng:</label>
+                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.User.fullName" readonly>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="category-film"
+                                   class="col-form-label">Phòng:</label>
+                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.Room.name" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="category-film"
+                                   class="col-form-label">Ngày đến:</label>
+                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.checkInDate" readonly>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="category-film"
+                                   class="col-form-label">Ngày đi:</label>
+                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.checkOutDate" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="category-film"
+                                   class="col-form-label">Ngày booking:</label>
+                            <input type="text" class="form-control" id="category-film" name="baohanh" value="@ViewBag.Booking.createdDate" readonly>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="category-film"
+                                   class="col-form-label">Tổng tiền:</label>
+                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.totalMoney VND" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="category-film"
+                                   class="col-form-label">Trạng thái:</label>
+                            @if (ViewBag.Booking.status == 0)
+                            {
+                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Chờ xác nhận" readonly>
+                            }
+                            else if (ViewBag.Booking.status == 1)
+                            {
+
+                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Đã xác nhận" readonly>
+                            }
+                            else if (ViewBag.Booking.status == 3)
+                            {
+
+                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Đã trả phòng" readonly>
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Đã hủy" readonly>
+                            }
+
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="category-film"
+                                   class="col-form-label">Thanh toán:</label>
+                            @if (ViewBag.Booking.isPayment)
+                            {
+                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Đã thanh toán" readonly>
+                            }
+                            else
+                            {
+
+                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Chưa thanh toán" readonly>
+                            }
+                        </div>
+                    </div>
+                </div>
+                Danh sách dịch vụ đi kèm : 
+                <table class="table table-bordered" style="margin-top: 10px">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Dịch vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var stt = 1;}
+                        @foreach (var item in ViewBag.List)
+                        {
+                            <tr>
+                                <td style="width:10px">@stt</td>
+                                <td>
+                                    @item.Service.name
+                                </td>
+                            </tr>
+                                            stt++;
+                                        }
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
