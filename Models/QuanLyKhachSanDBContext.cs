@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
+using System.Threading.Tasks;
 
 namespace QuanLyKhachSan.Models
 {
@@ -14,7 +15,6 @@ namespace QuanLyKhachSan.Models
         {
 
         }
-
         public DbSet<User> Users { get; set; }
 
         public DbSet<Role> Roles{ get; set; }
@@ -37,11 +37,11 @@ namespace QuanLyKhachSan.Models
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
         }
-        public override int SaveChanges()
+        public override async Task<int> SaveChangesAsync()
         {
             try
             {
-                return base.SaveChanges();
+                return await base.SaveChangesAsync();
             }
             catch (DbEntityValidationException ex)
             {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Data.Entity;
 
 namespace QuanLyKhachSan.Repositories
@@ -15,19 +16,22 @@ namespace QuanLyKhachSan.Repositories
             _context = context;
         }
 
-        public List<Service> GetAllServices()
+        // Lấy tất cả dịch vụ
+        public async Task<List<Service>> GetAllServicesAsync()
         {
-            return _context.Services.ToList();
+            return await _context.Services.ToListAsync();
         }
 
-        public List<Service> GetTopServices(int limit = 5)
+        // Lấy các dịch vụ hàng đầu
+        public async Task<List<Service>> GetTopServicesAsync(int limit = 5)
         {
-            return _context.Services.Take(limit).ToList();
+            return await _context.Services.Take(limit).ToListAsync();
         }
 
-        public int GetServiceCostById(int serviceId)
+        // Lấy giá dịch vụ theo ID
+        public async Task<int> GetServiceCostByIdAsync(int serviceId)
         {
-            var service = _context.Services.FirstOrDefault(s => s.idService == serviceId);
+            var service = await _context.Services.FirstOrDefaultAsync(s => s.idService == serviceId);
             if (service == null)
                 throw new ArgumentException($"No service found with id {serviceId}");
 
@@ -35,51 +39,55 @@ namespace QuanLyKhachSan.Repositories
         }
 
         // Thêm dịch vụ mới
-        public void AddService(Service service)
+        public async Task AddServiceAsync(Service service)
         {
             if (service == null) throw new ArgumentNullException(nameof(service));
 
             _context.Services.Add(service);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void DeleteService(int serviceId)
+        // Xóa dịch vụ theo ID
+        public async Task DeleteServiceAsync(int serviceId)
         {
-            var service = _context.Services.FirstOrDefault(s => s.idService == serviceId);
+            var service = await _context.Services.FirstOrDefaultAsync(s => s.idService == serviceId);
             if (service == null) throw new ArgumentException($"No service found with id {serviceId}");
 
             _context.Services.Remove(service);
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public void UpdateService(Service updatedService)
+        // Cập nhật dịch vụ
+        public async Task UpdateServiceAsync(Service updatedService)
         {
             if (updatedService == null) throw new ArgumentNullException(nameof(updatedService));
 
-            var existingService = _context.Services.FirstOrDefault(s => s.idService == updatedService.idService);
+            var existingService = await _context.Services.FirstOrDefaultAsync(s => s.idService == updatedService.idService);
             if (existingService == null) throw new ArgumentException($"No service found with id {updatedService.idService}");
 
             existingService.name = updatedService.name;
             existingService.cost = updatedService.cost;
-            SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public Service GetServiceById(int serviceId)
+        // Lấy dịch vụ theo ID
+        public async Task<Service> GetServiceByIdAsync(int serviceId)
         {
-            var service = _context.Services.FirstOrDefault(s => s.idService == serviceId);
+            var service = await _context.Services.FirstOrDefaultAsync(s => s.idService == serviceId);
             if (service == null) throw new ArgumentException($"No service found with id {serviceId}");
 
             return service;
         }
 
-        public List<BookingService> GetBookingServicesForService(int serviceId)
+        // Lấy các dịch vụ trong booking
+        public async Task<List<BookingService>> GetBookingServicesForServiceAsync(int serviceId)
         {
-            return _context.BookingServices.Where(bs => bs.idService == serviceId).ToList();
+            return await _context.BookingServices.Where(bs => bs.idService == serviceId).ToListAsync();
         }
 
-        private void SaveChanges()
+        private async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

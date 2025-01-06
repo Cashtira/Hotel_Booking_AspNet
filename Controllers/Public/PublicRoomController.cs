@@ -11,12 +11,23 @@ namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicRoomController : Controller
     {
-        RoomRepository roomDao = new RoomRepository();
-        ServiceRepository serviceDao = new ServiceRepository();
-        BookingRepository _bookingRepository = new BookingRepository();
-        BookingServiceRepository bookingServiceDao = new BookingServiceRepository();
+        RoomRepository _roomRepository;
+        ServiceRepository _serviceRepository;
+        BookingRepository _bookingRepository;
+        BookingServiceRepository _bookingServiceRepository;
+        RoomCommentRepository _roomComment;
+
         QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
-        RoomCommentRepository roomComment = new RoomCommentRepository();
+        PublicRoomController(RoomRepository roomRepository, ServiceRepository serviceRepository, BookingRepository bookingRepository, BookingServiceRepository bookingServiceRepository, RoomCommentRepository roomComment, QuanLyKhachSanDBContext context)
+        {
+            _roomRepository = roomRepository;
+            _serviceRepository = serviceRepository;
+            _bookingRepository = bookingRepository;
+            _bookingServiceRepository = bookingServiceRepository;
+            _roomComment = roomComment;
+            _context = context;
+        }
+
         // GET: PublicRoom
         public ActionResult Index(int page)
         {
@@ -24,9 +35,9 @@ namespace QuanLyKhachSan.Controllers.Public
             {
                 page = 1;
             }
-            ViewBag.List = roomDao.GetRoomsBlank(page, 3);
+            ViewBag.List = _roomRepository.GetRoomsBlank(page, 3);
             ViewBag.tag = page;
-            ViewBag.pageSize = roomDao.GetNumberRoom();
+            ViewBag.pageSize = _roomRepository.GetNumberRoom();
             return View();
         }
 
@@ -35,11 +46,11 @@ namespace QuanLyKhachSan.Controllers.Public
             ViewBag.mess = mess;
             ViewBag.listComment = roomComment.GetByIdRoom(id);
             ViewBag.Ave = roomComment.getAve(id);
-            roomDao.updateView(id);
-            Room obj = roomDao.GetDetail(id);
+            _roomRepository.updateView(id);
+            Room obj = _roomRepository.GetDetail(id);
             ViewBag.Room = obj;
-            ViewBag.ListService = serviceDao.GetServices();
-            ViewBag.ListRoomRelated = roomDao.GetRoomByType(obj.idType);
+            ViewBag.ListService = _serviceRepository.GetServices();
+            ViewBag.ListRoomRelated = _roomRepository.GetRoomByType(obj.idType);
             return View();
         }
 
@@ -54,14 +65,14 @@ namespace QuanLyKhachSan.Controllers.Public
             }
             else
             {
-                Booking checkExist = bookingDao.CheckBooking(booking.idRoom);
+                Booking checkExist = _bookingRepository.CheckBooking(booking.idRoom);
                 int priceService = 0;
                 if (idService != null)
                 {                 
                     for (int i = 0; i < idService.Count(); i++)
                     {
 
-                        priceService += serviceDao.GetCostById(idService[i]);
+                        priceService += _serviceRepository.GetCostById(idService[i]);
                     }
                 }
                 
@@ -70,13 +81,13 @@ namespace QuanLyKhachSan.Controllers.Public
                     DateTime dateCheckout = DateTime.Parse(booking.checkOutDate);
                     DateTime dateCheckin = DateTime.Parse(booking.checkInDate);
                     int numberBooking = dateCheckout.Day - dateCheckin.Day;
-                    Room room = roomDao.GetDetail(booking.idRoom);
+                    Room room = _roomRepository.GetDetail(booking.idRoom);
                     booking.idUser = user.idUser;
                     booking.createdDate = DateTime.Now;
                     booking.isPayment = false;
                     booking.status = 0;
                     booking.totalMoney = (room.cost * numberBooking - room.cost * numberBooking * room.discount / 100) + priceService;
-                    bookingDao.Add(booking);
+                    _bookingRepository.Add(booking);
                     if(idService != null)
                     {
                        for(int i = 0; i < idService.Count(); i++)
@@ -116,7 +127,7 @@ namespace QuanLyKhachSan.Controllers.Public
                     for (int i = 0; i < idService.Count(); i++)
                     {
 
-                        priceService += serviceDao.GetCostById(idService[i]);
+                        priceService += _serviceRepository.GetCostById(idService[i]);
                     }
                 }
                 if(checkExist.Count == 0)
@@ -129,13 +140,13 @@ namespace QuanLyKhachSan.Controllers.Public
                     {
                         return RedirectToAction(action, new { mess = "Error" });
                     }
-                    Room room = roomDao.GetDetail(booking.idRoom);
+                    Room room = _roomRepository.GetDetail(booking.idRoom);
                     booking.idUser = user.idUser;
                     booking.createdDate = DateTime.Now;
                     booking.isPayment = false;
                     booking.status = 0;
                     booking.totalMoney = (room.cost * numberBooking - room.cost * numberBooking * room.discount / 100) + priceService;
-                    await bookingDao.AddBookingAsync(booking);
+                    await _bookingRepository.AddBookingAsync(booking);
                     if (idService != null)
                     {
                         for (int i = 0; i < idService.Count(); i++)
@@ -167,13 +178,13 @@ namespace QuanLyKhachSan.Controllers.Public
                     {
                         return RedirectToAction(action, new { mess = "Error" });
                     }
-                    Room room = roomDao.GetDetail(booking.idRoom);
+                    Room room = _roomRepository.GetDetail(booking.idRoom);
                     booking.idUser = user.idUser;
                     booking.createdDate = DateTime.Now;
                     booking.isPayment = false;
                     booking.status = 0;
                     booking.totalMoney = (room.cost * numberBooking - room.cost * numberBooking * room.discount / 100) + priceService;
-                    await bookingDao.AddBookingAsync(booking);
+                    await _bookingRepository.AddBookingAsync(booking);
                     if (idService != null)
                     {
                         for (int i = 0; i < idService.Count(); i++)
@@ -210,33 +221,33 @@ namespace QuanLyKhachSan.Controllers.Public
             }
             if (name == null && idType != 0)
             {
-                ViewBag.List = roomDao.SearchByType(page, 3, idType,numberChildren,numberAdult);
+                ViewBag.List = _roomRepository.SearchByType(page, 3, idType,numberChildren,numberAdult);
                 ViewBag.tag = page;
                 ViewBag.key = 1;
                 ViewBag.idType = idType;
                 ViewBag.numberChildren = numberChildren;
                 ViewBag.numberAdult = numberAdult;
-                ViewBag.pageSize = roomDao.GetNumberRoomByType(idType, numberChildren, numberAdult);
+                ViewBag.pageSize = _roomRepository.GetNumberRoomByType(idType, numberChildren, numberAdult);
             }
             else if(name != null && idType == 0)
             {
-                ViewBag.List = roomDao.SearchByName(page, 3, name, numberChildren, numberAdult);
+                ViewBag.List = _roomRepository.SearchByName(page, 3, name, numberChildren, numberAdult);
                 ViewBag.tag = page;
                 ViewBag.key = 2;
                 ViewBag.name = name;
                 ViewBag.numberChildren = numberChildren;
                 ViewBag.numberAdult = numberAdult;
-                ViewBag.pageSize = roomDao.GetNumberRoomByName(name, numberChildren, numberAdult);
+                ViewBag.pageSize = _roomRepository.GetNumberRoomByName(name, numberChildren, numberAdult);
             } else if (name != null && idType != 0)
             {
-                ViewBag.List = roomDao.SearchByTypeAndName(page, 3,idType, name, numberChildren, numberAdult);
+                ViewBag.List = _roomRepository.SearchByTypeAndName(page, 3,idType, name, numberChildren, numberAdult);
                 ViewBag.tag = page;
                 ViewBag.key = 3;
                 ViewBag.name = name;
                 ViewBag.idType = idType;
                 ViewBag.numberChildren = numberChildren;
                 ViewBag.numberAdult = numberAdult;
-                ViewBag.pageSize = roomDao.GetNumberRoomByNameAndType(name,idType, numberChildren, numberAdult);
+                ViewBag.pageSize = _roomRepository.GetNumberRoomByNameAndType(name,idType, numberChildren, numberAdult);
             }
             else if (name == null && idType == 0)
             {

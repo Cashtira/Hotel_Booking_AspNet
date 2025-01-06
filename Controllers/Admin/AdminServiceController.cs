@@ -10,32 +10,32 @@ namespace QuanLyKhachSan.Controllers.Admin
 {
     public class AdminServiceController : Controller
     {
-        ServiceRepository serviceDao = new ServiceRepository();
+        ServiceRepository _serviceRepository = new ServiceRepository();
         // GET: Adminservice
         public ActionResult Index(string msg)
         {
             ViewBag.Msg = msg;
-            ViewBag.List = serviceDao.GetServices();
+            ViewBag.List = _serviceRepository.GetAllServices();
             return View();
         }
         public ActionResult Add(QuanLyKhachSan.Models.Service service)
         {
-            serviceDao.add(service);
+            _serviceRepository.add(service);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
         public ActionResult Update(QuanLyKhachSan.Models.Service service)
         {
-            serviceDao.update(service);
+            _serviceRepository.update(service);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
         public ActionResult Delete(QuanLyKhachSan.Models.Service service)
         {
-            var check = serviceDao.getCheck(service.idService);
+            var check = _serviceRepository.getCheck(service.idService);
             if (check.Count == 0)
             {
-                serviceDao.delete(service.idService);
+                _serviceRepository.delete(service.idService);
                 return RedirectToAction("Index", new { msg = "1" });
             }
             else

@@ -11,14 +11,19 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
 using QuanLyKhachSan.Repositories;
+using System.Threading.Tasks;
 
 namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicAuthenticationController : Controller
     {
-        QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
-        // GET: PublicAuthentication
-        UserRepository _userRepository = new UserRepository();
+        private readonly QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
+
+        private readonly UserRepository _userRepository;
+        public PublicAuthenticationController(UserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
         // GET: AdminAuthentication
         public ActionResult Index()
         {
@@ -26,7 +31,6 @@ namespace QuanLyKhachSan.Controllers.Public
         }
         public ActionResult Login()
         {
-
             return View();
         }
 
@@ -57,7 +61,7 @@ namespace QuanLyKhachSan.Controllers.Public
             if (passwordNew.Equals(rePasswordNew))
             {
                 User user = _context.Users.FirstOrDefault(x => x.idUser == id);
-                user.password = _userRepository.md5(passwordNew);
+                user.password = _userRepository.Md5Hash(passwordNew);
                 _context.SaveChanges();
                 ViewBag.mess = "ResetOk";
                 return View("Login");
@@ -72,18 +76,18 @@ namespace QuanLyKhachSan.Controllers.Public
         }
 
         [HttpPost]
-        public ActionResult Login(FormCollection form)
+        public async Task<ActionResult> Login(FormCollection form)
         {
             User user = new User()
             {
                 userName = form["userName"],
                 password = form["password"]
             };
-            string passwordMd5 = _userRepository.md5(form["password"]);
-            bool checkLogin = _userRepository.checkLogin(user.userName, passwordMd5);
+            string passwordMd5 = _userRepository.Md5Hash(form["password"]);
+            bool checkLogin = await _userRepository.CheckLoginAsync(user.userName, passwordMd5);
             if (checkLogin)
             {
-                var userInformation = _userRepository.getUserByUserName(user.userName);
+                var userInformation = _userRepository.GetUserByUserNameAsync(user.userName);
                 if(userInformation.idRole == 3)
                 {
                     Session.Add("USER", userInformation);
@@ -104,7 +108,7 @@ namespace QuanLyKhachSan.Controllers.Public
         }
 
         [HttpPost]
-        public ActionResult VerifyOTP(FormCollection form)
+        public async Task<ActionResult> VerifyOTP(FormCollection form)
         {
 
             var otp = form["otp"];
@@ -112,7 +116,7 @@ namespace QuanLyKhachSan.Controllers.Public
             if (otp.Equals(otpcheck))
             {
                 var user = (User)Session["RegisterUser"];
-                _userRepository.add(user);
+                await _userRepository.AddUserAsync(user);
                 ViewBag.mess = "Success";
                 return View("Login");
             }
@@ -125,7 +129,7 @@ namespace QuanLyKhachSan.Controllers.Public
         {
 
             var email = form["email"];
-            var check = _userRepository.getUserByEmail(email);
+            var check = _userRepository.GetUserByEmail(email);
             if (check != null)
             {
                 var idUser = check.idUser;
@@ -142,7 +146,7 @@ namespace QuanLyKhachSan.Controllers.Public
         public ActionResult Register(User user,FormCollection form)
         {
             string rePassword = form["rePassword"];
-            bool checkExistUserName = _userRepository.checkExistUsername(user.userName);
+            bool checkExistUserName = _userRepository.CheckUsernameExistence(user.userName);
             if (checkExistUserName)
             {
                 ViewBag.mess = "ErrorExist";
@@ -156,7 +160,7 @@ namespace QuanLyKhachSan.Controllers.Public
                 }
                 else
                 {
-                    user.password = _userRepository.md5(user.password);
+                    user.password = _userRepository.Md5Hash(user.password);
                     user.idRole = 3;
                     var otp = RandomNumber(6);
                     Session.Add("RegisterUser", user);

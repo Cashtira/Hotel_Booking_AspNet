@@ -5,30 +5,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicUserController : Controller
     {
-        UserRepository _userRepository = new UserRepository();
+        UserRepository _userRepository;
         QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
+        public PublicUserController(UserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
         // GET: PublicUser
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult ProfileUser(int id,string mess)
+        public async Task<ActionResult> ProfileUserAsync(int id,string mess)
         {
-            ViewBag.profile = _userRepository.getInfor(id);
+            ViewBag.profile = await _userRepository.GetUserInfoAsync(id);
             ViewBag.mess = mess;
             return View();
         }
 
         [HttpPost]
-        public ActionResult UpdateProfile(User user)
+        public async Task<ActionResult> UpdateProfileAsync(User user)
         {
-            _userRepository.update(user);
+            await _userRepository.UpdateUserAsync(user);
             return RedirectToAction("ProfileUser", new { id = user.idUser, mess = "Success" });
         }
 
@@ -41,7 +46,7 @@ namespace QuanLyKhachSan.Controllers.Public
             if (passwordNew.Equals(rePasswordNew))
             {
                 User user = _context.Users.FirstOrDefault(x => x.idUser == id);
-                user.password = _userRepository.md5(passwordNew);
+                user.password = _userRepository.Md5Hash(passwordNew);
                 _context.SaveChanges();
                 return RedirectToAction("ProfileUser", new { id = id, mess = "Success" });
             }

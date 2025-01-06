@@ -1,7 +1,10 @@
 ﻿using QuanLyKhachSan.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
+using Type = QuanLyKhachSan.Models.Type;
 
 namespace QuanLyKhachSan.Repositories
 {
@@ -14,59 +17,47 @@ namespace QuanLyKhachSan.Repositories
             _context = context;
         }
 
-        // Lấy danh sách tất cả các loại phòng
-        public List<QuanLyKhachSan.Models.Type> GetAllTypes()
+        public async Task<List<Type>> GetAllTypesAsync()
         {
-            return _context.Types.ToList();
+            return await _context.Types.ToListAsync();
         }
 
-        // Thêm loại phòng mới
-        public void AddType(QuanLyKhachSan.Models.Type type)
+        public async Task AddTypeAsync(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
 
             _context.Types.Add(type);
-            SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        // Xóa loại phòng theo id
-        public void DeleteType(int id)
+        public async Task DeleteTypeAsync(int id)
         {
-            var type = _context.Types.FirstOrDefault(x => x.idType == id);
+            var type = await _context.Types.FirstOrDefaultAsync(x => x.idType == id);
             if (type == null) throw new ArgumentException($"No type found with id {id}");
 
             _context.Types.Remove(type);
-            SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        // Cập nhật thông tin loại phòng
-        public void UpdateType(QuanLyKhachSan.Models.Type type)
+        public async Task UpdateTypeAsync(QuanLyKhachSan.Models.Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
 
-            var existingType = _context.Types.FirstOrDefault(x => x.idType == type.idType);
+            var existingType = await _context.Types.FirstOrDefaultAsync(x => x.idType == type.idType);
             if (existingType == null) throw new ArgumentException($"No type found with id {type.idType}");
 
             existingType.name = type.name;
-            SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        // Lấy thông tin loại phòng theo id
-        public QuanLyKhachSan.Models.Type GetTypeById(int id)
+        public async Task<QuanLyKhachSan.Models.Type> GetTypeByIdAsync(int id)
         {
-            return _context.Types.FirstOrDefault(x => x.idType == id);
+            return await _context.Types.FirstOrDefaultAsync(x => x.idType == id);
         }
 
-        // Lấy danh sách các phòng theo loại phòng
-        public List<Room> GetRoomsByType(int id)
+        public async Task<List<Room>> GetRoomsByTypeAsync(int id)
         {
-            return _context.Rooms.Where(x => x.idType == id).ToList();
-        }
-
-        // Lưu thay đổi vào cơ sở dữ liệu
-        private void SaveChanges()
-        {
-            _context.SaveChanges();
+            return await _context.Rooms.Where(x => x.idType == id).ToListAsync();
         }
     }
 }

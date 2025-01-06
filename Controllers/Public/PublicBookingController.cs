@@ -15,9 +15,19 @@ namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicBookingController : Controller
     {
-        BookingRepository _bookingRepository = new BookingRepository();
-        BookingServiceRepository bookingServiceDao = new BookingServiceRepository();
+  
         QuanLyKhachSanDBContext _context= new QuanLyKhachSanDBContext();
+        private readonly BookingRepository _bookingRepository;
+        private readonly BookingServiceRepository _bookingServiceRepository;
+
+        public PublicBookingController(
+            BookingRepository bookingRepository,
+            BookingServiceRepository bookingServiceRepository)
+        {
+            _bookingRepository = bookingRepository;
+            _bookingServiceRepository = bookingServiceRepository;
+        }
+
         // GET: PublicBooking
         public ActionResult Index()
         {
@@ -26,7 +36,7 @@ namespace QuanLyKhachSan.Controllers.Public
 
         public ActionResult GetBookings(int id,string mess)
         {
-            var list = _bookingRepository.GetBookingsByIdUser(id);
+            var list = _bookingRepository.GetBookingByIdAsync(id);
             ViewBag.active = "listBooking";
             ViewBag.listBooking = list;
             ViewBag.mess = mess;

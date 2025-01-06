@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace QuanLyKhachSan.Repositories
 {
@@ -18,81 +19,81 @@ namespace QuanLyKhachSan.Repositories
         }
 
         // Kiểm tra đăng nhập
-        public bool CheckLogin(string userName, string password)
+        public async Task<bool> CheckLoginAsync(string userName, string password)
         {
-            var user = _context.Users.FirstOrDefault(x => x.userName == userName);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.userName == userName);
             if (user == null) return false;
 
             return user.password == Md5Hash(password);
         }
 
         // Lấy thông tin người dùng theo tên đăng nhập
-        public User GetUserByUserName(string userName)
+        public async Task<User> GetUserByUserNameAsync(string userName)
         {
-            return _context.Users.FirstOrDefault(x => x.userName.Equals(userName));
+            return await _context.Users.FirstOrDefaultAsync(x => x.userName.Equals(userName));
         }
 
         // Lấy thông tin người dùng theo email
-        public User GetUserByEmail(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            return _context.Users.FirstOrDefault(x => x.email.Equals(email));
+            return await _context.Users.FirstOrDefaultAsync(x => x.email.Equals(email));
         }
 
         // Lấy thông tin người dùng theo ID
-        public User GetUserInfo(int id)
+        public async Task<User> GetUserInfoAsync(int id)
         {
-            return _context.Users.FirstOrDefault(x => x.idUser == id);
+            return await _context.Users.FirstOrDefaultAsync(x => x.idUser == id);
         }
 
         // Lấy danh sách quản trị viên
-        public List<User> GetAdmins()
+        public async Task<List<User>> GetAdminsAsync()
         {
-            return _context.Users.Where(x => x.idRole == 1).ToList();
+            return await _context.Users.Where(x => x.idRole == 1).ToListAsync();
         }
 
         // Lấy danh sách nhân viên
-        public List<User> GetEmployees()
+        public async Task<List<User>> GetEmployeesAsync()
         {
-            return _context.Users.Where(x => x.idRole == 2).ToList();
+            return await _context.Users.Where(x => x.idRole == 2).ToListAsync();
         }
 
         // Lấy danh sách khách hàng
-        public List<User> GetCustomers()
+        public async Task<List<User>> GetCustomersAsync()
         {
-            return _context.Users.Where(x => x.idRole == 3).ToList();
+            return await _context.Users.Where(x => x.idRole == 3).ToListAsync();
         }
 
         // Thêm người dùng mới
-        public void AddUser(User user)
+        public async Task AddUserAsync(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
             _context.Users.Add(user);
-            SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         // Kiểm tra tồn tại username
-        public bool CheckUsernameExistence(string userName)
+        public async Task<bool> CheckUsernameExistenceAsync(string userName)
         {
-            return _context.Users.Any(x => x.userName == userName);
+            return await _context.Users.AnyAsync(x => x.userName == userName);
         }
 
         // Xóa người dùng
-        public void DeleteUser(int id)
+        public async Task DeleteUserAsync(int id)
         {
-            var user = _context.Users.FirstOrDefault(x => x.idUser == id);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.idUser == id);
             if (user == null) throw new ArgumentException($"No user found with id {id}");
 
             _context.Users.Remove(user);
-            SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         // Cập nhật thông tin người dùng
-        public void UpdateUser(User user)
+        public async Task UpdateUserAsync(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
-            var existingUser = _context.Users.FirstOrDefault(x => x.idUser == user.idUser);
+            var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.idUser == user.idUser);
             if (existingUser == null) throw new ArgumentException($"No user found with id {user.idUser}");
 
             existingUser.fullName = user.fullName;
@@ -101,7 +102,7 @@ namespace QuanLyKhachSan.Repositories
             existingUser.phoneNumber = user.phoneNumber;
             existingUser.gender = user.gender;
             existingUser.email = user.email;
-            SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         // Mã hóa mật khẩu với MD5
@@ -120,14 +121,12 @@ namespace QuanLyKhachSan.Repositories
             }
         }
 
-        public List<Booking> GetBookingsForUser(int userId)
+        // Lấy danh sách đặt phòng của người dùng
+        public async Task<List<Booking>> GetBookingsForUserAsync(int userId)
         {
-            return _bookingRepository.Bookings.Where(x => x.idUser == userId).ToList();
+            return await _context.Bookings.Where(x => x.idUser == userId).ToListAsync();
         }
 
-        private void SaveChanges()
-        {
-            _bookingRepository.SaveChanges();
-        }
+
     }
 }

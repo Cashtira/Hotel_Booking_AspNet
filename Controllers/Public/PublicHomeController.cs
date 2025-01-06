@@ -9,21 +9,27 @@ namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicHomeController : Controller
     {
-        RoomRepository roomDao = new RoomRepository();
-        ServiceRepository serviceDao = new ServiceRepository();
-        TypeRepository typeDao = new TypeRepository();
+        RoomRepository _roomRepository;
+        ServiceRepository _serviceRepository;
+        TypeRepository _typeRepository;
+        public PublicHomeController(RoomRepository roomRepository, ServiceRepository serviceRepository, TypeRepository typeRepository)
+        {
+            _roomRepository = roomRepository;
+            _serviceRepository = serviceRepository;
+            _typeRepository = typeRepository;
+        }
         // GET: PublicHome
         public ActionResult Index()
         {
-            ViewBag.ListRoomTop5 = roomDao.GetRoomTop5();
-            ViewBag.ListRoomDiscount = roomDao.GetRoomDiscount();
-            ViewBag.ListService = serviceDao.GetServicesTop5();
-            ViewBag.ListType = typeDao.GetTypes();
-            ViewBag.ListRoom = roomDao.GetRooms();  
+            ViewBag.ListRoomTop5 = _roomRepository.GetRoomTop5();
+            ViewBag.ListRoomDiscount = _roomRepository.GetRoomDiscount();
+            ViewBag.ListService = _serviceRepository.GetServicesTop5();
+            ViewBag.ListType = _typeRepository.GetTypes();
+            ViewBag.ListRoom = _roomRepository.GetRoomsAsync();  
             ViewBag.active = "home";
             return View();
         }
-
+            
         public ActionResult Contact()
         {
             ViewBag.active = "contact";

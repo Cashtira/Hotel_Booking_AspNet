@@ -16,7 +16,6 @@ namespace QuanLyKhachSan.Repositories
             _context = context;
         }
 
-        // Lấy tất cả các phòng
         public async Task<List<Room>> GetRoomsAsync()
         {
             return await _context.Rooms.ToListAsync();
