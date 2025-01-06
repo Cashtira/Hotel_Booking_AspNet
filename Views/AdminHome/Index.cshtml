@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active"></li>
+        </ol>
+        <p style="display:none" id="m1">@ViewBag.Month1</p>
+        <p style="display:none" id="m2">@ViewBag.Month2</p>
+        <p style="display:none" id="m3">@ViewBag.Month3</p>
+        <p style="display:none" id="m4">@ViewBag.Month4</p>
+        <p style="display:none" id="m5">@ViewBag.Month5</p>
+        <p style="display:none" id="m6">@ViewBag.Month6</p>
+        <p style="display:none" id="m7">@ViewBag.Month7</p>
+        <p style="display:none" id="m8">@ViewBag.Month8</p>
+        <p style="display:none" id="m9">@ViewBag.Month9</p>
+        <p style="display:none" id="m10">@ViewBag.Month10</p>
+        <p style="display:none" id="m11">@ViewBag.Month11</p>
+        <p style="display:none" id="m12">@ViewBag.Month12</p>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalAdd">
+                    In thống kê
+                </button>
+                <i class="fas fa-chart-bar me-1"></i>
+                Doanh thu 12 tháng (VND)
+            </div>
+            <div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+
+        </div>
+
+    </div>
+</main>
+<div class="modal fade" id="exampleModalAdd" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="" class="register-form" id="register-form">
+                    <div class="mb-3">
+                        <label for="category-film"
+                               class="col-form-label">Không thể kết nối tới máy in</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+

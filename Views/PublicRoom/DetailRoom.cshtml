@@ -1,0 +1,312 @@
+﻿
+@{
+    ViewBag.Title = "DetailRoom";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+<style>
+    .star1 {
+        font-size: 30px;
+        color: gray;
+        cursor: pointer;
+    }
+
+        .star1:hover,
+        .star1.active {
+            color: #f85959;
+        }
+</style>
+@{ var userInfomatiom = (QuanLyKhachSan.Models.User)Session["USER"]; }
+<div class="hero-wrap js-fullheight" style="background-image: url('https://onetouchmedia.vn/wp-content/uploads/2019/10/N.NT-65-1024x683.jpg'); height: 400px ">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center" style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="/">Phòng</a></span> <span>Chi tiết</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@ViewBag.Room.name</h1>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.mess == "ErrorLogin")
+{
+
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+        <script>
+            swal({
+                title: 'Bạn cần phải đăng nhập',
+                /* text: 'Redirecting...', */
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+@if (ViewBag.mess == "ErrorExist")
+{
+
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+        <script>
+            swal({
+                title: 'Phòng đã có người đặt vui lòng chọn phòng khác',
+                /* text: 'Redirecting...', */
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+@if (ViewBag.mess == "Success")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 40PX;z-index: 2000;width: 300px">
+
+        <script>
+            swal({
+                title: 'Đặt phòng thành công!',
+                /* text: 'Redirecting...', */
+                icon: 'success',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+@if (ViewBag.mess == "Error")
+{
+
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+        <script>
+            swal({
+                title: 'Không thể chọn ngày đi nhỏ hơn ngày tới',
+                /* text: 'Redirecting...', */
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    @*<div class="col-md-12 ">
+                            <div class="s">
+                                <div class="item">
+                                    <img src="/Content/images/@ViewBag.Room.image" class="hotel-img" />
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="col-md-12 hotel-single mt-4 mb-5 ">
+
+                        <h2>@ViewBag.Room.name</h2>
+                        @{
+                            int priceNew = ViewBag.Room.cost - ViewBag.Room.cost * ViewBag.Room.discount / 100;
+                        }
+                        <h5>Giá gốc : @ViewBag.Room.cost VNĐ</h5>
+                        <h6>Giảm giá :  @ViewBag.Room.discount %</h6>
+                        <h5>Giá hiện tại : @priceNew VNĐ </h5>
+                        <h5 class="days"><span>Số lượng người lớn: @ViewBag.Room.numberAdult</span></h5>
+                        <h5 class="days"><span>Số lượng trẻ em: @ViewBag.Room.numberChildren</span></h5>
+                        <p class="rate mb-5">
+                            <span class="loc"><a href="#"><i class="icon-map"></i><span>@ViewBag.Room.Type.name</span></a></span>
+                            (@Math.Round(ViewBag.Ave, 1)/5<i class="icon-star"></i> -
+                            <span>@ViewBag.Room.view lượt xem</span>)
+                        </p>
+                        @*<p class="days"><span>Số lượng người lớn: @ViewBag.Room.numberAdult</span></p>
+                            <p class="days"><span>Số lượng trẻ em: @ViewBag.Room.numberChildren</span></p>*@
+                        @*<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="https://antimatter.vn/wp-content/uploads/2022/10/hinh-anh-3d.jpg" alt="First slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="https://haycafe.vn/wp-content/uploads/2022/01/Hinh-nen-Su-Tu-dep-ngau-nhat.jpg" alt="Second slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/01/hinh-nen-su-tu-oai-ve.jpeg?ssl\u003d1" alt="Third slide">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>*@
+                        <h5>Mô tả phòng</h5>
+                        <p>@Html.Raw(ViewBag.Room.description)</p>
+                        <h5>Bình luận</h5>
+
+                        <div id="comments">
+                            <ul id="comment-list">
+                                @foreach (var item in ViewBag.listComment)
+                                {
+                                    <li class="comment">
+                                        <div class="comment-body">
+                                            <p><strong style="font-size: 1rem !important;">@item.User.fullName : </strong> @item.text ( @item.star  <i class="icon-star" style="color: #f85959 !important; "></i>) - @item.createdDate</p>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                            @if (userInfomatiom != null)
+                            {
+                                var check = new QuanLyKhachSan.Daos.BookingDao().checkBooked(userInfomatiom.idUser, ViewBag.Room.idRoom);
+                                if (check)
+                                {
+                                    <form id="comment-form">
+                                        <div id="rating">
+                                            <span class="star1 active" data-star="1">&#9733;</span>
+                                            <span class="star1 active" data-star="2">&#9733;</span>
+                                            <span class="star1 active" data-star="3">&#9733;</span>
+                                            <span class="star1 active" data-star="4">&#9733;</span>
+                                            <span class="star1 active" data-star="5">&#9733;</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="comment-input" placeholder="Nhập bình luận tại đây..." required>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="button" id="comment-submit" onclick="postComment()" value="Bình luận" class="btn btn-primary py-3">
+                                        </div>
+
+                                    </form>
+                                }
+
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 hotel-single  mb-5 mt-4">
+                        <h4 class="mb-5">Thuê phòng</h4>
+                        <form action="/PublicRoom/Booking" method="post">
+                            <div class="fields">
+                                <div class="row">
+                                    <input type="hidden" name="idRoom" id="room-id" value="@ViewBag.Room.idRoom" />
+                                    <div class="col-md-6">
+                                        <label>Ngày tới:</label>
+                                        <div class="form-group">
+                                            <input type="date" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" class="form-control" name="checkInDate" required placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Ngày đi:</label>
+                                        <div class="form-group">
+                                            <input type="date" min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" name="checkOutDate" class="form-control" required placeholder="Date from">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="select-wrap one-third">
+                                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                                <select style="height:150px !important" id="" name="idService" class="form-control" multiple placeholder="Guest">
+                                                    <option value="0">Chọn thêm dịch vụ</option>
+                                                    @foreach (var item in ViewBag.ListService)
+                                                    {
+                                                        <option value="@item.idService">@item.name - @item.cost VNĐ</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="submit" value="Đặt phòng" class="btn btn-primary py-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+    <script>
+        const stars = document.querySelectorAll(".star1");
+        var numberStart = 5;
+        for (let i = 0; i < stars.length; i++) {
+            stars[i].addEventListener("click", function () {
+                numberStart =i+1
+                resetStars();
+                setActiveStars(i);
+            });
+
+            stars[i].addEventListener("mouseover", function () {
+                numberStart = i + 1
+                resetStars();
+                setActiveStars(i);
+            });
+
+         @*   stars[i].addEventListener("mouseout", function () {
+                resetStars();
+            });*@
+        }
+        const commentForm = document.querySelector("#comment-form");
+        const commentInput = document.querySelector("#comment-input");
+
+        const commentList = document.querySelector("#comment-list");
+
+        commentForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const comment = commentInput.value.trim();
+            if (comment !== "") {
+                addComment(comment);
+                commentInput.value = "";
+            }
+        });
+        //
+
+        function postComment() {
+            const idRoom = $('#room-id').val();
+            $.ajax({
+                url: '/PublicRoom/PostComment',
+                type: "post",
+                data: {
+                    comment: commentInput.value.trim(),
+                    idRoom: idRoom,
+                    star: numberStart
+                },
+                success: function (data) {
+                    window.location.href = 'https://localhost:44385/PublicRoom/DetailRoom/' + idRoom;
+                },
+                error: function (e) {
+                    alert(e)
+                }
+            });
+        }
+
+        function addComment(comment) {
+            const newComment = document.createElement("li");
+            newComment.textContent = comment;
+            commentList.appendChild(newComment);
+        }
+        function resetStars() {
+            for (let i = 0; i < stars.length; i++) {
+                stars[i].classList.remove("active");
+            }
+        }
+
+        function setActiveStars(index) {
+            for (let i = 0; i <= index; i++) {
+                console.log(stars[i].classList)
+                stars[i].classList.add("active");
+            }
+        }
+
+    </script>
+</section>
+

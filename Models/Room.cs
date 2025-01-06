@@ -1,42 +1,45 @@
-﻿using MVCmodel.Helpers;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
-namespace MVCmodel.Models
+namespace QuanLyKhachSan.Models
 {
-    [Table(nameof(Room))]
-    public sealed class Room
+    public class Room
     {
         [Key]
-        public int RoomId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int idRoom { get; set; }
 
-        [StringLength(50)]
-        public required string Name { get; set; }
+        [StringLength(255)]
+        [Required]
+        public string name { get; set; }
 
-        public required int HotelId { get; set; }
+        [StringLength(255)]
+        [Required]
+        public string image { get; set; }
 
-        public required int RoomTypeId { get; set; }
+        public string description { get; set; }
 
-        public RoomStatus Status { get; set; } = RoomStatus.Available;
-        [Range(0, double.MaxValue)]
-        [Precision(18, 2)]
-        public required decimal Price { get; set; }
+        public int discount { get; set; }
 
-        [ForeignKey(nameof(HotelId))]
-        [InverseProperty(nameof(Hotel.Rooms))]
-        public Hotel Hotel { get; set; } = null!;
+        public int cost { get; set; }
 
-        [ForeignKey(nameof(RoomTypeId))]
-        [InverseProperty(nameof(RoomType.Rooms))]
-        public RoomType RoomType { get; set; } = null!;
+        public int view { get; set; }
 
-        [InverseProperty(nameof(Housekeeping.Room))]
-        public ICollection<Housekeeping> Housekeepings { get; set; } = [];
+        public int numberChildren { get; set; }
 
-        [InverseProperty(nameof(Maintenance.Room))]
-        public ICollection<Maintenance> Maintenances { get; set; } = [];
-        public ICollection<Booking> Bookings { get; set; } = [];
+        public int numberAdult { get; set; }
+
+        public int idType { get; set; }
+
+        public virtual Type Type { get; set; }
+
+        public virtual ICollection<Booking> Bookings { get; set; }
+
+        public virtual ICollection<RoomComment> RoomComments { get; set; }
 
 
     }

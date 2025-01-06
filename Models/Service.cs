@@ -1,26 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
-namespace MVCmodel.Models
+namespace QuanLyKhachSan.Models
 {
-    [Table(nameof(Service))]
     public class Service
     {
         [Key]
-        public int ServiceId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int idService { get; set; }
 
-        [MaxLength(50)]
-        public required string Name { get; set; }
+        [StringLength(255)]
+        [Required]
+        public string name { get; set; }
 
-        [Range(0, double.MaxValue)]
-        [Precision(18, 2)]
-        public required decimal Price { get; set; }
+        public int cost { get; set; }
 
-        [MaxLength(200)]
-        public string Description { get; set; } = string.Empty;
-
-        [InverseProperty(nameof(ServiceBooking.Service))]
-        public ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
+        public virtual ICollection<BookingService> BookingServices { get; set; }
     }
 }

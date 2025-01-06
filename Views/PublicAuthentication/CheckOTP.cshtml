@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "CheckOTP";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+<div class="hero-wrap js-fullheight" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://onetouchmedia.vn/wp-content/uploads/2019/10/N.NT-65-1024x683.jpg'); background-size: cover;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+            <div class="col-md-9 " style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>OTP</strong> </h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"></p>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.mess == "Success")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100px; left: 40px; z-index: 2000; width: 300px">
+        <script>
+            swal({
+                title: 'Please verify OTP!',
+                icon: 'success',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+
+@if (ViewBag.mess == "ErrorExist")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100px; left: 10px; z-index: 2000; width: 300px">
+        <script>
+            swal({
+                title: 'Username already exists!',
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'error'
+            })
+        </script>
+    </div>
+}
+@if (ViewBag.mess == "ErrorPassword")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100px; left: 10px; z-index: 2000; width: 300px">
+        <script>
+            swal({
+                title: 'Passwords do not match!',
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'error'
+            })
+        </script>
+    </div>
+}
+
+@if (ViewBag.mess == "Error")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100px; left: 10px; z-index: 2000; width: 300px">
+        <script>
+            swal({
+                title: 'Incorrect OTP!',
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'error'
+            })
+        </script>
+    </div>
+}
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Verify OTP</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 mb-5"></div>
+            <div class="col-lg-6">
+                <h2 class="mb-4">Verify OTP</h2>
+                <form action="/PublicAuthentication/VerifyOTP" method="post" class="p-4 border rounded">
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Enter OTP</label>
+                            <input type="text" id="fname" name="otp" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <input type="submit" value="Verify" class="btn btn-block btn-primary btn-md">
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 mb-5"></div>
+        </div>
+    </div>
+</section>

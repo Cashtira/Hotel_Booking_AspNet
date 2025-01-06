@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewBag.Title = "GetBookings";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+<div class="hero-wrap js-fullheight" style="background-image: url('https://onetouchmedia.vn/wp-content/uploads/2019/10/N.NT-65-1024x683.jpg'); height: 200px">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center" style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="/">Trang chủ</a></span> <span>Danh sách</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Lịch sử đặt phòng</h1>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.mess == "1")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 40PX;z-index: 2000;width: 300px">
+
+        <script>
+            swal({
+                title: 'Hủy đặt phòng thành công!',
+                /* text: 'Redirecting...', */
+                icon: 'success',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+@if (ViewBag.mess == "2")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 40PX;z-index: 2000;width: 300px">
+
+        <script>
+            swal({
+                title: 'Thanh toán phòng thành công!',
+                /* text: 'Redirecting...', */
+                icon: 'success',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+<section class="ftco-section ftco-degree-bg">
+    <div class="container-fluid">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Ngày tới</th>
+                    <th scope="col">Ngày đi</th>
+                    <th scope="col">Phòng</th>
+                    <th scope="col">Dịch vụ</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Thanh toán</th>
+                    <th scope="col">Hoạt động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int index = 0;}
+                @foreach (var item in ViewBag.listBooking)
+                {
+                    index++;
+                    <tr>
+                        <th scope="row">@index</th>
+                        <td>@item.checkInDate</td>
+                        <td>@item.checkOutDate</td>
+                        <td>@item.Room.name</td>
+                        @{ QuanLyKhachSan.Repositories.BookingRepository bookingRepository = new QuanLyKhachSan.Repositories.BookingRepository();
+                            var list = bookingRepository.GetBookingServicesAsync(item.idBooking);
+                        }
+                        <td>
+                            @foreach (var item1 in list)
+                            {
+                                <p>- @item1.Service.name</p>
+                            }
+                        </td>
+                        <td>@item.totalMoney VNĐ</td>
+                        @if (item.status == 0)
+                        {
+                            <td>
+                                Chờ xác nhận
+                            </td>
+                        }
+                        else if (item.status == 1)
+                        {
+
+                            <td>
+                                Đã xác nhận
+                            </td>
+                        }
+                        else if (item.status == 3)
+                        {
+
+                            <td>
+                                Đã trả phòng
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                Đã hủy
+                            </td>
+                        }
+                        @if (item.isPayment)
+                        {
+                            <td>
+                                Đã thanh toán
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                Chưa thanh toán
+                            </td>
+                        }
+                        @if (item.status == 0 && !item.isPayment)
+                        {
+                            <td style="width:169px">
+                                <a href="/PublicBooking/CancelBooking/@item.idBooking" style="width:70px" class="btn btn-danger">Hủy</a>
+                                <a href="/PublicBooking/PaymentMoMo/@item.idBooking" type="button" style="width:70px" class="btn btn-success">Momo</a>
+                            </td>
+                        }
+                        @if (item.status == 0 && item.isPayment)
+                        {
+                            <td style="width:150px">
+                                <a href="/AdminBooking/Bill/@item.idBooking" target="_blank" style="width:70px" class="btn btn-warning">In Bill</a>
+                            </td>
+                        }
+                        @if (item.status == 1 && item.isPayment)
+                        {
+                            <td style="width:150px">
+                                <a href="/AdminBooking/Bill/@item.idBooking" target="_blank" style="width:70px" class="btn btn-warning">In Bill</a>
+                            </td>
+                        }
+                        @if (item.status == 3 && item.isPayment)
+                        {
+                            <td style="width:150px">
+                                <a href="/AdminBooking/Bill/@item.idBooking" target="_blank" style="width:70px" class="btn btn-warning">In Bill</a>
+                            </td>
+                        }
+                        @if (item.status == 1 && !item.isPayment)
+                        {
+                            <td style="width:150px">
+                                <a href="/PublicBooking/PaymentMoMo/@item.idBooking" type="button" style="width:70px" class="btn btn-success">Momo</a>
+                            </td>
+                        }
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</section>

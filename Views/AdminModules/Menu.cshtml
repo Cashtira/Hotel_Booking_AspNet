@@ -1,0 +1,40 @@
+﻿<div id="layoutSidenav_nav">
+    @{ var userInformation = (QuanLyKhachSan.Models.User)Session["ADMIN"]; }
+    <nav class="sb-sidenav accordion bg-light" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <a class="nav-link" href="/AdminHome/Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+                @if (userInformation.idRole == 1)
+                {
+                    <a class="nav-link" href="/AdminType/Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                        Manage Room Types
+                    </a>
+                    <a class="nav-link" href="/AdminRoom/Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-bed"></i></div>
+                        Manage Rooms
+                    </a>
+                    <a class="nav-link" href="/AdminUser/Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        Manage Staff
+                    </a>
+                    <a class="nav-link" href="/AdminUser/Customer">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
+                        Manage Customers
+                    </a>
+                }
+                <a class="nav-link" href="/AdminService/Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-concierge-bell"></i></div>
+                    Manage Services
+                </a>
+                <a class="nav-link" href="/AdminBooking/Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                    Manage Bookings
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>

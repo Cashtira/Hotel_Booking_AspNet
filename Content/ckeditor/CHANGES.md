@@ -609,7 +609,7 @@ Fixed Issues:
 * [#1535](https://github.com/ckeditor/ckeditor4/issues/1535): Fixed: [Widget](https://ckeditor.com/cke4/addon/widget) mouseover border contrast is insufficient.
 * [#1516](https://github.com/ckeditor/ckeditor4/issues/1516): Fixed: Fake selection allows removing content in read-only mode using the <kbd>Backspace</kbd> and <kbd>Delete</kbd> keys.
 * [#1570](https://github.com/ckeditor/ckeditor4/issues/1570): Fixed: Fake selection allows cutting content in read-only mode using the <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>X</kbd> keys.
-* [#1363](https://github.com/ckeditor/ckeditor4/issues/1363): Fixed: Paste notification is unclear and it might confuse users.
+* [#1363](https://github.com/ckeditor/ckeditor4/issues/1363): Fixed: Paste notification is unclear and it might confuse Users.
 
 
 API Changes:
@@ -2010,7 +2010,7 @@ Fixed Issues:
 * [#9800](https://dev.ckeditor.com/ticket/9800): Hide float panel when resizing the window.
 * [#9721](https://dev.ckeditor.com/ticket/9721): Padding in content of div-based editor puts the editing area under the bottom UI space.
 * [#9528](https://dev.ckeditor.com/ticket/9528): Host page `box-sizing` style should not influence the editor UI elements.
-* [#9503](https://dev.ckeditor.com/ticket/9503): [Form Elements](https://ckeditor.com/cke4/addon/forms) plugin adds context menu listeners only on supported input types. Added support for `tel`, `email`, `search` and `url` input types.
+* [#9503](https://dev.ckeditor.com/ticket/9503): [Form Elements](https://ckeditor.com/cke4/addon/forms) plugin adds context menu listeners only on supported input types. Added support for `tel`, `email`, `search` and `url` input Types.
 * [#9769](https://dev.ckeditor.com/ticket/9769): Improved floating toolbar positioning in a narrow window.
 * [#9875](https://dev.ckeditor.com/ticket/9875): Table dialog window does not populate width correctly.
 * [#8675](https://dev.ckeditor.com/ticket/8675): Deleting cells in a nested table removes the outer table cell.

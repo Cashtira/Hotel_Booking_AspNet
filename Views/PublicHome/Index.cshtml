@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+<div class="hero-wrap js-fullheight" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.5)), url('https://onetouchmedia.vn/wp-content/uploads/2019/10/N.NT-65-1024x683.jpg'); background-size: cover; height: 200px !important;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+            <div class="col-md-9 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Hotel <br></strong> UIT is your destiny</h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find your suitable room</p>
+                <div class="block-17 my-4">
+                    <form action="/PublicRoom/Search" method="post" class="d-block d-flex">
+                        <div class="fields d-block d-flex">
+                            <div class="textfield-search one-third">
+                                <input type="text" name="name" class="form-control" placeholder="Room Number (e.g., 123)" required>
+                            </div>
+                            <div class="select-wrap one-third">
+                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                <select name="idType" id="" class="form-control">
+                                    <option value="0">Room Type</option>
+                                    @foreach (var item in ViewBag.ListType)
+                                    {
+                                        <option value="@item.idType">@item.name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="textfield-search one-third">
+                                <input type="number" name="numberAdult" class="form-control" required placeholder="Adults">
+                            </div>
+                            <div class="textfield-search one-third">
+                                <input type="number" name="numberChildren" class="form-control" required placeholder="Children">
+                            </div>
+                        </div>
+                        <input type="submit" class="search-submit btn btn-primary" value="Find Room">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-start mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate">
+                <span class="subheading">Top 3</span>
+                <h2 class="mb-4">Most Viewed Rooms</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (var item in ViewBag.ListRoom)
+            {
+                <div class="col-md-4">
+                    <div class="destination">
+                        <a href="/PublicRoom/DetailRoom/@item.idRoom">
+                            <img width="380px" class="img img-2 d-flex justify-content-center align-items-center" src="/Content/images/@item.image">
+                        </a>
+                        <div class="text p-3">
+                            <div class="d-flex">
+                                <div class="one">
+                                    <h3><a href="/PublicRoom/DetailRoom/@item.idRoom">@item.name</a></h3>
+                                    <p class="rate">
+                                        <i class="icon-star"></i>
+                                        <i class="icon-star"></i>
+                                        <i class="icon-star"></i>
+                                        <i class="icon-star"></i>
+                                        <i class="icon-star"></i>
+                                        <span>@item.view views</span>
+                                    </p>
+                                </div>
+                                @{
+                                    int price1 = item.cost - item.cost * item.discount / 100;
+                                }
+                            </div>
+                            <p class="days"><span>@item.Type.name</span></p>
+                            <hr>
+                            <p class="bottom-area d-flex">
+                                <span>Price: @price1 VND</span>
+                                <span class="ml-auto"><a href="/PublicRoom/DetailRoom/@item.idRoom">View Details</a></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section" style="margin-top: -60px !important">
+    <div class="container">
+        <div class="row justify-content-start mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate">
+                <span class="subheading">Top 3</span>
+                <h2 class="mb-4">Discounted Rooms</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (var item in ViewBag.ListRoomDiscount)
+            {
+                <div class="col-md-4">
+                    <div class="destination">
+                        <a href="/PublicRoom/DetailRoom/@item.idRoom">
+                            <img width="380px" class="img img-2 d-flex justify-content-center align-items-center" src="/Content/images/@item.image">
+                        </a>
+                        <div class="text p-3">
+                            <div class="d-flex">
+                                <div class="one">
+                                    <h3><a href="/PublicRoom/DetailRoom/@item.idRoom">@item.name</a></h3>
+                                    <p class="rate">
+                                        <i class="icon-star"></i>
+                                        <i class="icon-star"></i>
+                                        <i class="icon-star"></i>
+                                        <i class="icon-star"></i>
+                                        <i class="icon-star"></i>
+                                        <span>@item.view views</span>
+                                    </p>
+                                </div>
+                                @{
+                                    int price1 = item.cost - item.cost * item.discount / 100;
+                                }
+                            </div>
+                            <p class="days"><span>@item.Type.name</span></p>
+                            <hr>
+                            <p class="bottom-area d-flex">
+                                <span>Price: @price1 VND</span>
+                                <span class="ml-auto"><a href="/PublicRoom/DetailRoom/@item.idRoom">View Details</a></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

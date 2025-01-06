@@ -1,38 +1,38 @@
-﻿using MVCmodel.Helpers;
-using MVCmodel.Models;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-namespace MVCmodel.Models
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
+
+namespace QuanLyKhachSan.Models
 {
-    [Table(nameof(Booking))]
-    public sealed class Booking
+    public class Booking
     {
+
         [Key]
-        public int BookingId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int idBooking { get; set; }
 
-        public required DateTime BookingTime { get; set; }
+        public int totalMoney { get; set; }
 
-        public required string UserId { get; set; }
+        public string checkInDate { get; set; }
 
-        public required DateTime CheckinDate { get; set; }
+        public string checkOutDate { get; set; }
 
-        public required DateTime CheckoutDate { get; set; }
+        public int status { get; set; }
+        public bool isPayment { get; set; }
 
-        public BookingStatus Status { get; set; } = BookingStatus.Pending;
+        public DateTime createdDate { get; set; }
 
-        [InverseProperty(nameof(User.Bookings))]
-        public User User { get; set; } = null!;
+        public int idRoom { get; set; }
 
-        public ICollection<Room> Rooms { get; set; } = [];
+        public int idUser { get; set; }
 
-        [InverseProperty(nameof(ServiceBooking.Booking))]
-        public ICollection<ServiceBooking> ServiceBookings { get; set; } = [];
+        public virtual Room Room { get; set; }
 
-        [InverseProperty(nameof(UserBooking.Booking))]
-        public ICollection<UserBooking> UserBookings { get; set; } = [];
+        public virtual User User { get; set; }
 
-        [InverseProperty(nameof(Invoice.Booking))]
-        public ICollection<Invoice> Invoices { get; set; } = [];
+        public virtual ICollection<BookingService> BookingServices { get; set; }
     }
-
 }

@@ -1,0 +1,33 @@
+﻿<div class="container">
+    <a class="navbar-brand text-uppercase" href="/">UIT HOTEL</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+    </button>
+    @{ var userInfomatiom = (QuanLyKhachSan.Models.User)Session["USER"]; }
+    <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item "><a href="/" class="nav-link">Home </a></li>
+
+            <li class="nav-item "><a href="/PublicHome/Introduce" class="nav-link">Introduce </a></li>
+
+            <li class="nav-item "><a href="/PublicHome/AboutUs" class="nav-link">About Us</a></li>
+
+            <li class="nav-item "><a href="/PublicRoom/Index/0" class="nav-link">Available Room</a></li>
+
+            <li class="nav-item "><a href="/PublicHome/Contact" class="nav-link">Contact</a></li>
+
+
+            @if (userInfomatiom != null)
+            {
+                <li class="nav-item"><a href="/PublicBooking/GetBookings/@userInfomatiom.idUser" class="nav-link">Order History </a></li>
+                <li class="nav-item"><a href="/PublicUser/ProfileUser/@userInfomatiom.idUser" class="nav-link">@userInfomatiom.fullName</a></li>
+                <li class="nav-item cta"><a href="/PublicAuthentication/Logout" class="nav-link"><span>Đăng xuất</span></a></li>
+            }
+            else
+            {
+                <li class="nav-item cta"><a href="/PublicAuthentication/Login" class="nav-link"><span>Login</span></a></li>
+            }
+        </ul>
+    </div>
+</div>

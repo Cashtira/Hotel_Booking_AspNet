@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "ProfileUser";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+<div class="hero-wrap js-fullheight" style="background-image: url('https://onetouchmedia.vn/wp-content/uploads/2019/10/N.NT-65-1024x683.jpg'); height: 200px ">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center" style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="/">Trang chủ</a></span> <span>Thông tin</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Thông tin cá nhân</h1>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.mess == "Success")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 40PX;z-index: 2000;width: 300px">
+
+        <script>
+            swal({
+                title: 'Cập nhật thông tin thành công!',
+                /* text: 'Redirecting...', */
+                icon: 'success',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+@if (ViewBag.mess == "Error")
+{
+
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+        <script>
+            swal({
+                title: 'Hai mật khẩu không trùng khớp',
+                /* text: 'Redirecting...', */
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+<section class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 mt-3">
+                <form action="/PublicUser/UpdateProfile" method="post" class="p-4 border rounded">
+                    <input type="hidden" value="@ViewBag.profile.idUser" name="idUser" />
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Email</label>
+                            <input type="email" id="email" value="@ViewBag.profile.email" readonly name="email" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Họ và tên</label>
+                            <input type="text" id="email" value="@ViewBag.profile.fullName" name="fullName" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Tên người dùng</label>
+                            <input type="text" id="" name="userName" value="@ViewBag.profile.userName" readonly class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Địa chỉ</label>
+                            <input type="text" id="fname" value="@ViewBag.profile.address" name="address" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Giới tính</label>
+                            <select name="gender" class="form-control">
+                                <option value="@ViewBag.profile.gender" selected>@ViewBag.profile.gender</option>
+                                @if (ViewBag.profile.gender == "Nữ")
+                                {
+                                    <option value="Nam">Nam</option>
+                                }
+                                else
+                                {
+                                    <option value="Nữ">Nữ</option>
+                                }
+
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Số điện thoại</label>
+                            <input type="text" id="fname" value="@ViewBag.profile.phoneNumber" name="phoneNumber" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="submit" value="Cập nhập" class="btn px-4 btn-primary text-white">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 mt-3">
+                <form action="/PublicUser/UpdatePassword" method="post" class="p-4 border rounded">
+                    <input type="hidden" value="@ViewBag.profile.idUser" name="idUser" />
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Mật khẩu mới:</label>
+                            <input type="password" id="fname" name="password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Nhập lại mật khẩu mới:</label>
+                            <input type="password" id="fname" name="rePassword" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <input type="submit" value="Cập nhập" class="btn btn-block btn-primary btn-md">
+                        </div>
+                        <div class="col-md-6">
+
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+

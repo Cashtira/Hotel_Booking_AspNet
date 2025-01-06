@@ -1,32 +1,50 @@
-﻿
-using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
-namespace MVCmodel.Models
+namespace QuanLyKhachSan.Models
 {
-    [Table(nameof(User))]
-    public sealed class User : IdentityUser
+    public class User
     {
-        [MinLength(5)]
-        [StringLength(50)]
-        public  string? FullName { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int idUser { get; set; }
 
-        public DateTime? DateOfBirth { get; set; } = null;
+        [StringLength(255)]
+        [Required]
+        public string fullName { get; set; }
 
-        [InverseProperty(nameof(Booking.User))]
-        public ICollection<Booking> Bookings { get; set; } = [];
+        [StringLength(255)]
+        [Required]
+        public string userName { get; set; }
 
-        [InverseProperty(nameof(UserBooking.User))]
-        public ICollection<UserBooking> UserBookings { get; set; } = [];
+        [StringLength(255)]
+        [Required]
+        public string email { get; set; }
 
-        [InverseProperty(nameof(Feedback.User))]
-        public ICollection<Feedback> Feedbacks { get; set; } = [];
+        [StringLength(255)]
+        [Required]
+        public string password { get; set; }
 
-        [InverseProperty(nameof(Feedback.User))]
-        public ICollection<Housekeeping> Housekeepings { get; set; } = [];
+        [StringLength(255)]
+        public string phoneNumber { get; set; }
 
-        [InverseProperty(nameof(LoyaltyProgram.User))]
-        public ICollection<LoyaltyProgram> LoyaltyPrograms { get; set; } = [];
+        [StringLength(255)]
+        public string address { get; set; }
+
+        public string gender { get; set; }
+
+        public int status { get; set; }
+
+        public int idRole { get; set; }
+
+        public virtual Role Role { get; set; }
+
+        public virtual ICollection<Booking> Bookings { get; set; }
+        public virtual ICollection<RoomComment> RoomComments { get; set; }
+
     }
 }
