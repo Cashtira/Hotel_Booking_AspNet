@@ -18,7 +18,7 @@ namespace QuanLyKhachSan.Controllers.Public
     {
         QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
         // GET: PublicAuthentication
-        UserRepository userDao = new UserRepository();
+        UserRepository _userRepository = new UserRepository();
         // GET: AdminAuthentication
         public ActionResult Index()
         {
@@ -57,7 +57,7 @@ namespace QuanLyKhachSan.Controllers.Public
             if (passwordNew.Equals(rePasswordNew))
             {
                 User user = _context.Users.FirstOrDefault(x => x.idUser == id);
-                user.password = userDao.md5(passwordNew);
+                user.password = _userRepository.md5(passwordNew);
                 _context.SaveChanges();
                 ViewBag.mess = "ResetOk";
                 return View("Login");
@@ -79,11 +79,11 @@ namespace QuanLyKhachSan.Controllers.Public
                 userName = form["userName"],
                 password = form["password"]
             };
-            string passwordMd5 = userDao.md5(form["password"]);
-            bool checkLogin = userDao.checkLogin(user.userName, passwordMd5);
+            string passwordMd5 = _userRepository.md5(form["password"]);
+            bool checkLogin = _userRepository.checkLogin(user.userName, passwordMd5);
             if (checkLogin)
             {
-                var userInformation = userDao.getUserByUserName(user.userName);
+                var userInformation = _userRepository.getUserByUserName(user.userName);
                 if(userInformation.idRole == 3)
                 {
                     Session.Add("USER", userInformation);
@@ -112,7 +112,7 @@ namespace QuanLyKhachSan.Controllers.Public
             if (otp.Equals(otpcheck))
             {
                 var user = (User)Session["RegisterUser"];
-                userDao.add(user);
+                _userRepository.add(user);
                 ViewBag.mess = "Success";
                 return View("Login");
             }
@@ -125,7 +125,7 @@ namespace QuanLyKhachSan.Controllers.Public
         {
 
             var email = form["email"];
-            var check = userDao.getUserByEmail(email);
+            var check = _userRepository.getUserByEmail(email);
             if (check != null)
             {
                 var idUser = check.idUser;
@@ -142,7 +142,7 @@ namespace QuanLyKhachSan.Controllers.Public
         public ActionResult Register(User user,FormCollection form)
         {
             string rePassword = form["rePassword"];
-            bool checkExistUserName = userDao.checkExistUsername(user.userName);
+            bool checkExistUserName = _userRepository.checkExistUsername(user.userName);
             if (checkExistUserName)
             {
                 ViewBag.mess = "ErrorExist";
@@ -156,7 +156,7 @@ namespace QuanLyKhachSan.Controllers.Public
                 }
                 else
                 {
-                    user.password = userDao.md5(user.password);
+                    user.password = _userRepository.md5(user.password);
                     user.idRole = 3;
                     var otp = RandomNumber(6);
                     Session.Add("RegisterUser", user);

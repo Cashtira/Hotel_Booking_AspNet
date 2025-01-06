@@ -13,7 +13,7 @@ namespace QuanLyKhachSan.Controllers.Public
     {
         RoomRepository roomDao = new RoomRepository();
         ServiceRepository serviceDao = new ServiceRepository();
-        BookingRepository bookingDao = new BookingRepository();
+        BookingRepository _bookingRepository = new BookingRepository();
         BookingServiceRepository bookingServiceDao = new BookingServiceRepository();
         QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
         RoomCommentRepository roomComment = new RoomCommentRepository();

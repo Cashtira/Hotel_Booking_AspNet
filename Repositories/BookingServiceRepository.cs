@@ -9,7 +9,11 @@ namespace QuanLyKhachSan.Repositories
 {
     public class BookingServiceRepository
     {
-        private  readonly QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
+        private readonly QuanLyKhachSanDBContext _context;
+        public BookingServiceRepository(QuanLyKhachSanDBContext context)
+        {
+            _context = context;
+        }
         public async Task AddBookingService(BookingService bookingService)
         {
             _context.BookingServices.Add(bookingService);

@@ -105,7 +105,7 @@ namespace QuanLyKhachSan.Repositories
         }
 
         // Mã hóa mật khẩu với MD5
-        private string Md5Hash(string input)
+        public string Md5Hash(string input)
         {
             using (MD5 md5 = MD5.Create())
             {
@@ -122,12 +122,12 @@ namespace QuanLyKhachSan.Repositories
 
         public List<Booking> GetBookingsForUser(int userId)
         {
-            return _context.Bookings.Where(x => x.idUser == userId).ToList();
+            return _bookingRepository.Bookings.Where(x => x.idUser == userId).ToList();
         }
 
         private void SaveChanges()
         {
-            _context.SaveChanges();
+            _bookingRepository.SaveChanges();
         }
     }
 }

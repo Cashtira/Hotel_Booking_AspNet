@@ -7,7 +7,7 @@ using System.Web;
 
 namespace QuanLyKhachSan.Services.Interface
 {
-    internal interface IFileService
+    public interface IFileService
     {
         string SaveFile(HttpPostedFileBase file);
 

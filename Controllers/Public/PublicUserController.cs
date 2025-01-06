@@ -10,7 +10,7 @@ namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicUserController : Controller
     {
-        UserRepository userDao = new UserRepository();
+        UserRepository _userRepository = new UserRepository();
         QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
         // GET: PublicUser
         public ActionResult Index()
@@ -20,7 +20,7 @@ namespace QuanLyKhachSan.Controllers.Public
 
         public ActionResult ProfileUser(int id,string mess)
         {
-            ViewBag.profile = userDao.getInfor(id);
+            ViewBag.profile = _userRepository.getInfor(id);
             ViewBag.mess = mess;
             return View();
         }
@@ -28,7 +28,7 @@ namespace QuanLyKhachSan.Controllers.Public
         [HttpPost]
         public ActionResult UpdateProfile(User user)
         {
-            userDao.update(user);
+            _userRepository.update(user);
             return RedirectToAction("ProfileUser", new { id = user.idUser, mess = "Success" });
         }
 
@@ -41,7 +41,7 @@ namespace QuanLyKhachSan.Controllers.Public
             if (passwordNew.Equals(rePasswordNew))
             {
                 User user = _context.Users.FirstOrDefault(x => x.idUser == id);
-                user.password = userDao.md5(passwordNew);
+                user.password = _userRepository.md5(passwordNew);
                 _context.SaveChanges();
                 return RedirectToAction("ProfileUser", new { id = id, mess = "Success" });
             }

@@ -4,20 +4,25 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using QuanLyKhachSan.Services.Interface;
 
 namespace QuanLyKhachSan.Controllers.Admin
 {
     public class AdminRoomController : Controller
     {
-        private readonly RoomRepository roomDao;
-        private readonly TypeRepository typeDao;
-        private readonly IFileService fileService;
+        private readonly RoomRepository _roomRepository;
+        private readonly TypeRepository _typeRepository;
+        private readonly IFileService _fileService;
 
-        public AdminRoomController()
+        // Constructor sử dụng Dependency Injection
+        public AdminRoomController(
+            RoomRepository roomRepository,
+            TypeRepository typeRepository,
+            IFileService fileService)
         {
-            roomDao = new RoomRepository();
-            typeDao = new TypeRepository();
-            fileService = new FileService(); // Khởi tạo dịch vụ xử lý file
+            _roomRepository = roomRepository;
+            _typeRepository = typeRepository;
+            _fileService = fileService;
         }
 
         // GET: AdminRoom
@@ -25,7 +30,7 @@ namespace QuanLyKhachSan.Controllers.Admin
         {
             ViewBag.Msg = msg;
             ViewBag.List = roomDao.GetRooms();
-            ViewBag.ListType = typeDao.GetTypes();
+            ViewBag.ListType = _typeRepository.GetTypes();
             return View();
         }
 

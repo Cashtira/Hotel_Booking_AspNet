@@ -10,8 +10,14 @@ namespace QuanLyKhachSan.Controllers.Admin
 {
     public class AdminAuthenticationController : Controller
     {
-        UserRepository userDao = new UserRepository();
-        // GET: AdminAuthentication
+        private readonly UserRepository _userRepository;
+
+        public AdminAuthenticationController()
+        {
+            var context = new QuanLyKhachSanDBContext();  
+            _userRepository = new UserRepository(context);  
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -30,11 +36,11 @@ namespace QuanLyKhachSan.Controllers.Admin
                 userName = form["userName"],
                 password = form["password"]
             };
-            string passwordMd5 = userDao.md5(form["password"]);
-            bool checkLogin = userDao.checkLogin(user.userName, passwordMd5);
+            string passwordMd5 = _userRepository.Md5Hash(form["password"]);
+            bool checkLogin = _userRepository.CheckLogin(user.userName, passwordMd5);
             if (checkLogin)
             {
-                var userInformation = userDao.getUserByUserName(user.userName);
+                var userInformation = _userRepository.GetUserByUserName(user.userName);
                    
                 if (userInformation.idRole == 3)
                 {

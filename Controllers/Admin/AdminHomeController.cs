@@ -10,7 +10,11 @@ namespace QuanLyKhachSan.Controllers.Admin
 {
     public class AdminHomeController : Controller
     {
-        BookingRepository bookingDao = new BookingRepository();
+        BookingRepository _bookingRepository;
+        public AdminHomeController(BookingRepository bookingRepository)
+        {
+            _bookingRepository = bookingRepository;
+        }
         // GET: AdminHome
         public ActionResult Index()
         {
@@ -22,18 +26,18 @@ namespace QuanLyKhachSan.Controllers.Admin
             else
             {
 
-                ViewBag.Month1 = bookingDao.GetTotalMoneyForMonthAsync(1);
-                ViewBag.Month2 = bookingDao.GetTotalMoneyForMonthAsync(2);
-                ViewBag.Month3 = bookingDao.GetTotalMoneyForMonthAsync(3);
-                ViewBag.Month4 = bookingDao.GetTotalMoneyForMonthAsync(4);
-                ViewBag.Month5 = bookingDao.GetTotalMoneyForMonthAsync(5);
-                ViewBag.Month6 = bookingDao.GetTotalMoneyForMonthAsync(6);
-                ViewBag.Month7 = bookingDao.GetTotalMoneyForMonthAsync(7);
-                ViewBag.Month8 = bookingDao.GetTotalMoneyForMonthAsync(8);
-                ViewBag.Month9 = bookingDao.GetTotalMoneyForMonthAsync(9);
-                ViewBag.Month10 = bookingDao.GetTotalMoneyForMonthAsync(10);
-                ViewBag.Month11 = bookingDao.GetTotalMoneyForMonthAsync(11);
-                ViewBag.Month12 = bookingDao.GetTotalMoneyForMonthAsync(12);
+                ViewBag.Month1 = _bookingRepository.GetTotalMoneyForMonthAsync(1);
+                ViewBag.Month2 = _bookingRepository.GetTotalMoneyForMonthAsync(2);
+                ViewBag.Month3 = _bookingRepository.GetTotalMoneyForMonthAsync(3);
+                ViewBag.Month4 = _bookingRepository.GetTotalMoneyForMonthAsync(4);
+                ViewBag.Month5 = _bookingRepository.GetTotalMoneyForMonthAsync(5);
+                ViewBag.Month6 = _bookingRepository.GetTotalMoneyForMonthAsync(6);
+                ViewBag.Month7 = _bookingRepository.GetTotalMoneyForMonthAsync(7);
+                ViewBag.Month8 = _bookingRepository.GetTotalMoneyForMonthAsync(8);
+                ViewBag.Month9 = _bookingRepository.GetTotalMoneyForMonthAsync(9);
+                ViewBag.Month10 = _bookingRepository.GetTotalMoneyForMonthAsync(10);
+                ViewBag.Month11 = _bookingRepository.GetTotalMoneyForMonthAsync(11);
+                ViewBag.Month12 = _bookingRepository.GetTotalMoneyForMonthAsync(12);
                 return View();
             }
 

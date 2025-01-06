@@ -1,5 +1,7 @@
 ﻿using QuanLyKhachSan.Models;
 using QuanLyKhachSan.Repositories;
+using QuanLyKhachSan.Services.Interface;
+using QuanLyKhachSan.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,8 @@ namespace QuanLyKhachSan.App_Start
         {
             var container = new UnityContainer();
 
+
+            //DI Repository
             container.RegisterType<QuanLyKhachSanDBContext>(); 
             container.RegisterType<BookingRepository>();
             container.RegisterType<BookingServiceRepository>();
@@ -25,7 +29,10 @@ namespace QuanLyKhachSan.App_Start
             container.RegisterType<TypeRepository>();
             container.RegisterType<UserRepository>();
 
-           DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            //DI Service
+            container.RegisterType<IFileService, FileService>();
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
 }

@@ -10,55 +10,60 @@ namespace QuanLyKhachSan.Controllers.Admin
 {
     public class AdminUserController : Controller
     {
-        UserRepository userDao = new UserRepository();
-        // GET: AdminUser
+        private readonly UserRepository _userRepository;
+
+        public AdminUserController()
+        {
+            var context = new QuanLyKhachSanDBContext();
+            _userRepository = new UserRepository(context);
+        }        // GET: AdminUser
         public ActionResult Index(string msg)
         {
             ViewBag.Msg = msg;
-            ViewBag.List = userDao.getNV();
+            ViewBag.List = _userRepository.GetEmployees();
             return View();
         }
 
         public ActionResult Customer(string msg)
         {
             ViewBag.Msg = msg;
-            ViewBag.List = userDao.getKH();
+            ViewBag.List = _userRepository.GetCustomers();
             return View();
         }
         public ActionResult Add(User user)
         {
             user.idRole = 2;
-            user.password = userDao.md5(user.password);
-            userDao.add(user);
+            user.password = _userRepository.Md5Hash(user.password);
+            _userRepository.AddUser(user);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
         public ActionResult AddKH(User user)
         {
             user.idRole = 3;
-            user.password = userDao.md5(user.password);
-            userDao.add(user);
+            user.password = _userRepository.Md5Hash(user.password);
+            _userRepository.AddUser(user);
             return RedirectToAction("Customer", new { msg = "1" });
         }
 
         public ActionResult Update(User user)
         {
-            userDao.update(user);
+            _userRepository.UpdateUser(user);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
         public ActionResult UpdateKH(User user)
         {
-            userDao.update(user);
+            _userRepository.UpdateUser(user);
             return RedirectToAction("Customer", new { msg = "1" });
         }
 
         public ActionResult Delete(User user)
         {
-            var check = userDao.getCheck(user.idUser);
+            var check = _userRepository.getCheck(user.idUser);
             if (check.Count == 0)
             {
-                userDao.delete(user.idUser);
+                _userRepository.DeleteUser(user.idUser);
                 return RedirectToAction("Index", new { msg = "1" });
             }
             else
@@ -69,10 +74,10 @@ namespace QuanLyKhachSan.Controllers.Admin
 
         public ActionResult DeleteKH(User user)
         {
-            var check = userDao.getCheck(user.idUser);
+            var check = _userRepository.getCheck(user.idUser);
             if (check.Count == 0)
             {
-                userDao.delete(user.idUser);
+                _userRepository.delete(user.idUser);
                 return RedirectToAction("Customer", new { msg = "1" });
             }
             else
