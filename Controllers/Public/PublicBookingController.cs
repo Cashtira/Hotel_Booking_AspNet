@@ -1,13 +1,16 @@
 ﻿using Newtonsoft.Json.Linq;
 using QuanLyKhachSan.Models;
 using QuanLyKhachSan.Repositories;
+using QuanLyKhachSan.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,18 +19,23 @@ namespace QuanLyKhachSan.Controllers.Public
     public class PublicBookingController : Controller
     {
 
-        QuanLyKhachSanDBContext _context;
+        private readonly QuanLyKhachSanDBContext _context;
         private readonly BookingRepository _bookingRepository;
         private readonly BookingServiceRepository _bookingServiceRepository;
+        private readonly ServiceRepository _serviceRepository;
+        private readonly UserRepository _userRepository;
 
         public PublicBookingController(
             BookingRepository bookingRepository,
             BookingServiceRepository bookingServiceRepository,
+            ServiceRepository serviceRepository,
+            UserRepository userRepository,
                         QuanLyKhachSanDBContext context
 )
         {
             _bookingRepository = bookingRepository;
             _bookingServiceRepository = bookingServiceRepository;
+            _userRepository = userRepository;
             _context = context;
         }
 
@@ -37,14 +45,36 @@ namespace QuanLyKhachSan.Controllers.Public
             return View();
         }
 
-        public ActionResult GetBookings(int id,string mess)
+        public async Task<ActionResult> GetBookings(int id, string mess)
         {
-            var list = _bookingRepository.GetBookingByIdAsync(id);
+            var listBookingFormUserId = await _userRepository.GetBookingsForUserAsync(id);
+
+            var bookingWithServices = new List<BookingWithServicesViewModel>();
+
+            foreach (var booking in listBookingFormUserId)
+            {
+                // Lấy danh sách BookingService
+                var bookingServices = await _bookingRepository.GetBookingServicesAsync(booking.idBooking);
+
+                // Chuyển đổi BookingService thành Service
+                var services = bookingServices
+                    .Select(bs => bs.Service) // Lấy thuộc tính Service từ từng BookingService
+                    .ToList();
+
+                bookingWithServices.Add(new BookingWithServicesViewModel
+                {
+                    Booking = booking,
+                    Services = services
+                });
+            }
+
             ViewBag.active = "listBooking";
-            ViewBag.listBooking = list;
+            ViewBag.bookingWithServices = bookingWithServices;
             ViewBag.mess = mess;
+
             return View();
         }
+
 
         public ActionResult CancelBooking(int id)
         {

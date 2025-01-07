@@ -12,9 +12,12 @@ namespace QuanLyKhachSan.Controllers.Admin
     public class AdminHomeController : Controller
     {
         private readonly BookingRepository _bookingRepository;
-        public AdminHomeController(BookingRepository bookingRepository)
+        private readonly QuanLyKhachSanDBContext _context;
+
+        public AdminHomeController(BookingRepository bookingRepository, QuanLyKhachSanDBContext context)
         {
             _bookingRepository = bookingRepository;
+            _context = context;
         }
         // GET: AdminHome
         public async Task<ActionResult> Index()
