@@ -4518,15 +4518,41 @@ textarea.form-control-lg {
 }
 
 .card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem; /* Tạo góc bo tròn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng bóng */
+    transition: all 0.3s ease; /* Thêm hiệu ứng chuyển tiếp khi hover */
+}
+    /* Thêm hiệu ứng hover cho card */
+    .card:hover {
+        transform: translateY(-5px); /* Đẩy card lên khi hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Thêm bóng đổ rõ hơn khi hover */
+    }
+
+/* Thêm padding cho phần nội dung bên trong card */
+.card-body {
+    padding: 1rem;
+}
+
+/* Thêm khoảng cách giữa các phần tử con */
+.card-header, .card-footer {
+    padding: 0.75rem 1.25rem;
+    background-color: #f8f9fa; /* Màu nền sáng cho header và footer */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Cải tiến các thuộc tính để card có tính tương thích tốt hơn */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem; /* Thêm margin dưới mỗi card khi màn hình nhỏ */
+    }
 }
 .card > hr {
   margin-right: 0;
@@ -4574,14 +4600,16 @@ textarea.form-control-lg {
 }
 
 .card-header {
-  padding: 0.5rem 1rem;
-  margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
-.card-header:first-child {
-  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
-}
+
+    .card-header:first-child {
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
 
 .card-footer {
   padding: 0.5rem 1rem;
@@ -7809,8 +7837,8 @@ textarea.form-control-lg {
 }
 
 .bg-primary {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+    --bs-bg-opacity: 1;
+    background-color: #5dade2;
 }
 
 .bg-secondary {
@@ -11685,4 +11713,138 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
+}
+
+/* Tùy chỉnh giao diện chung */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Định dạng các thẻ h4 */
+h4.mt-1 {
+    font-size: 24px; /* Kích thước chữ */
+    color: #0d6efd; /* Màu chữ */
+    margin-bottom: 20px; /* Khoảng cách phía dưới */
+    font-weight: bold; /* Đậm chữ */
+    text-align: center; /* Canh giữa */
+    text-transform: uppercase; /* Chữ hoa */
+    letter-spacing: 1px; /* Khoảng cách giữa các chữ cái */
+    border-bottom: 2px solid #0d6efd; /* Đường viền dưới */
+    padding-bottom: 10px; /* Khoảng cách dưới chữ */
+}
+
+/* Thẻ alert cho thông báo */
+.alert {
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Định dạng bảng dịch vụ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #5dade2;
+    color: white;
+    font-size: 18px;
+    font-family:inherit;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td {
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333333;
+    font-weight: 600;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Định dạng các nút (button) */
+button {
+    font-size: 14px;
+    padding: 6px 12px;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+    button.btn-success {
+        background-color: #1ABC9C;
+        color: white;
+    }
+
+button.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+button.btn-danger {
+    background-color: #ff5733;
+    color: white;
+}
+
+/* Định dạng modal */
+.modal-header {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+}
+
+.modal-body {
+    font-size: 16px;
+    padding: 20px;
+}
+
+.modal-footer button {
+    width: 100px;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Định dạng form */
+.register-form .form-control {
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.mb-3 label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+/* Định dạng container */
+.container-fluid {
+    padding: 30px;
+}
+
+/* Tùy chỉnh cho các modal thêm mới */
+.modal-dialog {
+    max-width: 600px;
 }

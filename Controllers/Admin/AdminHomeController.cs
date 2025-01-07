@@ -3,9 +3,10 @@ using QuanLyKhachSan.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using System.Threading.Tasks;
+using System.Web.Mvc;
+using System.Data.Entity;
+using QuanLyKhachSan.ViewModel;
 
 namespace QuanLyKhachSan.Controllers.Admin
 {
@@ -19,6 +20,7 @@ namespace QuanLyKhachSan.Controllers.Admin
             _bookingRepository = bookingRepository;
             _context = context;
         }
+
         // GET: AdminHome
         public async Task<ActionResult> Index()
         {
@@ -27,24 +29,68 @@ namespace QuanLyKhachSan.Controllers.Admin
             {
                 return RedirectToAction("Login", "PublicAuthentication");
             }
-            else
-            {
 
-                ViewBag.Month1 = await _bookingRepository.GetTotalMoneyForMonthAsync(1);
-                ViewBag.Month2 = await _bookingRepository.GetTotalMoneyForMonthAsync(2);
-                ViewBag.Month3 = await _bookingRepository.GetTotalMoneyForMonthAsync(3);
-                ViewBag.Month4 = await _bookingRepository.GetTotalMoneyForMonthAsync(4);
-                ViewBag.Month5 = await _bookingRepository.GetTotalMoneyForMonthAsync(5);
-                ViewBag.Month6 = await _bookingRepository.GetTotalMoneyForMonthAsync(6);
-                ViewBag.Month7 = await _bookingRepository.GetTotalMoneyForMonthAsync(7);
-                ViewBag.Month8 = await _bookingRepository.GetTotalMoneyForMonthAsync(8);
-                ViewBag.Month9 = await _bookingRepository.GetTotalMoneyForMonthAsync(9);
-                ViewBag.Month10 = await _bookingRepository.GetTotalMoneyForMonthAsync(10);
-                ViewBag.Month11 = await _bookingRepository.GetTotalMoneyForMonthAsync(11);
-                ViewBag.Month12 = await _bookingRepository.GetTotalMoneyForMonthAsync(12);
-                return View();
+            // Fetch statistics data
+
+            var statistics = await GetStatisticsAsync();
+
+            // Passing statistics to the view
+            ViewBag.UserCount = statistics.UserCount;
+            ViewBag.BookingCount = statistics.BookingCount;
+            ViewBag.BookingCompletedCount = statistics.BookingCompletedCount;
+            ViewBag.BookingCancelledCount = statistics.BookingCancelledCount;
+            ViewBag.BookingsToday = statistics.BookingsToday;
+            ViewBag.UpcomingBookings = statistics.UpcomingBookings;
+            ViewBag.TotalRevenue = statistics.TotalRevenue;
+            ViewBag.AverageRevenuePerBooking = statistics.AverageRevenuePerBooking;
+            ViewBag.MonthlyData = statistics.MonthlyData;
+
+            return View(statistics);
+        }
+
+        private async Task<StatisticViewModel> GetStatisticsAsync()
+        {
+            // Statistics data
+            var userCount = _context.Users.Count();
+            var bookingCount = _context.Bookings.Count();
+            var bookingCompletedCount = _context.Bookings.Count(b => b.status == 1);
+            var bookingCancelledCount = _context.Bookings.Count(b => b.status == 2);
+
+            // Fetch all bookings and filter them in memory
+            var bookings = _context.Bookings.ToList();
+
+            // Filter bookings for today
+            var bookingsToday = bookings
+                .Where(b => DateTime.TryParse(b.checkInDate, out DateTime checkIn) && checkIn.Date == DateTime.Now.Date)
+                .Count();
+
+            // Filter upcoming bookings
+            var upcomingBookings = bookings.Count(b => DateTime.TryParse(b.checkInDate, out DateTime checkIn) && checkIn > DateTime.Now);
+
+            var totalRevenue = await _bookingRepository.GetTotalRevenueAsync();
+            var averageRevenuePerBooking = bookingCount > 0 ? totalRevenue / bookingCount : 0;
+
+            // Monthly data for 12 months
+            var monthlyData = new List<int>();
+            for (int month = 1; month <= 12; month++)
+            {
+                monthlyData.Add(await _bookingRepository.GetTotalMoneyForMonthAsync(month));
             }
 
+            return new StatisticViewModel
+            {
+                UserCount = userCount,
+                BookingCount = bookingCount,
+                BookingCompletedCount = bookingCompletedCount,
+                BookingCancelledCount = bookingCancelledCount,
+                BookingsToday = bookingsToday,
+                UpcomingBookings = upcomingBookings,
+                TotalRevenue = totalRevenue,
+                AverageRevenuePerBooking = averageRevenuePerBooking,
+                MonthlyData = monthlyData
+            };
         }
     }
+
+  
 }

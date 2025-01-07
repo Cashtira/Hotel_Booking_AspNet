@@ -73,6 +73,12 @@ namespace QuanLyKhachSan.Repositories
                  .Where(x => x.createdDate.Month == month && x.isPayment)
                  .SumAsync(x => (int?)x.totalMoney) ?? 0;
         }
+        public async Task<int> GetTotalRevenueAsync()
+        {
+            return await _context.Bookings
+                 .Where(x => x.isPayment)
+                 .SumAsync(x => (int?)x.totalMoney) ?? 0;
+        }
         public async Task<bool> HasUserBookedRoomAsync(int userId, int roomId)
         {
             var bookings = await _context.Bookings

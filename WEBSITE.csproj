@@ -237,6 +237,7 @@
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\Interface\IFileService.cs" />
     <Compile Include="ViewModel\BookingWithServicesViewModel.cs" />
+    <Compile Include="ViewModel\StatisticViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\assets\demo\chart-area-demo.js" />

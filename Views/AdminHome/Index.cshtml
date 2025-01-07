@@ -1,5 +1,7 @@
-﻿@{
-    ViewBag.Title = "Statistic";
+﻿@model QuanLyKhachSan.ViewModel.StatisticViewModel
+
+@{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,26 +11,15 @@
             <li class="breadcrumb-item active">Thống kê doanh thu</li>
         </ol>
 
-        <!-- Các tháng được truyền từ Controller -->
-        <p style="display:none" id="m1">@ViewBag.Month1</p>
-        <p style="display:none" id="m2">@ViewBag.Month2</p>
-        <p style="display:none" id="m3">@ViewBag.Month3</p>
-        <p style="display:none" id="m4">@ViewBag.Month4</p>
-        <p style="display:none" id="m5">@ViewBag.Month5</p>
-        <p style="display:none" id="m6">@ViewBag.Month6</p>
-        <p style="display:none" id="m7">@ViewBag.Month7</p>
-        <p style="display:none" id="m8">@ViewBag.Month8</p>
-        <p style="display:none" id="m9">@ViewBag.Month9</p>
-        <p style="display:none" id="m10">@ViewBag.Month10</p>
-        <p style="display:none" id="m11">@ViewBag.Month11</p>
-        <p style="display:none" id="m12">@ViewBag.Month12</p>
+        <!-- Biểu đồ doanh thu 12 tháng -->
+        @for (int i = 0; i < 12; i++)
+        {
+            <p style="display:none" id="m@(i+1)">@Model.MonthlyData[i]</p>
+        }
 
+        <!-- Biểu đồ doanh thu -->
         <div class="card mb-4">
             <div class="card-header">
-                <!-- Thêm sự kiện onclick để gọi hàm in -->
-                <button type="button" class="btn btn-success" onclick="printPage()">
-                    In thống kê
-                </button>
                 <i class="fas fa-chart-bar me-1"></i>
                 Doanh thu 12 tháng (VND)
             </div>
@@ -36,67 +27,88 @@
                 <canvas id="myBarChart" width="100%" height="50"></canvas>
             </div>
         </div>
-    </div>
-</main>
 
-<!-- Modal thông báo lỗi -->
-<div class="modal fade" id="exampleModalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Biểu đồ số lượng người dùng, booking, trạng thái -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-users me-1"></i>
+                Số liệu người dùng và booking
             </div>
-            <div class="modal-body">
-                <form method="POST" action="" class="register-form" id="register-form">
-                    <div class="mb-3">
-                        <label for="category-film" class="col-form-label">Không thể kết nối tới máy in</label>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    </div>
-                </form>
+            <div class="card-body">
+                <canvas id="userBookingChart" width="100%" height="50"></canvas>
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <script>
-    function printPage() {
-        // Lưu lại nội dung ban đầu của trang
-        var originalContents = document.body.innerHTML;
-
-        // Lấy nội dung cần in (bao gồm biểu đồ và các thông tin khác)
-        var printContents = document.getElementById('myBarChart').outerHTML;
-        var monthsData = `
-            <h2>Thống Kê Doanh Thu</h2>
-            <p>Tháng 1: ${document.getElementById('m1').innerText} VND</p>
-            <p>Tháng 2: ${document.getElementById('m2').innerText} VND</p>
-            <p>Tháng 3: ${document.getElementById('m3').innerText} VND</p>
-            <p>Tháng 4: ${document.getElementById('m4').innerText} VND</p>
-            <p>Tháng 5: ${document.getElementById('m5').innerText} VND</p>
-            <p>Tháng 6: ${document.getElementById('m6').innerText} VND</p>
-            <p>Tháng 7: ${document.getElementById('m7').innerText} VND</p>
-            <p>Tháng 8: ${document.getElementById('m8').innerText} VND</p>
-            <p>Tháng 9: ${document.getElementById('m9').innerText} VND</p>
-            <p>Tháng 10: ${document.getElementById('m10').innerText} VND</p>
-            <p>Tháng 11: ${document.getElementById('m11').innerText} VND</p>
-            <p>Tháng 12: ${document.getElementById('m12').innerText} VND</p>
-        `;
-
-        // Mở cửa sổ mới để in
-        var printWindow = window.open('', '', 'height=600,width=800');
-
-        if (printWindow) {
-            // Tạo nội dung cho cửa sổ in
-            printWindow.document.write('<html><head><title>In Thống Kê</title></head><body>');
-            printWindow.document.write(monthsData); // Thêm dữ liệu tháng vào
-            printWindow.document.write(printContents); // Thêm biểu đồ vào
-            printWindow.document.write('</body></html>');
-            printWindow.document.close(); // Đóng tài liệu để chuẩn bị in
-            printWindow.print(); // Gọi cửa sổ in
-        } else {
-            alert('Không thể mở cửa sổ in. Vui lòng kiểm tra trình duyệt của bạn.');
+    // Biểu đồ doanh thu 12 tháng
+    var ctx = document.getElementById('myBarChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            datasets: [{
+                label: 'Doanh thu (VND)',
+                data: [
+                    @Model.MonthlyData[0], @Model.MonthlyData[1], @Model.MonthlyData[2], @Model.MonthlyData[3], @Model.MonthlyData[4],
+                    @Model.MonthlyData[5], @Model.MonthlyData[6], @Model.MonthlyData[7], @Model.MonthlyData[8], @Model.MonthlyData[9],
+                    @Model.MonthlyData[10], @Model.MonthlyData[11]
+                ],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
-    }
+    });
+
+    // Biểu đồ số liệu người dùng và booking
+    var userBookingCtx = document.getElementById('userBookingChart').getContext('2d');
+    var userBookingChart = new Chart(userBookingCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Số lượng người dùng', 'Số lượng booking', 'Số lượng booking hoàn thành', 'Số lượng booking hủy'],
+            datasets: [{
+                label: 'Thông kê booking và người dùng',
+                data: [
+                    @Model.UserCount, @Model.BookingCount, @Model.BookingCompletedCount, @Model.BookingCancelledCount
+                ],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 99, 132, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw + ' bookings';
+                        }
+                    }
+                }
+            }
+        }
+    });
 </script>
