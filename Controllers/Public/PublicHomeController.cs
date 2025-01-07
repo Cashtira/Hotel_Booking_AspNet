@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,9 +10,9 @@ namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicHomeController : Controller
     {
-        RoomRepository _roomRepository;
-        ServiceRepository _serviceRepository;
-        TypeRepository _typeRepository;
+        private readonly RoomRepository _roomRepository;
+        private readonly ServiceRepository _serviceRepository;
+        private readonly TypeRepository _typeRepository;
         public PublicHomeController(RoomRepository roomRepository, ServiceRepository serviceRepository, TypeRepository typeRepository)
         {
             _roomRepository = roomRepository;
@@ -19,13 +20,13 @@ namespace QuanLyKhachSan.Controllers.Public
             _typeRepository = typeRepository;
         }
         // GET: PublicHome
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            ViewBag.ListRoomTop5 = _roomRepository.GetRoomTop5();
-            ViewBag.ListRoomDiscount = _roomRepository.GetRoomDiscount();
-            ViewBag.ListService = _serviceRepository.GetServicesTop5();
-            ViewBag.ListType = _typeRepository.GetTypes();
-            ViewBag.ListRoom = _roomRepository.GetRoomsAsync();  
+            ViewBag.ListRoomTop5 = await  _roomRepository.GetTopRoomsByViewAsync();
+            ViewBag.ListRoomDiscount =await  _roomRepository.GetDiscountedRoomsAsync();
+            ViewBag.ListService =await  _serviceRepository.GetTopServicesAsync();
+            ViewBag.ListType = await _typeRepository.GetAllTypesAsync();
+            ViewBag.ListRoom = await _roomRepository.GetRoomsAsync();  
             ViewBag.active = "home";
             return View();
         }

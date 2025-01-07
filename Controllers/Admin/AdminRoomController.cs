@@ -57,7 +57,7 @@ namespace QuanLyKhachSan.Controllers.Admin
         [ValidateInput(false)]
         public async Task<ActionResult> Update(Room room)
         {
-            var existingRoom = _roomRepository.GetRoomByIdAsync(room.idRoom);
+            var existingRoom = await _roomRepository.GetRoomDetailsAsync(room.idRoom);
             if (existingRoom == null)
             {
                 return RedirectToAction("Index", new { msg = "Room not found." });
@@ -78,8 +78,8 @@ namespace QuanLyKhachSan.Controllers.Admin
         // Xóa phòng
         public async Task<ActionResult> Delete(int roomId)
         {
-            var bookingExists = await _roomRepository.CheckRoomBookingsAsync(roomId);
-            if (bookingExists.Count == 0)
+            var bookingExists = await _roomRepository.HasBookingAsync(roomId);
+            if (!bookingExists)
             {
                 await _roomRepository.DeleteRoomAsync(roomId);
                 return RedirectToAction("Index", new { msg = "Room deleted successfully!" });

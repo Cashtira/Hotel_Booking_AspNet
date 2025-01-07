@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace QuanLyKhachSan.Controllers.Admin
 {
@@ -12,58 +13,55 @@ namespace QuanLyKhachSan.Controllers.Admin
     {
         private readonly UserRepository _userRepository;
 
-        public AdminUserController()
+        public AdminUserController(UserRepository userRepository)
         {
-            var context = new QuanLyKhachSanDBContext();
-            _userRepository = new UserRepository(context);
+            _userRepository = userRepository;
         }        // GET: AdminUser
-        public ActionResult Index(string msg)
+        public async Task<ActionResult> Index(string msg)
         {
             ViewBag.Msg = msg;
-            ViewBag.List = _userRepository.GetEmployees();
+            ViewBag.List = await _userRepository.GetEmployeesAsync();
             return View();
         }
 
-        public ActionResult Customer(string msg)
+        public async Task<ActionResult> Customer(string msg)
         {
             ViewBag.Msg = msg;
-            ViewBag.List = _userRepository.GetCustomers();
+            ViewBag.List = await  _userRepository.GetCustomersAsync();
             return View();
         }
-        public ActionResult Add(User user)
+        public async Task<ActionResult> Add(User user)
         {
             user.idRole = 2;
-            user.password = _userRepository.Md5Hash(user.password);
-            _userRepository.AddUser(user);
+            await _userRepository.AddUserAsync(user);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
-        public ActionResult AddKH(User user)
+        public async Task<ActionResult> AddCustomer(User user)
         {
             user.idRole = 3;
-            user.password = _userRepository.Md5Hash(user.password);
-            _userRepository.AddUser(user);
+            await _userRepository.AddUserAsync(user);
             return RedirectToAction("Customer", new { msg = "1" });
         }
 
-        public ActionResult Update(User user)
+        public async Task<ActionResult> Update(User user)
         {
-            _userRepository.UpdateUser(user);
+            await _userRepository.UpdateUserAsync(user);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
-        public ActionResult UpdateKH(User user)
+        public async Task<ActionResult> UpdateCustomer(User user)
         {
-            _userRepository.UpdateUser(user);
+            await _userRepository.UpdateUserAsync(user);
             return RedirectToAction("Customer", new { msg = "1" });
         }
 
-        public ActionResult Delete(User user)
+        public async Task<ActionResult> Delete(User user)
         {
-            var check = _userRepository.getCheck(user.idUser);
-            if (check.Count == 0)
+            var hasBookings = await _userRepository.HasBookingsAsync(user.idUser);
+            if (!hasBookings)
             {
-                _userRepository.DeleteUser(user.idUser);
+                await _userRepository.DeleteUserAsync(user.idUser);
                 return RedirectToAction("Index", new { msg = "1" });
             }
             else
@@ -72,12 +70,12 @@ namespace QuanLyKhachSan.Controllers.Admin
             }
         }
 
-        public ActionResult DeleteKH(User user)
+        public async Task<ActionResult> DeleteCustomer(User user)
         {
-            var check = _userRepository.getCheck(user.idUser);
-            if (check.Count == 0)
+            var hasBookings = await _userRepository.HasBookingsAsync(user.idUser);
+            if (!hasBookings)
             {
-                _userRepository.delete(user.idUser);
+                await _userRepository.DeleteUserAsync(user.idUser);
                 return RedirectToAction("Customer", new { msg = "1" });
             }
             else

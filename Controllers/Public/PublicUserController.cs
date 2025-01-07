@@ -12,10 +12,11 @@ namespace QuanLyKhachSan.Controllers.Public
     public class PublicUserController : Controller
     {
         UserRepository _userRepository;
-        QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
-        public PublicUserController(UserRepository userRepository)
+        private readonly QuanLyKhachSanDBContext _context;
+        public PublicUserController(UserRepository userRepository, QuanLyKhachSanDBContext context)
         {
             _userRepository = userRepository;
+            _context = context;
         }
         // GET: PublicUser
         public ActionResult Index()
@@ -23,7 +24,7 @@ namespace QuanLyKhachSan.Controllers.Public
             return View();
         }
 
-        public async Task<ActionResult> ProfileUserAsync(int id,string mess)
+        public async Task<ActionResult> ProfileUser(int id,string mess)
         {
             ViewBag.profile = await _userRepository.GetUserInfoAsync(id);
             ViewBag.mess = mess;
@@ -31,7 +32,7 @@ namespace QuanLyKhachSan.Controllers.Public
         }
 
         [HttpPost]
-        public async Task<ActionResult> UpdateProfileAsync(User user)
+        public async Task<ActionResult> UpdateProfile(User user)
         {
             await _userRepository.UpdateUserAsync(user);
             return RedirectToAction("ProfileUser", new { id = user.idUser, mess = "Success" });
@@ -46,7 +47,7 @@ namespace QuanLyKhachSan.Controllers.Public
             if (passwordNew.Equals(rePasswordNew))
             {
                 User user = _context.Users.FirstOrDefault(x => x.idUser == id);
-                user.password = _userRepository.Md5Hash(passwordNew);
+                user.password = passwordNew;
                 _context.SaveChanges();
                 return RedirectToAction("ProfileUser", new { id = id, mess = "Success" });
             }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
@@ -10,32 +11,36 @@ namespace QuanLyKhachSan.Controllers.Admin
 {
     public class AdminServiceController : Controller
     {
-        ServiceRepository _serviceRepository = new ServiceRepository();
+        private readonly ServiceRepository _serviceRepository;
+        public AdminServiceController(ServiceRepository serviceRepository)
+        {
+            _serviceRepository = serviceRepository;
+        }
         // GET: Adminservice
-        public ActionResult Index(string msg)
+        public async Task<ActionResult> Index(string msg)
         {
             ViewBag.Msg = msg;
-            ViewBag.List = _serviceRepository.GetAllServices();
+            ViewBag.List = await _serviceRepository.GetAllServicesAsync();
             return View();
         }
-        public ActionResult Add(QuanLyKhachSan.Models.Service service)
+        public async Task<ActionResult> Add(QuanLyKhachSan.Models.Service service)
         {
-            _serviceRepository.add(service);
+            await _serviceRepository.AddServiceAsync(service);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
-        public ActionResult Update(QuanLyKhachSan.Models.Service service)
+        public async Task<ActionResult> Update(QuanLyKhachSan.Models.Service service)
         {
-            _serviceRepository.update(service);
+            await _serviceRepository.UpdateServiceAsync(service);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
-        public ActionResult Delete(QuanLyKhachSan.Models.Service service)
+        public async Task<ActionResult> Delete(QuanLyKhachSan.Models.Service service)
         {
-            var check = _serviceRepository.getCheck(service.idService);
-            if (check.Count == 0)
+            var hasBookingExist = await _serviceRepository.HasBookingAsync(service.idService);
+            if (!hasBookingExist)
             {
-                _serviceRepository.delete(service.idService);
+                await _serviceRepository.DeleteServiceAsync(service.idService);
                 return RedirectToAction("Index", new { msg = "1" });
             }
             else

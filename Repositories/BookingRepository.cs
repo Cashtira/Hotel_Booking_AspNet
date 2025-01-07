@@ -80,6 +80,41 @@ namespace QuanLyKhachSan.Repositories
                 .ToListAsync();
             return bookings.Any();
         }
-      
+        public async Task<List<Booking>> GetBookedRoomAsync(int roomId)
+        {
+            return await _context.Bookings
+                                 .Where(b => b.idRoom == roomId && (b.status == 0 || b.status == 1)) // Lọc trạng thái "đang chờ" hoặc "đã đặt"
+                                 .ToListAsync();
+        }
+
+
+        //Booking
+        public async Task CreateBookingAsync(Booking booking, User user, int numberBooking, Room room, int priceService, int[] idService)
+        {
+            // Cấu hình thông tin booking
+            booking.idUser = user.idUser;
+            booking.createdDate = DateTime.Now;
+            booking.isPayment = false;
+            booking.status = 0;
+            booking.totalMoney = (room.cost * numberBooking - room.cost * numberBooking * room.discount / 100) + priceService;
+
+            // Thêm booking vào cơ sở dữ liệu
+            _context.Bookings.Add(booking);
+            await _context.SaveChangesAsync();
+
+            // Thêm danh sách dịch vụ
+            if (idService != null)
+            {
+                var bookingServices = idService.Select(serviceId => new BookingService
+                {
+                    idService = serviceId,
+                    idBooking = booking.idBooking
+                }).ToList();
+
+                _context.BookingServices.AddRange(bookingServices);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }

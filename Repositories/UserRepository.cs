@@ -24,7 +24,7 @@ namespace QuanLyKhachSan.Repositories
             var user = await _context.Users.FirstOrDefaultAsync(x => x.userName == userName);
             if (user == null) return false;
 
-            return user.password == Md5Hash(password);
+            return user.password == password;
         }
 
         // Lấy thông tin người dùng theo tên đăng nhập
@@ -106,19 +106,17 @@ namespace QuanLyKhachSan.Repositories
         }
 
         // Mã hóa mật khẩu với MD5
-        public string Md5Hash(string input)
+        public string Md5Hash(string password)
         {
-            using (MD5 md5 = MD5.Create())
+            MD5 md = MD5.Create();
+            byte[] inputString = System.Text.Encoding.ASCII.GetBytes(password);
+            byte[] hash = md.ComputeHash(inputString);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
             {
-                byte[] inputBytes = Encoding.ASCII.GetBytes(input);
-                byte[] hashBytes = md5.ComputeHash(inputBytes);
-                StringBuilder sb = new StringBuilder();
-                foreach (byte b in hashBytes)
-                {
-                    sb.Append(b.ToString("x2"));
-                }
-                return sb.ToString();
+                sb.Append(hash[i].ToString("x"));
             }
+            return sb.ToString();
         }
 
         // Lấy danh sách đặt phòng của người dùng
@@ -127,6 +125,12 @@ namespace QuanLyKhachSan.Repositories
             return await _context.Bookings.Where(x => x.idUser == userId).ToListAsync();
         }
 
+
+        public async Task<bool> HasBookingsAsync(int userId)
+        {
+            // Kiểm tra xem người dùng có đặt phòng nào không
+            return await _context.Bookings.AnyAsync(x => x.idUser == userId);
+        }
 
     }
 }

@@ -15,17 +15,20 @@ namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicBookingController : Controller
     {
-  
-        QuanLyKhachSanDBContext _context= new QuanLyKhachSanDBContext();
+
+        QuanLyKhachSanDBContext _context;
         private readonly BookingRepository _bookingRepository;
         private readonly BookingServiceRepository _bookingServiceRepository;
 
         public PublicBookingController(
             BookingRepository bookingRepository,
-            BookingServiceRepository bookingServiceRepository)
+            BookingServiceRepository bookingServiceRepository,
+                        QuanLyKhachSanDBContext context
+)
         {
             _bookingRepository = bookingRepository;
             _bookingServiceRepository = bookingServiceRepository;
+            _context = context;
         }
 
         // GET: PublicBooking

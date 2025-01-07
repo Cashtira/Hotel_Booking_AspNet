@@ -22,6 +22,12 @@ namespace QuanLyKhachSan
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "PublicHome", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+    name: "RoomDetail",
+    url: "PublicRoom/DetailRoom/{id}/{mess}",
+    defaults: new { controller = "PublicRoom", action = "DetailRoom" }
+);
+
         }
     }
 }

@@ -17,12 +17,13 @@ namespace QuanLyKhachSan.Controllers.Public
 {
     public class PublicAuthenticationController : Controller
     {
-        private readonly QuanLyKhachSanDBContext _context = new QuanLyKhachSanDBContext();
 
         private readonly UserRepository _userRepository;
-        public PublicAuthenticationController(UserRepository userRepository)
+        private readonly QuanLyKhachSanDBContext _context;
+        public PublicAuthenticationController(UserRepository userRepository, QuanLyKhachSanDBContext context)
         {
             _userRepository = userRepository;
+            _context = context;
         }
         // GET: AdminAuthentication
         public ActionResult Index()
@@ -61,7 +62,7 @@ namespace QuanLyKhachSan.Controllers.Public
             if (passwordNew.Equals(rePasswordNew))
             {
                 User user = _context.Users.FirstOrDefault(x => x.idUser == id);
-                user.password = _userRepository.Md5Hash(passwordNew);
+                user.password = passwordNew;
                 _context.SaveChanges();
                 ViewBag.mess = "ResetOk";
                 return View("Login");
@@ -83,11 +84,11 @@ namespace QuanLyKhachSan.Controllers.Public
                 userName = form["userName"],
                 password = form["password"]
             };
-            string passwordMd5 = _userRepository.Md5Hash(form["password"]);
-            bool checkLogin = await _userRepository.CheckLoginAsync(user.userName, passwordMd5);
+            string passwordMd5 = user.password;
+            bool checkLogin = await _userRepository.CheckLoginAsync(user.userName, user.password);
             if (checkLogin)
             {
-                var userInformation = _userRepository.GetUserByUserNameAsync(user.userName);
+                var userInformation = await _userRepository.GetUserByUserNameAsync(user.userName);
                 if(userInformation.idRole == 3)
                 {
                     Session.Add("USER", userInformation);
@@ -125,11 +126,11 @@ namespace QuanLyKhachSan.Controllers.Public
         }
 
         [HttpPost]
-        public ActionResult RePassword(FormCollection form)
+        public async Task<ActionResult> RePassword(FormCollection form)
         {
 
             var email = form["email"];
-            var check = _userRepository.GetUserByEmail(email);
+            var check = await _userRepository.GetUserByEmailAsync(email);
             if (check != null)
             {
                 var idUser = check.idUser;
@@ -143,15 +144,17 @@ namespace QuanLyKhachSan.Controllers.Public
         }
 
         [HttpPost]
-        public ActionResult Register(User user,FormCollection form)
+
+        public async Task<ActionResult> Register(User user, FormCollection form)
         {
             string rePassword = form["rePassword"];
-            bool checkExistUserName = _userRepository.CheckUsernameExistence(user.userName);
+            bool checkExistUserName =await  _userRepository.CheckUsernameExistenceAsync(user.userName);
             if (checkExistUserName)
             {
                 ViewBag.mess = "ErrorExist";
                 return View("Login");
-            } else
+            }
+            else
             {
                 if (!user.password.Equals(rePassword))
                 {
@@ -160,7 +163,7 @@ namespace QuanLyKhachSan.Controllers.Public
                 }
                 else
                 {
-                    user.password = _userRepository.Md5Hash(user.password);
+                    // hash o line
                     user.idRole = 3;
                     var otp = RandomNumber(6);
                     Session.Add("RegisterUser", user);
@@ -170,8 +173,8 @@ namespace QuanLyKhachSan.Controllers.Public
 
                     ViewBag.mess = "Success";
                     return View("CheckOTP");
-                    
-                }            
+
+                }
             }
         }
         public ActionResult Logout()

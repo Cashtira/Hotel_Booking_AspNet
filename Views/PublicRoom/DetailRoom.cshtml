@@ -158,30 +158,25 @@
                                     </li>
                                 }
                             </ul>
-                            @if (userInfomatiom != null)
+                            @if (userInfomatiom != null && (ViewBag.CheckBooking ?? false))
                             {
-                                var check = new QuanLyKhachSan.Daos.BookingDao().checkBooked(userInfomatiom.idUser, ViewBag.Room.idRoom);
-                                if (check)
-                                {
-                                    <form id="comment-form">
-                                        <div id="rating">
-                                            <span class="star1 active" data-star="1">&#9733;</span>
-                                            <span class="star1 active" data-star="2">&#9733;</span>
-                                            <span class="star1 active" data-star="3">&#9733;</span>
-                                            <span class="star1 active" data-star="4">&#9733;</span>
-                                            <span class="star1 active" data-star="5">&#9733;</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="comment-input" placeholder="Nhập bình luận tại đây..." required>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="button" id="comment-submit" onclick="postComment()" value="Bình luận" class="btn btn-primary py-3">
-                                        </div>
-
-                                    </form>
-                                }
-
+                                <form id="comment-form">
+                                    <div id="rating">
+                                        <span class="star1 active" data-star="1">&#9733;</span>
+                                        <span class="star1 active" data-star="2">&#9733;</span>
+                                        <span class="star1 active" data-star="3">&#9733;</span>
+                                        <span class="star1 active" data-star="4">&#9733;</span>
+                                        <span class="star1 active" data-star="5">&#9733;</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="comment-input" placeholder="Nhập bình luận tại đây..." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="button" id="comment-submit" onclick="postComment()" value="Bình luận" class="btn btn-primary py-3">
+                                    </div>
+                                </form>
                             }
+
                         </div>
                     </div>
 

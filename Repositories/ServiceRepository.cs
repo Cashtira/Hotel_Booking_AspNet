@@ -44,7 +44,7 @@ namespace QuanLyKhachSan.Repositories
             if (service == null) throw new ArgumentNullException(nameof(service));
 
             _context.Services.Add(service);
-            await SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         // Xóa dịch vụ theo ID
@@ -54,7 +54,7 @@ namespace QuanLyKhachSan.Repositories
             if (service == null) throw new ArgumentException($"No service found with id {serviceId}");
 
             _context.Services.Remove(service);
-            await SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         // Cập nhật dịch vụ
@@ -67,7 +67,7 @@ namespace QuanLyKhachSan.Repositories
 
             existingService.name = updatedService.name;
             existingService.cost = updatedService.cost;
-            await SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         // Lấy dịch vụ theo ID
@@ -84,10 +84,14 @@ namespace QuanLyKhachSan.Repositories
         {
             return await _context.BookingServices.Where(bs => bs.idService == serviceId).ToListAsync();
         }
-
-        private async Task SaveChangesAsync()
+        public async Task<bool> HasBookingAsync(int serviceId)
         {
-            await _context.SaveChangesAsync();
+            return await _context.BookingServices.AnyAsync(bs => bs.idService == serviceId);
         }
+
+
+
+    
+
     }
 }

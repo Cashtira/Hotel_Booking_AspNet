@@ -1,9 +1,9 @@
 ﻿using QuanLyKhachSan.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace QuanLyKhachSan.Repositories
 {
@@ -16,6 +16,7 @@ namespace QuanLyKhachSan.Repositories
             _context = context;
         }
 
+        // Lấy danh sách tất cả các phòng
         public async Task<List<Room>> GetRoomsAsync()
         {
             return await _context.Rooms.ToListAsync();
@@ -87,6 +88,54 @@ namespace QuanLyKhachSan.Repositories
                 .ToListAsync();
         }
 
+        // Tìm kiếm phòng theo loại phòng và tên
+        public async Task<List<Room>> SearchRoomsByTypeAndNameAsync(int page, int pageSize, int idType, string name, int numberChildren, int numberAdult)
+        {
+            var bookedRoomIds = await _context.Bookings
+                .Where(x => x.status == 0 || x.status == 1)
+                .Select(x => x.idRoom)
+                .Distinct()
+                .ToListAsync();
+
+            return await _context.Rooms
+                .Where(x => !bookedRoomIds.Contains(x.idRoom) &&
+                            x.idType == idType &&
+                            x.name.Contains(name) &&
+                            x.numberAdult >= numberAdult &&
+                            x.numberChildren >= numberChildren)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+        public async Task<List<Room>> SearchRoomsByTypeAsync(int page, int pageSize, int idType, int numberChildren, int numberAdult)
+        {
+            // Lọc các phòng đã được đặt (status == 0 hoặc 1)
+            var bookedRoomIds = _context.Bookings
+                .Where(x => x.status == 0 || x.status == 1)
+                .Select(x => x.idRoom)
+                .Distinct()
+                .ToList();
+
+            // Lọc các phòng chưa được đặt
+            var availableRoomIds = _context.Rooms
+                .Where(x => !bookedRoomIds.Contains(x.idRoom) &&
+                            x.idType == idType &&
+                            x.numberAdult >= numberAdult &&
+                            x.numberChildren >= numberChildren)
+                .Select(x => x.idRoom)
+                .ToList();
+
+            // Lấy danh sách phòng theo các điều kiện trên và phân trang
+            var rooms = await _context.Rooms
+                .Where(x => availableRoomIds.Contains(x.idRoom))
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return rooms;
+        }
+
+
         // Thêm phòng
         public async Task AddRoomAsync(Room room)
         {
@@ -132,6 +181,124 @@ namespace QuanLyKhachSan.Repositories
                 room.view++;
                 await _context.SaveChangesAsync();
             }
+        }
+
+        // Lấy tổng số nhóm phòng còn trống (mỗi nhóm 3 phòng)
+        public async Task<int> GetTotalAvailableRoomGroupsAsync()
+        {
+            var bookedRoomIds = await _context.Bookings
+                                     .Where(x => x.status == 0 || x.status == 1)
+                                     .Select(x => x.idRoom)
+                                     .Distinct()
+                                     .ToListAsync();
+
+            var allRoomIds = await _context.Rooms.Select(x => x.idRoom).ToListAsync();
+
+            var availableRoomIds = allRoomIds.Except(bookedRoomIds).ToList();
+
+            int totalAvailableRooms = await _context.Rooms.CountAsync(x => availableRoomIds.Contains(x.idRoom));
+
+            int roomGroups = totalAvailableRooms / 3;
+            if (totalAvailableRooms % 3 != 0)
+            {
+                roomGroups++;
+            }
+
+            return roomGroups;
+        }
+        // Lấy tổng số nhóm phòng trống theo loại phòng
+        public async Task<int> GetTotalAvailableRoomGroupsByTypeAsync(int idType, int numberChildren, int numberAdult)
+        {
+            // Lấy danh sách id phòng đã được đặt
+            var bookedRoomIds = await _context.Bookings
+                .Where(x => x.status == 0 || x.status == 1)
+                .Select(x => x.idRoom)
+                .Distinct()
+                .ToListAsync();
+
+            // Lấy danh sách id phòng còn trống
+            var availableRoomIds = await _context.Rooms
+                .Where(x => !bookedRoomIds.Contains(x.idRoom) &&
+                            x.idType == idType &&
+                            x.numberAdult >= numberAdult &&
+                            x.numberChildren >= numberChildren)
+                .Select(x => x.idRoom)
+                .ToListAsync();
+
+            // Tính tổng số nhóm phòng (mỗi nhóm 3 phòng)
+            int totalRooms = availableRoomIds.Count;
+            int roomGroups = totalRooms / 3;
+            if (totalRooms % 3 != 0)
+            {
+                roomGroups++;
+            }
+
+            return roomGroups;
+        }
+        public async Task<int> GetTotalAvailableRoomGroupsByNameAndTypeAsync(string name, int idType, int numberChildren, int numberAdult)
+        {
+            // Lấy danh sách id phòng đã được đặt
+            var bookedRoomIds = await _context.Bookings
+                .Where(x => x.status == 0 || x.status == 1)
+                .Select(x => x.idRoom)
+                .Distinct()
+                .ToListAsync();
+
+            // Lấy danh sách id phòng còn trống
+            var availableRoomIds = await _context.Rooms
+                .Where(x => !bookedRoomIds.Contains(x.idRoom) &&
+                            x.name.Contains(name) &&
+                            x.idType == idType &&
+                            x.numberAdult >= numberAdult &&
+                            x.numberChildren >= numberChildren)
+                .Select(x => x.idRoom)
+                .ToListAsync();
+
+            // Tính tổng số nhóm phòng (mỗi nhóm 3 phòng)
+            int totalRooms = availableRoomIds.Count;
+            int roomGroups = totalRooms / 3;
+            if (totalRooms % 3 != 0)
+            {
+                roomGroups++;
+            }
+
+            return roomGroups;
+        }
+
+        // Lấy tổng số nhóm phòng trống theo tên phòng
+        public async Task<int> GetTotalAvailableRoomGroupsByNameAsync(string name, int numberChildren, int numberAdult)
+        {
+            // Lấy danh sách id phòng đã được đặt
+            var bookedRoomIds = await _context.Bookings
+                .Where(x => x.status == 0 || x.status == 1)
+                .Select(x => x.idRoom)
+                .Distinct()
+                .ToListAsync();
+
+            // Lấy danh sách id phòng còn trống
+            var availableRoomIds = await _context.Rooms
+                .Where(x => !bookedRoomIds.Contains(x.idRoom) &&
+                            x.name.Contains(name) &&
+                            x.numberAdult >= numberAdult &&
+                            x.numberChildren >= numberChildren)
+                .Select(x => x.idRoom)
+                .ToListAsync();
+
+            // Tính tổng số nhóm phòng (mỗi nhóm 3 phòng)
+            int totalRooms = availableRoomIds.Count;
+            int roomGroups = totalRooms / 3;
+            if (totalRooms % 3 != 0)
+            {
+                roomGroups++;
+            }
+
+            return roomGroups;
+        }
+
+        // Kiểm tra xem phòng có đơn đặt chỗ hay không
+        public async Task<bool> HasBookingAsync(int roomId)
+        {
+            return await _context.Bookings.AnyAsync(b => b.idRoom == roomId);
         }
     }
 }

@@ -10,37 +10,38 @@ namespace QuanLyKhachSan.Controllers.Admin
 {
     public class AdminTypeController : Controller
     {
-        TypeRepository _typeRepository;
+        private readonly TypeRepository _typeRepository;
         public AdminTypeController(TypeRepository typeRepository)
         {
             _typeRepository = typeRepository;
         }
 
         // GET: AdminType
-        public async Task<ActionResult> IndexAsync(string msg)
+        public async Task<ActionResult> Index(string msg)
         {
             ViewBag.Msg = msg;
-            ViewBag.List = await _typeRepository.GetTypesAsync();
+            ViewBag.List = await _typeRepository.GetAllTypesAsync();
             return View();
         }
-        public async Task<ActionResult> AddAsync(QuanLyKhachSan.Models.Type type)
+        public async Task<ActionResult> Add(QuanLyKhachSan.Models.Type type)
         {
             await _typeRepository.AddTypeAsync(type);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
-        public async Task<ActionResult> UpdateAsync(QuanLyKhachSan.Models.Type type)
+        public async Task<ActionResult> Update(QuanLyKhachSan.Models.Type type)
         {
            await _typeRepository.UpdateTypeAsync(type);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
-        public ActionResult Delete(QuanLyKhachSan.Models.Type type)
+        public async Task<ActionResult> Delete(QuanLyKhachSan.Models.Type type)
         {
-            var check = _typeRepository.getRoomType(type.idType);
-            if(check.Count == 0)
+            var rooms = await _typeRepository.GetRoomsByTypeAsync(type.idType);
+
+            if (rooms.Count == 0)
             {
-                _typeRepository.delete(type.idType);
+                await _typeRepository.DeleteTypeAsync(type.idType);
                 return RedirectToAction("Index", new { msg = "1" });
             }
             else
@@ -48,5 +49,6 @@ namespace QuanLyKhachSan.Controllers.Admin
                 return RedirectToAction("Index", new { msg = "2" });
             }
         }
+
     }
 }

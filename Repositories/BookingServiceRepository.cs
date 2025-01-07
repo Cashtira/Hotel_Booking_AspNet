@@ -14,7 +14,7 @@ namespace QuanLyKhachSan.Repositories
         {
             _context = context;
         }
-        public async Task AddBookingService(BookingService bookingService)
+        public async Task AddBookingServiceAsync(BookingService bookingService)
         {
             _context.BookingServices.Add(bookingService);
             await _context.SaveChangesAsync();
