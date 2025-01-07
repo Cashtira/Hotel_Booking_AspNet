@@ -64,6 +64,7 @@ namespace QuanLyKhachSan.Repositories
 
             return await _context.Rooms
                 .Where(x => !bookedRoomIds.Contains(x.idRoom))
+                .OrderBy(x => x.idRoom) // Thêm sắp xếp để đảm bảo Skip hoạt động
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
@@ -83,10 +84,12 @@ namespace QuanLyKhachSan.Repositories
                             x.name.Contains(name) &&
                             x.numberAdult >= numberAdult &&
                             x.numberChildren >= numberChildren)
+                .OrderBy(x => x.idRoom) // Thêm sắp xếp
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
         }
+
 
         // Tìm kiếm phòng theo loại phòng và tên
         public async Task<List<Room>> SearchRoomsByTypeAndNameAsync(int page, int pageSize, int idType, string name, int numberChildren, int numberAdult)
@@ -103,36 +106,29 @@ namespace QuanLyKhachSan.Repositories
                             x.name.Contains(name) &&
                             x.numberAdult >= numberAdult &&
                             x.numberChildren >= numberChildren)
+                .OrderBy(x => x.idRoom) // Thêm sắp xếp
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
         }
+
         public async Task<List<Room>> SearchRoomsByTypeAsync(int page, int pageSize, int idType, int numberChildren, int numberAdult)
         {
-            // Lọc các phòng đã được đặt (status == 0 hoặc 1)
-            var bookedRoomIds = _context.Bookings
+            var bookedRoomIds = await _context.Bookings
                 .Where(x => x.status == 0 || x.status == 1)
                 .Select(x => x.idRoom)
                 .Distinct()
-                .ToList();
+                .ToListAsync();
 
-            // Lọc các phòng chưa được đặt
-            var availableRoomIds = _context.Rooms
+            return await _context.Rooms
                 .Where(x => !bookedRoomIds.Contains(x.idRoom) &&
                             x.idType == idType &&
                             x.numberAdult >= numberAdult &&
                             x.numberChildren >= numberChildren)
-                .Select(x => x.idRoom)
-                .ToList();
-
-            // Lấy danh sách phòng theo các điều kiện trên và phân trang
-            var rooms = await _context.Rooms
-                .Where(x => availableRoomIds.Contains(x.idRoom))
+                .OrderBy(x => x.idRoom) // Thêm sắp xếp
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
-
-            return rooms;
         }
 
 

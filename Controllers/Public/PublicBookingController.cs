@@ -8,6 +8,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,58 +90,59 @@ namespace QuanLyKhachSan.Controllers.Public
             var obj = _context.Bookings.Where(x => x.idBooking == id).FirstOrDefault();
             int total = obj.totalMoney;
             string url = "https://localhost:44385/PublicBooking/ReturnUrl/" + id;
-            //request params need to request to MoMo system
+
             string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
             string partnerCode = "MOMOOJOI20210710";
             string accessKey = "iPXneGmrJH0G8FOP";
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
             string orderInfo = "Thanh toán cho phòng tại web";
             string returnUrl = url;
-            string notifyurl = "http://ba1adf48beba.ngrok.io/Home/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string notifyurl = "http://ba1adf48beba.ngrok.io/Home/SavePayment"; // URL Ngrok
 
             string amount = total.ToString();
             string orderid = DateTime.Now.Ticks.ToString();
             string requestId = DateTime.Now.Ticks.ToString();
             string extraData = "";
 
-            //Before sign HMAC SHA256 signature
-            string rawHash = "partnerCode=" +
-                partnerCode + "&accessKey=" +
-                accessKey + "&requestId=" +
-                requestId + "&amount=" +
-                amount + "&orderId=" +
-                orderid + "&orderInfo=" +
-                orderInfo + "&returnUrl=" +
-                returnUrl + "&notifyUrl=" +
-                notifyurl + "&extraData=" +
-                extraData;
-
-            //sign signature SHA256
+            // Tạo chữ ký SHA256
+            string rawHash = $"partnerCode={partnerCode}&accessKey={accessKey}&requestId={requestId}&amount={amount}&orderId={orderid}&orderInfo={orderInfo}&returnUrl={returnUrl}&notifyUrl={notifyurl}&extraData={extraData}";
             string signature = signSHA256(rawHash, serectkey);
 
-            //build body json request
+            // Tạo payload JSON
             JObject message = new JObject
+    {
+        { "partnerCode", partnerCode },
+        { "accessKey", accessKey },
+        { "requestId", requestId },
+        { "amount", amount },
+        { "orderId", orderid },
+        { "orderInfo", orderInfo },
+        { "returnUrl", returnUrl },
+        { "notifyUrl", notifyurl },
+        { "extraData", extraData },
+        { "requestType", "captureMoMoWallet" },
+        { "signature", signature }
+    };
+
+            // Gửi yêu cầu đến MoMo
+            using (var client = new HttpClient())
             {
-                { "partnerCode", partnerCode },
-                { "accessKey", accessKey },
-                { "requestId", requestId },
-                { "amount", amount },
-                { "orderId", orderid },
-                { "orderInfo", orderInfo },
-                { "returnUrl", returnUrl },
-                { "notifyUrl", notifyurl },
-                { "extraData", extraData },
-                { "requestType", "captureMoMoWallet" },
-                { "signature", signature }
+                var content = new StringContent(message.ToString(), Encoding.UTF8, "application/json");
+                var response = client.PostAsync(endpoint, content).Result;
+                var responseContent = response.Content.ReadAsStringAsync().Result;
 
-            };
+                JObject jmessage = JObject.Parse(responseContent);
 
-            string responseFromMomo = sendPaymentRequest(endpoint, message.ToString());
-
-            JObject jmessage = JObject.Parse(responseFromMomo);
-
-           
-            return Redirect(jmessage.GetValue("payUrl").ToString());
+                if (jmessage.ContainsKey("payUrl"))
+                {
+                    return Redirect(jmessage.GetValue("payUrl").ToString());
+                }
+                else
+                {
+                    // Xử lý lỗi nếu không nhận được payUrl
+                    return Content("Error: " + jmessage.ToString());
+                }
+            }
         }
 
         public ActionResult ReturnUrl(int id)
