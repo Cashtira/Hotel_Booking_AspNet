@@ -1,105 +1,92 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main>
     <div class="container-fluid px-4">
-        <h4 class="mt-4">Chi tiết Booking</h4>
+        <h4 class="mt-4">Booking Details</h4>
         <div class="card mb-4">
             <div class="card-header">
                 <a class="btn btn-warning" target="_blank" href="/AdminBooking/Bill/@ViewBag.Booking.idBooking">
-                    In hóa đơn
+                    Print Invoice
                 </a>
             </div>
             <div class="card-body">
                 <div class="col">
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <label for="category-film"
-                                   class="col-form-label">Khách hàng:</label>
-                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.User.fullName" readonly>
+                            <label for="customer-name" class="col-form-label">Customer:</label>
+                            <input type="text" class="form-control" id="customer-name" name="totalAmount" value="@ViewBag.Booking.User.fullName" readonly>
                         </div>
                         <div class="col-6 mb-3">
-                            <label for="category-film"
-                                   class="col-form-label">Phòng:</label>
-                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.Room.name" readonly>
+                            <label for="room-name" class="col-form-label">Room:</label>
+                            <input type="text" class="form-control" id="room-name" name="totalAmount" value="@ViewBag.Booking.Room.name" readonly>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <label for="category-film"
-                                   class="col-form-label">Ngày đến:</label>
-                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.checkInDate" readonly>
+                            <label for="check-in-date" class="col-form-label">Check-in Date:</label>
+                            <input type="text" class="form-control" id="check-in-date" name="totalAmount" value="@ViewBag.Booking.checkInDate" readonly>
                         </div>
                         <div class="col-6 mb-3">
-                            <label for="category-film"
-                                   class="col-form-label">Ngày đi:</label>
-                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.checkOutDate" readonly>
+                            <label for="check-out-date" class="col-form-label">Check-out Date:</label>
+                            <input type="text" class="form-control" id="check-out-date" name="totalAmount" value="@ViewBag.Booking.checkOutDate" readonly>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <label for="category-film"
-                                   class="col-form-label">Ngày booking:</label>
-                            <input type="text" class="form-control" id="category-film" name="baohanh" value="@ViewBag.Booking.createdDate" readonly>
+                            <label for="booking-date" class="col-form-label">Booking Date:</label>
+                            <input type="text" class="form-control" id="booking-date" name="warranty" value="@ViewBag.Booking.createdDate" readonly>
                         </div>
                         <div class="col-6 mb-3">
-                            <label for="category-film"
-                                   class="col-form-label">Tổng tiền:</label>
-                            <input type="text" class="form-control" id="category-film" name="tongtien" value="@ViewBag.Booking.totalMoney VND" readonly>
+                            <label for="total-amount" class="col-form-label">Total Amount:</label>
+                            <input type="text" class="form-control" id="total-amount" name="totalAmount" value="@ViewBag.Booking.totalMoney VND" readonly>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-3">
-                            <label for="category-film"
-                                   class="col-form-label">Trạng thái:</label>
+                            <label for="status" class="col-form-label">Status:</label>
                             @if (ViewBag.Booking.status == 0)
                             {
-                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Chờ xác nhận" readonly>
+                                <input type="text" class="form-control" id="status" name="warranty" value="Pending Confirmation" readonly>
                             }
                             else if (ViewBag.Booking.status == 1)
                             {
-
-                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Đã xác nhận" readonly>
+                                <input type="text" class="form-control" id="status" name="warranty" value="Confirmed" readonly>
                             }
                             else if (ViewBag.Booking.status == 3)
                             {
-
-                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Đã trả phòng" readonly>
+                                <input type="text" class="form-control" id="status" name="warranty" value="Checked Out" readonly>
                             }
                             else
                             {
-                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Đã hủy" readonly>
+                                <input type="text" class="form-control" id="status" name="warranty" value="Cancelled" readonly>
                             }
-
                         </div>
                         <div class="col-6 mb-3">
-                            <label for="category-film"
-                                   class="col-form-label">Thanh toán:</label>
+                            <label for="payment-status" class="col-form-label">Payment Status:</label>
                             @if (ViewBag.Booking.isPayment)
                             {
-                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Đã thanh toán" readonly>
+                                <input type="text" class="form-control" id="payment-status" name="warranty" value="Paid" readonly>
                             }
                             else
                             {
-
-                                <input type="text" class="form-control" id="category-film" name="baohanh" value="Chưa thanh toán" readonly>
+                                <input type="text" class="form-control" id="payment-status" name="warranty" value="Unpaid" readonly>
                             }
                         </div>
                     </div>
                 </div>
-                Danh sách dịch vụ đi kèm : 
+                List of Additional Services:
                 <table class="table table-bordered" style="margin-top: 10px">
                     <thead>
                         <tr>
-                            <th scope="col">STT</th>
-                            <th scope="col">Dịch vụ</th>
+                            <th scope="col">No.</th>
+                            <th scope="col">Service</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @{ var stt = 1;}
+                        @{ var stt = 1; }
                         @foreach (var item in ViewBag.List)
                         {
                             <tr>
@@ -108,12 +95,11 @@
                                     @item.Service.name
                                 </td>
                             </tr>
-                                            stt++;
-                                        }
-                        </tbody>
+                            stt++;
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </main>
-

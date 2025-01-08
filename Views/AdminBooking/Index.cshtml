@@ -1,12 +1,11 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main>
     <div class="container-fluid px-4">
-        <h4 class="mt-1">Danh sách booking</h4>
+        <h4 class="mt-1">Booking List</h4>
 
         <div class="card mb-4">
             <div class="card-header">
@@ -15,7 +14,7 @@
                     if (ViewBag.Msg == "1")
                     {
                         <div class="alert alert-success">
-                            <strong>Thành công</strong>
+                            <strong>Success</strong>
                         </div>
                     }
                 }
@@ -25,14 +24,14 @@
                 <table id="datatablesSimple">
                     <thead style="color:#0d6efd ">
                         <tr style="background-color: darkgrey">
-                            <th>STT</th>
-                            <th>Khách hàng</th>
-                            <th>Phòng</th>
-                            <th>Ngày đến</th>
-                            <th>Ngày đi</th>
-                            <th>Trạng thái</th>
-                            <th>Thanh toán</th>
-                            <th>Thao tác</th>
+                            <th>No.</th>
+                            <th>Customer</th>
+                            <th>Room</th>
+                            <th>Check-in Date</th>
+                            <th>Check-out Date</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -43,71 +42,69 @@
                         @{ var stt = 1;}
                         @foreach (var item in ViewBag.List)
                         {
-                        <tr>
-                            <td style="width:10px">@stt</td>
-                            <td>
-                                @item.User.fullName
-                            </td>
-                            <td>
-                                @item.Room.name
-                            </td>
-                            <td>
-                                @item.checkInDate
-                            </td>
-                            <td>
-                                @item.checkOutDate
-                            </td>
-                            @if (item.status == 0)
-                            {
+                            <tr>
+                                <td style="width:10px">@stt</td>
                                 <td>
-                                    Chờ xác nhận
+                                    @item.User.fullName
                                 </td>
-                            }
-                            else if (item.status == 1)
-                            {
-
                                 <td>
-                                    Đã xác nhận
+                                    @item.Room.name
                                 </td>
-                            }
-                            else if (item.status == 3)
-                            {
-
                                 <td>
-                                    Đã trả phòng
+                                    @item.checkInDate
                                 </td>
-                            }
-                            else
-                            {
                                 <td>
-                                    Đã hủy
+                                    @item.checkOutDate
                                 </td>
-                            }
-                            @if (item.isPayment)
-                            {
-                                <td>
-                                    Đã thanh toán
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    Chưa thanh toán
-                                </td>
-                            }
-                            <td>
-                                @{
-                                    var idEx1 = "exampleModalLabel" + item.idBooking;
+                                @if (item.status == 0)
+                                {
+                                    <td>
+                                        Pending Confirmation
+                                    </td>
                                 }
-                                <button style="width:100px" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#@idEx1">
-                                    Cập nhập
-                                </button>
-                                <a class="btn btn-warning" href="/AdminBooking/Detail/@item.idBooking">
-                                    Chi tiết
-                                </a>
-                            </td>
-                        </tr>
+                                else if (item.status == 1)
+                                {
+                                    <td>
+                                        Confirmed
+                                    </td>
+                                }
+                                else if (item.status == 3)
+                                {
+                                    <td>
+                                        Checked Out
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        Cancelled
+                                    </td>
+                                }
+                                @if (item.isPayment)
+                                {
+                                    <td>
+                                        Paid
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        Unpaid
+                                    </td>
+                                }
+                                <td>
+                                    @{
+                                        var idEx1 = "exampleModalLabel" + item.idBooking;
+                                    }
+                                    <button style="width:100px" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#@idEx1">
+                                        Update
+                                    </button>
+                                    <a class="btn btn-warning" href="/AdminBooking/Detail/@item.idBooking">
+                                        Details
+                                    </a>
+                                </td>
+                            </tr>
                             stt++;
                             <!-- Modal Update-->
                             <div class="modal fade" id="@idEx1" tabindex="-1"
@@ -115,7 +112,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Cập nhập Booking</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Update Booking</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                         </div>
@@ -125,55 +122,54 @@
 
                                                 <div class="mb-3">
                                                     <label for="category-film"
-                                                           class="col-form-label">Trạng thái:</label>
+                                                           class="col-form-label">Status:</label>
                                                     <select class="form-select" aria-label="Default select example" id="theloai" tabindex="8" name="status" required>
                                                         @if (item.status == 0)
                                                         {
-                                                            <option selected value="0">Chờ xác nhận</option>
-                                                            <option value="1">Đã xác nhận</option>
-                                                            <option value="2">Đã hủy</option>
+                                                            <option selected value="0">Pending Confirmation</option>
+                                                            <option value="1">Confirmed</option>
+                                                            <option value="2">Cancelled</option>
                                                         }
                                                         else if (item.status == 1)
                                                         {
-                                                            <option selected value="1">Đã xác nhận</option>
-                                                            <option value="3">Đã trả phòng</option>
+                                                            <option selected value="1">Confirmed</option>
+                                                            <option value="3">Checked Out</option>
                                                         }
                                                         else if (item.status == 3)
                                                         {
-                                                            <option selected value="3">Đã trả phòng</option>
+                                                            <option selected value="3">Checked Out</option>
                                                         }
                                                         else
                                                         {
-                                                            <option selected value="2">Đã hủy</option>
+                                                            <option selected value="2">Cancelled</option>
                                                         }
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="category-film"
-                                                           class="col-form-label">Thanh toán:</label>
+                                                           class="col-form-label">Payment:</label>
                                                     <select class="form-select" aria-label="Default select example" id="theloai" tabindex="8" name="isPayment" required>
                                                         @if (item.isPayment)
                                                         {
-                                                            <option selected value="true">Đã thanh toán</option>
-
+                                                            <option selected value="true">Paid</option>
                                                         }
                                                         else if (item.status == 2)
                                                         {
-                                                            <option selected value="false">Chưa thanh toán</option>
+                                                            <option selected value="false">Unpaid</option>
                                                         }
                                                         else
                                                         {
-                                                            <option selected value="false">Chưa thanh toán</option>
-                                                            <option value="true">Đã thanh toán</option>
+                                                            <option selected value="false">Unpaid</option>
+                                                            <option value="true">Paid</option>
                                                         }
                                                     </select>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">
-                                                        Đóng
+                                                        Close
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -188,5 +184,3 @@
         </div>
     </div>
 </main>
-
-

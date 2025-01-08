@@ -8,31 +8,31 @@
 <main>
     <div class="container-fluid px-4">
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">Thống kê doanh thu</li>
+            <li class="breadcrumb-item active">Revenue Statistics</li>
         </ol>
 
-        <!-- Biểu đồ doanh thu 12 tháng -->
+        <!-- Revenue chart for 12 months -->
         @for (int i = 0; i < 12; i++)
         {
             <p style="display:none" id="m@(i+1)">@Model.MonthlyData[i]</p>
         }
 
-        <!-- Biểu đồ doanh thu -->
+        <!-- Revenue chart -->
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-chart-bar me-1"></i>
-                Doanh thu 12 tháng (VND)
+                Revenue for 12 months (VND)
             </div>
             <div class="card-body">
                 <canvas id="myBarChart" width="100%" height="50"></canvas>
             </div>
         </div>
 
-        <!-- Biểu đồ số lượng người dùng, booking, trạng thái -->
+        <!-- User and booking statistics chart -->
         <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-users me-1"></i>
-                Số liệu người dùng và booking
+                User and Booking Statistics
             </div>
             <div class="card-body">
                 <canvas id="userBookingChart" width="100%" height="50"></canvas>
@@ -42,14 +42,14 @@
 </main>
 
 <script>
-    // Biểu đồ doanh thu 12 tháng
+    // Revenue chart for 12 months
     var ctx = document.getElementById('myBarChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
-                label: 'Doanh thu (VND)',
+                label: 'Revenue (VND)',
                 data: [
                     @Model.MonthlyData[0], @Model.MonthlyData[1], @Model.MonthlyData[2], @Model.MonthlyData[3], @Model.MonthlyData[4],
                     @Model.MonthlyData[5], @Model.MonthlyData[6], @Model.MonthlyData[7], @Model.MonthlyData[8], @Model.MonthlyData[9],
@@ -69,14 +69,14 @@
         }
     });
 
-    // Biểu đồ số liệu người dùng và booking
+    // User and booking statistics chart
     var userBookingCtx = document.getElementById('userBookingChart').getContext('2d');
     var userBookingChart = new Chart(userBookingCtx, {
         type: 'doughnut',
         data: {
-            labels: ['Số lượng người dùng', 'Số lượng booking', 'Số lượng booking hoàn thành', 'Số lượng booking hủy'],
+            labels: ['User Count', 'Booking Count', 'Completed Bookings', 'Cancelled Bookings'],
             datasets: [{
-                label: 'Thông kê booking và người dùng',
+                label: 'User and Booking Statistics',
                 data: [
                     @Model.UserCount, @Model.BookingCount, @Model.BookingCompletedCount, @Model.BookingCancelledCount
                 ],
