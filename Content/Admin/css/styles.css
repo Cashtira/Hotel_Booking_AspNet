@@ -7833,7 +7833,7 @@ textarea.form-control-lg {
 
 .bg-primary {
     --bs-bg-opacity: 1;
-    background-color: #5dade2;
+    background: linear-gradient(180deg, #343a40, #495057);
 }
 
 .bg-secondary {
@@ -11349,6 +11349,7 @@ body {
   flex-grow: 1;
   min-height: calc(100vh - 56px);
   margin-left: -225px;
+
 }
 
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
@@ -11401,6 +11402,7 @@ body {
 .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
   overflow-y: auto;
 }
+
 .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
   padding-left: 225px;
   top: 56px;
@@ -11485,10 +11487,16 @@ body {
   margin-left: 1.5rem;
   flex-direction: column;
 }
-.sb-sidenav .sb-sidenav-footer {
-  padding: 0.75rem;
-  flex-shrink: 0;
-}
+
+    .sb-sidenav .sb-sidenav-menu .nav{
+        row-gap:40px;
+        font-size:17px;
+        max-height:fit-content;
+    }
+    .sb-sidenav .sb-sidenav-footer {
+        padding: 0.75rem;
+        flex-shrink: 0;
+    }
 
 .sb-sidenav-dark {
   background-color: #212529;
@@ -11825,6 +11833,8 @@ button.btn-danger {
 /* Định dạng container */
 .container-fluid {
     padding: 30px;
+    margin-left:30px;
+    margin-right:30px;
 }
 
 /* Tùy chỉnh cho các modal thêm mới */
@@ -11835,7 +11845,6 @@ button.btn-danger {
 /* General Styling */
 body {
     font-family: 'Poppins', Arial, sans-serif;
-    background: linear-gradient(135deg, #74b9ff, #a29bfe);
     margin: 0;
     padding: 0;
 }
@@ -11862,4 +11871,68 @@ body {
 
 .register-container .form-group {
     flex: 1 1 calc(50% - 15px);
+}
+
+.sb-sidenav-menu {
+    width: 250px; /* Chiều rộng của thanh điều hướng */
+    height: 100vh; /* Chiều cao toàn màn hình */
+    background: linear-gradient(180deg, #343a40, #495057); /* Gradient từ màu xám đậm đến nhạt */
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+    z-index: 1000; /* Luôn trên các phần tử khác */
+}
+
+.nav-link {
+    color:white;
+}
+
+.datatable-dropdown {
+    position: relative;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    margin: 10px 0;
+}
+
+    .datatable-dropdown select {
+        width: 150px; /* Độ rộng của dropdown */
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #495057; /* Màu chữ */
+        background: #ffffff; /* Nền trắng */
+        border: 1px solid #ced4da; /* Viền xám nhạt */
+        border-radius: 5px; /* Bo góc */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng */
+        outline: none;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+        .datatable-dropdown select:hover {
+            background: #f8f9fa; /* Nền xám nhạt khi hover */
+            border-color: #20c997; /* Viền đổi sang màu xanh ngọc khi hover */
+        }
+
+        .datatable-dropdown select:focus {
+            border-color: #007bff; /* Viền màu xanh dương khi focus */
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Hiệu ứng focus */
+        }
+
+
+
+/* Responsive cho dropdown */
+@media (max-width: 768px) {
+    .datatable-dropdown select {
+        width: 100%; /* Độ rộng đầy đủ trên thiết bị nhỏ */
+    }
+}
+
+.sb-sidenav-menu{
+    margin-top:56px;
 }
