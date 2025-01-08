@@ -86,107 +86,73 @@
         </script>
     </div>
 }
-<!-- HOME -->
-<section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <h1 class="text-white font-weight-bold">Register/Login</h1>
-            </div>
+<section class="site-section" style=" background: linear-gradient(135deg, #74b9ff, #a29bfe) ">
+    <div class="container d-flex">
+        <!-- Login Section -->
+        <div class="login-container" style="margin-right: 60px; flex: 0 40%; max-width: 100vw; margin-left: 0; margin-top: 80px">
+            <h2 class="mb-4 text-center text-gradient" style="background: linear-gradient(90deg, #6a11cb, #2575fc);-webkit-background-clip: text;-webkit-text-fill-color: transparent;font-weight: bold;">Login</h2>
+            <form action="/PublicAuthentication/Login" method="post" class="p-4 shadow rounded bg-light">
+                <div class="form-group">
+                    <label for="loginUserName">Username</label>
+                    <input type="text" id="loginUserName" name="userName" class="form-control" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="/PublicAuthentication/ForgotPassword" class="btn btn-secondary btn-animated">Forgot Password</a>
+                </div>
+            </form>
+        </div>
+        <!-- Register Section -->
+        <div class="register-container" style=" flex: 0 60%; max-width: 100vw; margin-right: 0; margin-top: 80px">
+            <h2 class="mb-4 text-center text-gradient"style="background: linear-gradient(90deg, #6a11cb, #2575fc);-webkit-background-clip: text;-webkit-text-fill-color: transparent;font-weight: bold;">Register</h2>
+            <form action="/PublicAuthentication/Register" method="post" class="p-4 shadow rounded bg-light" style="margin-bottom: 30px">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="userName">Username</label>
+                        <input type="text" id="userName" pattern="[a-zA-Z0-9]+" maxlength="20" name="userName" class="form-control" placeholder="Enter your username" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" minlength="8" name="password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="rePassword">Confirm Password</label>
+                        <input type="password" id="rePassword" minlength="8" name="rePassword" class="form-control" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" class="form-control" placeholder="Enter your address" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" class="form-control">
+                            <option value="" selected disabled>Choose gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" id="phoneNumber" pattern="(\+84|0)\d{9,10}" name="phoneNumber" class="form-control" placeholder="Enter your phone number" required>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>
 
-<section class="site-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mb-5">
-                <h2 class="mb-4">Register</h2>
-                <form action="/PublicAuthentication/Register" method="post" class="p-4 border rounded">
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Full Name</label>
-                            <input type="text" id="email" name="fullName" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Username</label>
-                            <input type="text" id="" pattern="[a-zA-Z0-9]+" maxlength="20" name="userName" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Password</label>
-                            <input type="password" id="" minlength="8" name="password" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group mb-4">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Confirm Password</label>
-                            <input type="password" id="fname" minlength="8" name="rePassword" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group mb-4">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Address</label>
-                            <input type="text" id="fname" name="address" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group mb-4">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Gender</label>
-                            <select name="gender" class="form-control">
-                                <option value="" selected>Choose gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row form-group mb-4">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Phone Number</label>
-                            <input type="text" id="fname" pattern="(\+84|0)\d{9,10}" name="phoneNumber" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <input type="submit" value="Register" class="btn px-4 btn-primary text-white">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-6">
-                <h2 class="mb-4">Login</h2>
-                <form action="/PublicAuthentication/Login" method="post" class="p-4 border rounded">
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Username</label>
-                            <input type="text" id="fname" name="userName" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group mb-4">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Password</label>
-                            <input type="password" id="fname" name="password" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <input type="submit" value="Login" class="btn btn-block btn-primary btn-md">
-                        </div>
-                        <div class="col-md-6">
-                            <a class="btn btn-block btn-primary btn-md" href="/PublicAuthentication/ForgotPassword">Forgot Password</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
